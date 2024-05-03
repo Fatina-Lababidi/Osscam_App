@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
+import 'package:osscam/pages/login_page.dart';
 
 class ChangeLanguagePage extends StatelessWidget {
   const ChangeLanguagePage({super.key});
@@ -27,7 +28,16 @@ class ChangeLanguagePage extends StatelessWidget {
                       color: AppColors.buttonColor,
                     ),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                            Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return LogInPage();
+          },
+        ),
+      );
+                      },
                       child: Text(
                         "English",
                         style: TextStyle(
