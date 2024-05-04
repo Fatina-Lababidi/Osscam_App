@@ -6,5 +6,6 @@ class AppImages {
   static const String cypressImage = 'assets/images/cypress.png';
   static const String iconImage = 'assets/images/Intersect.png';
   static const String welcomeImage = 'assets/images/welcome.png';
-    static const String waitingImage = 'assets/images/waiting.png';
+  static const String waitingImage = 'assets/images/waiting.png';
+  static const String visibilityImage = 'assets/images/visibility.png';
 }
