@@ -5,10 +5,10 @@ import 'package:osscam/bloc/auth_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/login_user_model.dart';
-import 'package:osscam/pages/create_project_page.dart';
+import 'package:osscam/pages/create_or_join_page.dart';
 import 'package:osscam/pages/signin_page.dart';
 import 'package:osscam/widgets/app_button.dart';
-import 'package:osscam/widgets/app_textfield_app.dart';
+import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:page_transition/page_transition.dart';
 
 class LogInPage extends StatelessWidget {
@@ -57,7 +57,7 @@ class LogInPage extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          CreateProjectPage(),
+                                          CreateOrJoinPage(),
                                     ),
                                   );
                                 }

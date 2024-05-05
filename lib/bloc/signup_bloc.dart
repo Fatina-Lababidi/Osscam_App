@@ -14,8 +14,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       if (result) {
         emit(Success());
         
-      }else{
+      }else if(!result) {
         emit(Failed());
+      }else{
+        emit(Offline());
       }
        });
   }

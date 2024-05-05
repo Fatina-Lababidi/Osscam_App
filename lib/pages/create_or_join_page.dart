@@ -95,26 +95,29 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                           width: screenWidth * 0.8, //283,
                           height: screenHeight * 0.08, //60,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image(
-                                width: screenWidth / 9,
-                                height: screenHeight / 9, //35
-                                image: const AssetImage(
-                                  AppImages.addImage,
-                                ),
-                              ),
                               SizedBox(
-                                width: screenWidth / 20,
+                                width: screenWidth*0.37,
+                                child: ListTile(
+                                  leading: Image(
+                                  width: screenWidth / 9,
+                                  height: screenHeight / 9, //35
+                                  image: const AssetImage(
+                                    AppImages.addImage,
+                                  ),
+                                ),
+                                                   
+                                ),
                               ),
                               Text(
-                                'Join',
-                                style: TextStyle(
-                                  fontSize: screenHeight * 0.03,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white,
-                                ),
-                              ),
+                                  'Join',
+                                  style: TextStyle(
+                                    fontSize: screenHeight * 0.03,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white,
+                                  ),
+                                ) ,
                             ],
                           ),
                         ),

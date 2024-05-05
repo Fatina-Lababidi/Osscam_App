@@ -10,3 +10,5 @@ class Success extends SignupState{}
 class Failed extends SignupState{}
 
 class Loading extends SignupState{}
+
+class Offline extends SignupState{}

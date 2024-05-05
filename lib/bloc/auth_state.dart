@@ -10,3 +10,5 @@ class Success extends AuthState{}
 class Failed extends AuthState{}
 
 class Loading extends AuthState{}
+
+class Offline extends AuthState{}

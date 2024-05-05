@@ -13,8 +13,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       bool result = await logIn(event.usermodel);
       if (result) {
         emit(Success());
-      } else {
+      } else if(!result) {
         emit(Failed());
+      }else{
+        emit(Offline());
       }
     });
   }
