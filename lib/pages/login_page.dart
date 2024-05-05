@@ -1,8 +1,5 @@
-import 'dart:ffi';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:osscam/bloc/auth_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
@@ -10,6 +7,7 @@ import 'package:osscam/model/login_user_model.dart';
 import 'package:osscam/pages/create_project_page.dart';
 import 'package:osscam/pages/signin_page.dart';
 import 'package:osscam/widgets/app_textfield_app.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LogInPage extends StatelessWidget {
   LogInPage({super.key});
@@ -17,6 +15,8 @@ class LogInPage extends StatelessWidget {
   TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final screenHieght = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return BlocProvider(
       create: (context) => AuthBloc(),
       child: Builder(builder: (context) {
@@ -27,7 +27,7 @@ class LogInPage extends StatelessWidget {
             children: [
               Center(
                 child: Container(
-                  height: 500,
+                  height:screenHieght*0.6,
                   child: Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
@@ -44,7 +44,7 @@ class LogInPage extends StatelessWidget {
                             ),
                             LoginTextField(
                               text: "Email",
-                              hinttext: "Example@gmail.com",
+                              hintText: "Example@gmail.com",
                               controller: email,
                             ),
                             BlocListener<AuthBloc, AuthState>(
@@ -101,48 +101,48 @@ class LogInPage extends StatelessWidget {
                     ),
                     child: BlocBuilder<AuthBloc, AuthState>(
                       builder: (context, state) {
-                           if (state is AuthInitial) {
-                        return ElevatedButton(
-                          onPressed: () {
-                         context.read<AuthBloc>().add(Login(
-                                usermodel: LoginUserModel(
+                        if (state is AuthInitial) {
+                          return ElevatedButton(
+                            onPressed: () {
+                              context.read<AuthBloc>().add(Login(
+                                      usermodel: LoginUserModel(
                                     email: email.text,
-                                    password: password.text,)));
-                          },
-                          child: Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.primaryColor),
+                                    password: password.text,
+                                  )));
+                            },
+                            child: Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.primaryColor),
+                              ),
                             ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.buttonColor),
-                        );} else if (state is Success) {
-                      return Container(
-                        color: Colors.green,
-                        width: 100,
-                        height: 50,
-                        child: Center(
-                          child: Icon(Icons.check),
-                        ),
-                      );
-                    } else if (state is Failed) {
-                      return Container(
-                        color: Colors.red,
-                        width: 100,
-                        height: 50,
-                        child: Center(
-                          child: Icon(Icons.check),
-                        ),
-                      );
-                    } else {
-                      return CircularProgressIndicator();
-                    }
-                          
-                        
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonColor),
+                          );
+                        } else if (state is Success) {
+                          return Container(
+                            color: Colors.green,
+                            width: 100,
+                            height: 50,
+                            child: Center(
+                              child: Icon(Icons.check),
+                            ),
+                          );
+                        } else if (state is Failed) {
+                          return Container(
+                            color: Colors.red,
+                            width: 100,
+                            height: 50,
+                            child: Center(
+                              child: Icon(Icons.check),
+                            ),
+                          );
+                        } else {
+                          return CircularProgressIndicator();
+                        }
                       },
                     )),
               ),
@@ -164,11 +164,7 @@ class LogInPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return SigninPage();
-                            },
-                          ),
+                         PageTransition(child: SigninPage(), type:PageTransitionType.fade)
                         );
                       },
                       child: Text(

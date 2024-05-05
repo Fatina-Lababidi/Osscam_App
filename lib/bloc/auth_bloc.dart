@@ -8,13 +8,12 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
-    on<Login>((event, emit)async {
-        emit(Loading());
-      bool result=await logIn(event.usermodel);
+    on<Login>((event, emit) async {
+      emit(Loading());
+      bool result = await logIn(event.usermodel);
       if (result) {
         emit(Success());
-        
-      }else{
+      } else {
         emit(Failed());
       }
     });

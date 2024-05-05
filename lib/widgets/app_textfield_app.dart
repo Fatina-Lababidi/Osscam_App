@@ -2,16 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/color.dart';
 
-
 class LoginTextField extends StatelessWidget {
-  String? hinttext;
+  String? hintText;
   TextEditingController? controller;
   String? text;
   IconButton? secretPassword;
 
   LoginTextField({
     super.key,
-    this.hinttext,
+    this.hintText,
     this.controller,
     this.text,
     this.secretPassword,
@@ -23,7 +22,7 @@ class LoginTextField extends StatelessWidget {
   }
 
   withHintText(String hintText) {
-    hinttext = hintText;
+    hintText = hintText;
     return this;
   }
 
@@ -46,7 +45,7 @@ class LoginTextField extends StatelessWidget {
       child: ListTile(
         title: Text(
           text!,
-          style: TextStyle(
+          style: const TextStyle(
               color: AppColors.primaryColor,
               fontSize: 15,
               fontWeight: FontWeight.w400),
@@ -58,19 +57,30 @@ class LoginTextField extends StatelessWidget {
               color: AppColors.textFieldColor.withOpacity(0.75),
               borderRadius: BorderRadius.circular(10)),
           child: TextField(
+            cursorColor: AppColors.primaryColor,
             controller: controller,
             decoration: InputDecoration(
-                fillColor: AppColors.textFieldColor.withOpacity(0.75),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: AppColors.primaryColor)),
-                hintText: hinttext,
-                hintStyle: TextStyle(color: AppColors.primaryColor),
-                suffixIcon: Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 12.0),
-                  child: secretPassword,
-              
-                )),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 2,
+                  color: AppColors.primaryColor,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              fillColor: AppColors.textFieldColor.withOpacity(0.75),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              hintText: hintText,
+              hintStyle: const TextStyle(color: AppColors.primaryColor),
+              suffixIcon: Padding(
+                padding: const EdgeInsetsDirectional.only(end: 12.0),
+                child: secretPassword,
+              ),
+            ),
           ),
         ),
       ),

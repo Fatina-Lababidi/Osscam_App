@@ -8,6 +8,7 @@ import 'package:osscam/pages/create_project_page.dart';
 import 'package:osscam/pages/login_page.dart';
 import 'package:osscam/service/register_service.dart';
 import 'package:osscam/widgets/app_textfield_app.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SigninPage extends StatelessWidget {
   SigninPage({super.key});
@@ -44,12 +45,12 @@ class SigninPage extends StatelessWidget {
                             ),
                             LoginTextField(
                               text: "Username",
-                              hinttext: "Example",
+                              hintText: "Example",
                               controller: firstName,
                             ),
                             LoginTextField(
                               text: "Email",
-                              hinttext: "Example@gmail.com",
+                              hintText: "Example@gmail.com",
                               controller: email,
                             ),
                             BlocListener<SignupBloc, SignupState>(
@@ -172,11 +173,7 @@ class SigninPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return LogInPage();
-                            },
-                          ),
+                         PageTransition(child:LogInPage(), type:PageTransitionType.fade)
                         );
                       },
                       child: Text(
