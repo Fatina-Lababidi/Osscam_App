@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/pages/Change_Language_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class InterancePage extends StatefulWidget {
   const InterancePage({super.key});
@@ -15,13 +17,12 @@ class _InterancePageState extends State<InterancePage> {
   void initState() {
     print('initState');
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) {
-            return ChangeLanguagePage();
-          },
+        PageTransition(
+          child: const ChangeLanguagePage(),
+          type: PageTransitionType.fade,
         ),
       );
     });
@@ -29,29 +30,42 @@ class _InterancePageState extends State<InterancePage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-              child: Text(
-            "Welcome",
-            style: TextStyle(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w500),
-          )),
+            child: Container(
+              height: screenHeight / 4,
+              width: screenWidth / 2.2,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(AppImages.welcomeImage),
+                ),
+              ),
+            ),
+          )
+              .animate()
+              .fade(duration: 1.seconds)
+              .then()
+              .shake(duration: 2.seconds, hz: 2),
           SizedBox(
-            height: 100,
+            height: screenHeight * 0.2,
           ),
           Center(
-            child: Container(
-              height: 200,
-              width: 200,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(AppImages.welcomeImage))),
+            child: Text(
+              "Welcome",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: screenWidth / 10,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Frijole',
+              ),
             ),
-          ),
+          ).animate().fade(duration: 1.seconds).then().shimmer(),
         ],
       ),
     );
