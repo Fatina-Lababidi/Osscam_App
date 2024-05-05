@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:osscam/config.dart';
-=======
 import 'package:osscam/pages/create_or_join_page.dart';
->>>>>>> update_ui
-import 'package:osscam/pages/interance_page.dart';
+
 
 
 void main() {

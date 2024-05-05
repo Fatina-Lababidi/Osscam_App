@@ -8,7 +8,6 @@ import 'package:osscam/pages/create_project_page.dart';
 import 'package:osscam/pages/login_page.dart';
 import 'package:osscam/service/register_service.dart';
 import 'package:osscam/widgets/app_textfield_app.dart';
-import 'package:osscam/bloc/signup_bloc.dart';
 
 class SigninPage extends StatelessWidget {
   SigninPage({super.key});

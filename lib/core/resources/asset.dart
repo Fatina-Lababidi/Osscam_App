@@ -6,12 +6,9 @@ class AppImages {
   static const String iconImage = 'assets/images/Intersect.png';
   static const String welcomeImage = 'assets/images/welcome.png';
   static const String waitingImage = 'assets/images/waiting.png';
-<<<<<<< HEAD
   static const String visibilityImage = 'assets/images/visibility.png';
-=======
   static const String languageImage = 'assets/images/language1.png';
   static const String polygonImage = 'assets/images/Polygon.png';
   static const String outLineRectBorder = 'assets/images/outlinerect.png';
   static const String addImage = 'assets/images/add.png';
->>>>>>> update_ui
 }
