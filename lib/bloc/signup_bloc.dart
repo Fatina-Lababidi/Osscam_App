@@ -10,7 +10,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitial()) {
     on<Signup>((event, emit) async{
       emit(Loading());
-      bool result= await SignUp(event.user);
+      bool result= await SignUpService(event.user);
       if (result) {
         emit(Success());
         

@@ -1,7 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/color.dart';
 
+// ignore: must_be_immutable
 class LoginTextField extends StatelessWidget {
   String? hintText;
   TextEditingController? controller;
@@ -57,6 +57,7 @@ class LoginTextField extends StatelessWidget {
               color: AppColors.textFieldColor.withOpacity(0.75),
               borderRadius: BorderRadius.circular(10)),
           child: TextField(
+          
             cursorColor: AppColors.primaryColor,
             controller: controller,
             decoration: InputDecoration(
@@ -75,7 +76,7 @@ class LoginTextField extends StatelessWidget {
                 ),
               ),
               hintText: hintText,
-              hintStyle: const TextStyle(color: AppColors.primaryColor),
+              hintStyle: const TextStyle(color: AppColors.primaryColor,fontSize:12 ),
               suffixIcon: Padding(
                 padding: const EdgeInsetsDirectional.only(end: 12.0),
                 child: secretPassword,
