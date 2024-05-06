@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 SignUpService(SignupUserModel userModel) async {
   Dio dio = Dio();
   Response response =
-      await dio.post("http://localhost:3010/api/v1/auth/register",
-          data: userModel.toJson(), //tomap()
-          options: Options(headers: {"Content-Type": 'application/json'}));
+      await dio.post("https://projects-management-system.onrender.com/api/v1/auth/register",
+          data: userModel.toMap(), 
+);
   if (response.statusCode == 200) {
     print(response.data);
     final token =response.data['token'];
@@ -18,7 +18,7 @@ SignUpService(SignupUserModel userModel) async {
    // throw DioError(response: response,error: 'faild');
   }
   config.get<SharedPreferences>().setString('token', response.data['token']);
-  if (response.statusCode == 202) {
+  if (response.statusCode == 200) {
     return true;
   } else {
     return false;

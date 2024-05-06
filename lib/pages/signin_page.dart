@@ -17,6 +17,8 @@ class SigninPage extends StatelessWidget {
   final TextEditingController password = TextEditingController();
   final TextEditingController firstName = TextEditingController();
   final TextEditingController lastName = TextEditingController();
+  final bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     final double screenHieght = MediaQuery.of(context).size.height;
@@ -48,9 +50,15 @@ class SigninPage extends StatelessWidget {
                                 height: 70,
                               ),
                               LoginTextField(
-                                text: "Username",
+                                text: "First Name",
                                 hintText: "Example",
                                 controller: firstName,
+                              ).animate().fade(
+                                  delay: .5.seconds, duration: .6.seconds),
+                              LoginTextField(
+                                text: "Last Name",
+                                hintText: "Example",
+                                controller: lastName,
                               ).animate().fade(
                                   delay: .5.seconds, duration: .6.seconds),
                               LoginTextField(
@@ -69,6 +77,10 @@ class SigninPage extends StatelessWidget {
                                             const CreateOrJoinPage(),
                                       ),
                                     );
+                                    //                      if (state is Success) {
+                                    //   context.read<AppBloc>().add(SigendUp());
+                                    // }
+                                    //Todo AppBloc
                                   }
                                 },
                                 child: LoginTextField(
@@ -77,6 +89,25 @@ class SigninPage extends StatelessWidget {
                                 ).animate().fade(
                                     delay: .9.seconds, duration: .8.seconds),
                               ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Checkbox(
+                                      value: isChecked,
+                                      onChanged: (value) {
+                                        value = true;
+                                      }),
+                                  Text(
+                                    "Remember me",
+                                    style: TextStyle(
+                                        color: AppColors.primaryColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400),
+                                  )
+                                ],
+                              )
                             ],
                           ),
                         ),

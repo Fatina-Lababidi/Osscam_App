@@ -15,6 +15,7 @@ class LogInPage extends StatelessWidget {
   LogInPage({super.key});
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     final screenHieght = MediaQuery.of(context).size.height;
@@ -60,6 +61,10 @@ class LogInPage extends StatelessWidget {
                                           CreateOrJoinPage(),
                                     ),
                                   );
+                                    // if (state is Success) {
+                                    //   context.read<AppBloc>().add(SigendUp()); // coding that in SignUpPage only .. don't know here what should we do?
+                                    // }
+                                    //Todo AppBloc
                                 }
                               },
                               child: LoginTextField(
@@ -68,6 +73,24 @@ class LogInPage extends StatelessWidget {
                               ).animate().fade(
                                   delay: .7.seconds, duration: .8.seconds),
                             ),
+                            Row(
+                               
+                                children: [
+                                  SizedBox(width: 20,),
+                                  Checkbox(
+                                      value: isChecked,
+                                      onChanged: (value) {
+                                        value = true;
+                                      }),
+                                  Text(
+                                    "Remember me",
+                                    style: TextStyle(
+                                        color: AppColors.primaryColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400),
+                                  )
+                                ],
+                              )
                           ],
                         ),
                       ),
