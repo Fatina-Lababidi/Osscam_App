@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:osscam/config.dart';
+import 'package:osscam/core/config/dependency_injection.dart';
 // ignore: unused_import
 import 'package:osscam/pages/create_or_join_page.dart';
 // ignore: unused_import

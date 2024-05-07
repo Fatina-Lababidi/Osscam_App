@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:osscam/config.dart';
+import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/model/register_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-SignUpService(SignupUserModel userModel) async {
+Future SignUpService(SignupUserModel userModel) async {
   Dio dio = Dio();
   Response response =
       await dio.post("https://projects-management-system.onrender.com/api/v1/auth/register",
@@ -17,10 +17,10 @@ SignUpService(SignupUserModel userModel) async {
    print('faild register');
    // throw DioError(response: response,error: 'faild');
   }
-  config.get<SharedPreferences>().setString('token', response.data['token']);
-  if (response.statusCode == 200) {
-    return true;
-  } else {
-    return false;
-  }
+  // config.get<SharedPreferences>().setString('token', response.data['token']);
+  // if (response.statusCode == 200) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 }

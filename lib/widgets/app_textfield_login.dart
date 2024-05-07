@@ -7,13 +7,16 @@ class LoginTextField extends StatelessWidget {
   TextEditingController? controller;
   String? text;
   IconButton? secretPassword;
-
+  String? Function(String?)? validate;
+  bool obscureText;
   LoginTextField({
     super.key,
     this.hintText,
     this.controller,
     this.text,
     this.secretPassword,
+    this.validate,
+    this.obscureText = false,
   });
 
   withLockedPassword(String lockedPassword) {
@@ -56,8 +59,10 @@ class LoginTextField extends StatelessWidget {
           decoration: BoxDecoration(
               color: AppColors.textFieldColor.withOpacity(0.75),
               borderRadius: BorderRadius.circular(10)),
-          child: TextField(
-          
+          child: TextFormField(
+            
+            obscureText: obscureText,
+            validator: validate,
             cursorColor: AppColors.primaryColor,
             controller: controller,
             decoration: InputDecoration(
@@ -76,7 +81,8 @@ class LoginTextField extends StatelessWidget {
                 ),
               ),
               hintText: hintText,
-              hintStyle: const TextStyle(color: AppColors.primaryColor,fontSize:12 ),
+              hintStyle:
+                  const TextStyle(color: AppColors.primaryColor, fontSize: 12),
               suffixIcon: Padding(
                 padding: const EdgeInsetsDirectional.only(end: 12.0),
                 child: secretPassword,

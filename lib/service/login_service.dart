@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:osscam/config.dart';
+import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/model/login_user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,8 +11,10 @@ logIn(LoginUserModel user)async{
   );
   config.get<SharedPreferences>().setString('token',response.data['token']);
   if(response.statusCode == 200){
+    print('log in true');
     return true;
   }else{
+    print('login flase');
     return false;
   }
 }
