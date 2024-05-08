@@ -23,7 +23,7 @@ class _LogInPageState extends State<LogInPage> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
-  bool _isChecked = false;
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -108,8 +108,8 @@ class _LogInPageState extends State<LogInPage> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is Success) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Done')));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('Done')));
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -152,10 +152,10 @@ class _LogInPageState extends State<LogInPage> {
         SizedBox(width: 20),
         Checkbox(
           activeColor: AppColors.primaryColor,
-          value: _isChecked,
+          value: isChecked,
           onChanged: (value) {
             setState(() {
-              _isChecked = !value!;
+              isChecked = !isChecked;
             });
           },
         ),
@@ -261,7 +261,6 @@ class _LogInPageState extends State<LogInPage> {
         ),
         TextButton(
           onPressed: () {
-          
             Navigator.pushReplacement(
               context,
               PageTransition(

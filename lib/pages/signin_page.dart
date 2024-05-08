@@ -39,11 +39,11 @@ class _SigninPageState extends State<SigninPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CreateOrJoinPage(),
+                  builder: (context) =>const CreateOrJoinPage(),
                 ),
               );
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+               const SnackBar(
                   content: Text('success'),
                 ),
               );
@@ -84,9 +84,9 @@ class _SigninPageState extends State<SigninPage> {
                                       hintText: "Example",
                                       controller: firstName,
                                     ).animate().fade(
-                                      delay: .5.seconds,
-                                      duration: .6.seconds,
-                                    ),
+                                          delay: .3.seconds,
+                                          duration: .4.seconds,
+                                        ),
                                     LoginTextField(
                                       validate: (value) {
                                         if (value == null || value.isEmpty) {
@@ -98,18 +98,18 @@ class _SigninPageState extends State<SigninPage> {
                                       hintText: "Example",
                                       controller: lastName,
                                     ).animate().fade(
-                                      delay: .5.seconds,
-                                      duration: .6.seconds,
-                                    ),
+                                          delay: .5.seconds,
+                                          duration: .6.seconds,
+                                        ),
                                     LoginTextField(
                                       validate: validateEmail,
                                       text: "Email",
                                       hintText: "Example@gmail.com",
                                       controller: email,
                                     ).animate().fade(
-                                      delay: .7.seconds,
-                                      duration: .8.seconds,
-                                    ),
+                                          delay: .7.seconds,
+                                          duration: .8.seconds,
+                                        ),
                                     LoginTextField(
                                       validate: (value) {
                                         if (value == null || value.isEmpty) {
@@ -135,9 +135,9 @@ class _SigninPageState extends State<SigninPage> {
                                       text: "Password",
                                       controller: password,
                                     ).animate().fade(
-                                      delay: .9.seconds,
-                                      duration: .8.seconds,
-                                    ),
+                                          delay: .9.seconds,
+                                          duration: .8.seconds,
+                                        ),
                                     Row(
                                       children: [
                                         SizedBox(width: 20),
@@ -154,15 +154,18 @@ class _SigninPageState extends State<SigninPage> {
                                           "Remember me",
                                           style: TextStyle(
                                             color: AppColors.primaryColor,
-                                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.04,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         )
                                       ],
                                     ).animate().fade(
-                                      delay: 1.1.seconds,
-                                      duration: 1.seconds,
-                                    )
+                                          delay: 1.1.seconds,
+                                          duration: 1.seconds,
+                                        )
                                   ],
                                 ),
                               ),
@@ -181,8 +184,10 @@ class _SigninPageState extends State<SigninPage> {
                               child: CircleAvatar(
                                 backgroundColor: AppColors.imageContinerColor,
                                 child: SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.4,
-                                  height: MediaQuery.of(context).size.height * 0.16,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.16,
                                   child: const CircleAvatar(
                                     backgroundColor: AppColors.textFieldColor,
                                     child: Image(
@@ -193,9 +198,9 @@ class _SigninPageState extends State<SigninPage> {
                               ),
                             ),
                           ).animate().fade(
-                            delay: .1.seconds,
-                            duration: .2.seconds,
-                          ),
+                                delay: .1.seconds,
+                                duration: .2.seconds,
+                              ),
                         ],
                       ),
                     ),
@@ -236,27 +241,27 @@ class _SigninPageState extends State<SigninPage> {
               }
             },
           ).animate().fade(
-            delay: .5.seconds,
-            duration: .6.seconds,
-          );
-        // } else if (state is Success) {
-        //   return Container(
-        //     color: Colors.green,
-        //     width: 100,
-        //     height: 50,
-        //     child: const Center(
-        //       child: Icon(Icons.check),
-        //     ),
-        //   );
-        // } else if (state is Failed) {
-        //   return Container(
-        //     color: Colors.red,
-        //     width: 100,
-        //     height: 50,
-        //     child: const Center(
-        //       child: Icon(Icons.check),
-        //     ),
-        //   );
+                delay: .5.seconds,
+                duration: .6.seconds,
+              );
+          // } else if (state is Success) {
+          //   return Container(
+          //     color: Colors.green,
+          //     width: 100,
+          //     height: 50,
+          //     child: const Center(
+          //       child: Icon(Icons.check),
+          //     ),
+          //   );
+          // } else if (state is Failed) {
+          //   return Container(
+          //     color: Colors.red,
+          //     width: 100,
+          //     height: 50,
+          //     child: const Center(
+          //       child: Icon(Icons.check),
+          //     ),
+          //   );
         } else {
           return const CircularProgressIndicator(
             color: AppColors.continerColor,

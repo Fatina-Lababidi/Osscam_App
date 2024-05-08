@@ -60,7 +60,7 @@ class LoginTextField extends StatelessWidget {
               color: AppColors.textFieldColor.withOpacity(0.75),
               borderRadius: BorderRadius.circular(10)),
           child: TextFormField(
-            
+             cursorHeight:20,
             obscureText: obscureText,
             validator: validate,
             cursorColor: AppColors.primaryColor,
