@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/pages/login_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ChangeLanguagePage extends StatelessWidget {
   const ChangeLanguagePage({Key? key});
@@ -22,7 +23,9 @@ class ChangeLanguagePage extends StatelessWidget {
             image: const AssetImage(
               AppImages.languageImage,
             ),
-          ).animate().fade(duration: Duration(milliseconds: 200), delay: Duration(milliseconds: 100)),
+          ).animate().fade(
+              duration: Duration(milliseconds: 200),
+              delay: Duration(milliseconds: 100)),
           SizedBox(
             height: screenHeight * 0.2,
           ),
@@ -59,7 +62,9 @@ class ChangeLanguagePage extends StatelessWidget {
                     ),
                   ),
                 ),
-              ).animate().fade(duration: Duration(milliseconds: 600), delay: Duration(milliseconds: 500)),
+              ).animate().fade(
+                  duration: Duration(milliseconds: 600),
+                  delay: Duration(milliseconds: 500)),
               SizedBox(
                 width: screenWidth * 0.1,
               ),
@@ -70,7 +75,13 @@ class ChangeLanguagePage extends StatelessWidget {
                     color: AppColors.buttonColor,
                   ),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: LogInPage(),
+                              type: PageTransitionType.fade));
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonColor,
                     ),
@@ -84,7 +95,9 @@ class ChangeLanguagePage extends StatelessWidget {
                     ),
                   ),
                 ),
-              ).animate().fade(duration: Duration(milliseconds: 400), delay: Duration(milliseconds: 300)),
+              ).animate().fade(
+                  duration: Duration(milliseconds: 400),
+                  delay: Duration(milliseconds: 300)),
             ],
           ),
         ],

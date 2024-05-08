@@ -12,9 +12,10 @@ Future SignUpService(SignupUserModel userModel) async {
   if (response.statusCode == 200) {
     print(response.data);
     final token =response.data['token'];
-    return token;
+    return true;
   } else {
    print('faild register');
+   return false;
    // throw DioError(response: response,error: 'faild');
   }
   // config.get<SharedPreferences>().setString('token', response.data['token']);
