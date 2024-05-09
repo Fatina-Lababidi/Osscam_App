@@ -3,12 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/core/config/bloc_observe.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
-// ignore: unused_import
-import 'package:osscam/pages/create_or_join_page.dart';
-// ignore: unused_import
 import 'package:osscam/pages/interance_page.dart';
-// ignore: unused_import
-import 'package:osscam/pages/login_page.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
@@ -25,9 +20,8 @@ class MyApp extends StatelessWidget {
       create: (context) => AppBloc(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: //LogInPage(),
-            //  CreateOrJoinPage()
-            InterancePage(),
+        home://OfflinePage()
+        InterancePage(),
       ),
     );
   }

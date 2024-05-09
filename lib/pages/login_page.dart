@@ -7,11 +7,12 @@ import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/login_user_model.dart';
 import 'package:osscam/pages/create_or_join_page.dart';
+import 'package:osscam/pages/error_page.dart';
+import 'package:osscam/pages/offline_page.dart';
 import 'package:osscam/pages/sign_up_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LogInPage extends StatefulWidget {
   LogInPage({Key? key}) : super(key: key);
@@ -138,7 +139,22 @@ class _LogInPageState extends State<LogInPage> {
               builder: (context) => CreateOrJoinPage(),
             ),
           );
-        }
+         }
+        // else if (state is Offline) {
+        //   Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => OfflinePage(),
+        //     ),
+        //   );
+        // }else if(state is Failed){
+        //     Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => ErrorPage(),
+        //   ),
+        // );
+        // }
       },
       child: LoginTextField(
         secretPassword: IconButton(

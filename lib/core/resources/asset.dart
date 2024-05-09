@@ -11,4 +11,6 @@ class AppImages {
   static const String polygonImage = 'assets/images/Polygon.png';
   static const String outLineRectBorder = 'assets/images/outlinerect.png';
   static const String addImage = 'assets/images/add.png';
+  static const String noInternetImage = 'assets/images/noInternet.png';
+  static const String noInternetVectorImage = 'assets/images/Vector.png';
 }

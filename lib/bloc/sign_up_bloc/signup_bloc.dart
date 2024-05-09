@@ -8,17 +8,16 @@ part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitial()) {
-    on<Signup>((event, emit) async{
+    on<Signup>((event, emit) async {
       emit(Loading());
-      bool result= await SignUpService(event.user);
+      bool result = await SignUpService(event.user);
       if (result) {
         emit(Success());
-        
-      }else if(!result) {
+      } else if (!result) {
         emit(Failed());
-      }else{
+      } else {
         emit(Offline());
       }
-       });
+    });
   }
 }

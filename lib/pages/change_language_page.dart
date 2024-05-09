@@ -45,7 +45,7 @@ class ChangeLanguagePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return SignUpPage();
+                            return LogInPage();
                           },
                         ),
                       );
