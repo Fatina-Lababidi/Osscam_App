@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/bloc/login_bloc/auth_bloc.dart';
+import 'package:osscam/bloc/logout_bloc/logout_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/login_user_model.dart';
@@ -13,14 +14,14 @@ import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LogInPage extends StatefulWidget {
-  LogInPage({Key? key}) : super(key: key);
+class LogOutPage extends StatefulWidget {
+  LogOutPage({Key? key}) : super(key: key);
 
   @override
-  State<LogInPage> createState() => _LogInPageState();
+  State<LogOutPage> createState() => _LogOutPageState();
 }
 
-class _LogInPageState extends State<LogInPage> {
+class _LogOutPageState extends State<LogOutPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -44,13 +45,9 @@ class _LogInPageState extends State<LogInPage> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return BlocBuilder<AppBloc, AppState>(
-      builder: (context, state) {
-        if (state is HeLoggedIn) {
-          return CreateOrJoinPage();
-        } else {
+
           return BlocProvider(
-            create: (context) => AuthBloc(),
+            create: (context) => LogoutBloc(),
             child: Scaffold(
               backgroundColor: AppColors.primaryColor,
               body: SingleChildScrollView(
@@ -67,9 +64,9 @@ class _LogInPageState extends State<LogInPage> {
                         ],
                       ),
                     ),
-                    BlocBuilder<AuthBloc, AuthState>(
+                    BlocBuilder<LogoutBloc, LogoutState>(
                       builder: (context, state) {
-                        if (state is AuthInitial) {
+                        if (state is LogoutInitial) {
                           return _buildLoginButton(context);
                           // }
                           //else if (state is Success) {
@@ -88,9 +85,7 @@ class _LogInPageState extends State<LogInPage> {
               ),
             ),
           );
-        }
-      },
-    );
+       
   }
 
   Widget _buildLoginForm(double screenWidth, double screenHeight) {
@@ -135,7 +130,7 @@ class _LogInPageState extends State<LogInPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => CreateOrJoinPage(),
+              builder: (context) => SignUpPage(),
             ),
           );
         }
@@ -224,7 +219,7 @@ class _LogInPageState extends State<LogInPage> {
   Widget _buildLoginButton(BuildContext context) {
     return ButtonApp(
       color: AppColors.buttonColor,
-      text: "Login",
+      text: "Logout",
       textColor: AppColors.primaryColor,
       onTap: () {
         if (_formKey.currentState!.validate()) {
@@ -274,7 +269,7 @@ class _LogInPageState extends State<LogInPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don’t have an account?",
+          "Are you sure to leave this account?",
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.04,
             fontWeight: FontWeight.w400,
@@ -286,13 +281,13 @@ class _LogInPageState extends State<LogInPage> {
             Navigator.pushReplacement(
               context,
               PageTransition(
-                child: SignUpPage(),
+                child: CreateOrJoinPage(),
                 type: PageTransitionType.fade,
               ),
             );
           },
           child: Text(
-            "Sign Up",
+            "Not sure!",
             style: TextStyle(
               color: AppColors.textFieldColor,
               fontSize: MediaQuery.of(context).size.width * 0.04,

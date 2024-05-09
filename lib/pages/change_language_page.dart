@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/pages/login_page.dart';
+import 'package:osscam/pages/sign_up_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ChangeLanguagePage extends StatelessWidget {
@@ -44,7 +45,7 @@ class ChangeLanguagePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return LogInPage();
+                            return SignUpPage();
                           },
                         ),
                       );

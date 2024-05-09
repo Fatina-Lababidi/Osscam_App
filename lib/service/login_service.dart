@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
+import 'package:osscam/core/resources/url.dart';
 import 'package:osscam/model/login_user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,17 +10,38 @@ logIn(LoginUserModel user) async {
   Dio dio = Dio();
   try {
     Response response = await dio.post(
-        "https://projects-management-system.onrender.com/api/v1/auth/authenticate",
-        data: user.toMap());
+        "${AppUrl().login_url}",
+        data: user.toMap(),
+        );
     config.get<SharedPreferences>().setString('token', response.data['token']);
     if (response.statusCode == 200) {
-      print('log in true');
+      print('login true');
       return true;
     } else {
-      print('login flase');
+      print('login false');
       return false;
     }
   } catch (e) {
     throw e;
   }
 }
+ 
+
+// Future<void> fetchData(String token) async {
+//  Dio dio = Dio();
+//   Response response = await dio.post(
+//     "${AppUrl().login_url}",
+//   options: Options(
+//     headers:{'Authorization':'token $token'}
+//   ),
+    
+//   );
+
+//   if (response.statusCode == 200) {
+//     final data = json.decode(response.data['token']);
+//     // Process the data (e.g., update UI or store it in a state variable)
+//     print(data);
+//   } else {
+//     print('Error fetching data: ${response.statusCode}');
+//   }
+// }

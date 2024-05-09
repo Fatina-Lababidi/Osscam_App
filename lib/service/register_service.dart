@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:osscam/core/resources/url.dart';
 import 'package:osscam/model/register_model.dart';
 
 
@@ -6,19 +7,22 @@ Future SignUpService(SignupUserModel userModel) async {
   Dio dio = Dio();
   try {
     Response response = await dio.post(
-      "https://projects-management-system.onrender.com/api/v1/auth/register",
+      "${AppUrl().sign_up_url}",
       data: userModel.toMap(),
     );
+    
     if (response.statusCode == 200) {
       print(response.data);
       final token = response.data['token'];
+      print(token);
       return true;
     } else {
-      print('faild register');
+      print('Error fetching data: ${response.statusCode}');
       return false;
       // throw DioError(response: response,error: 'faild');
     }
   } catch (e) {
+    print(e);
     throw e;
   }
   // config.get<SharedPreferences>().setString('token', response.data['token']);

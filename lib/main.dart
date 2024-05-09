@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/core/config/bloc_observe.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 // ignore: unused_import
@@ -20,11 +21,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: //LogInPage(),
-          //  CreateOrJoinPage()
-          InterancePage(),
+    return BlocProvider(
+      create: (context) => AppBloc(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: //LogInPage(),
+            //  CreateOrJoinPage()
+            InterancePage(),
+      ),
     );
   }
 }
