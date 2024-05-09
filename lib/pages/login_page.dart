@@ -52,42 +52,74 @@ class _LogInPageState extends State<LogInPage> {
         } else {
           return BlocProvider(
             create: (context) => AuthBloc(),
-            child: Scaffold(
-              backgroundColor: AppColors.primaryColor,
-              body: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: screenHeight * 0.8,
-                      child: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          _buildLoginForm(screenWidth, screenHeight),
-                          _buildAvatar(screenWidth, screenHeight),
-                        ],
-                      ),
+            child: Builder(builder: (context) {
+              return Scaffold(
+                backgroundColor: AppColors.primaryColor,
+                body: BlocListener<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    if (state is Success) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text('Done')));
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreateOrJoinPage(),
+                        ),
+                      );
+                    } else if (state is Offline) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text('Offline')));
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OfflinePage(),
+                        ),
+                      );
+                    } else if (state is Failed) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text('Error')));
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ErrorPage(),
+                        ),
+                      );
+                    }
+                  },
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: screenHeight * 0.8,
+                          child: Stack(
+                            alignment: AlignmentDirectional.center,
+                            children: [
+                              _buildLoginForm(screenWidth, screenHeight),
+                              _buildAvatar(screenWidth, screenHeight),
+                            ],
+                          ),
+                        ),
+                        BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            if (state is AuthInitial) {
+                              return _buildLoginButton(context);
+                            } else {
+                              return CircularProgressIndicator(
+                                color: AppColors.continerColor,
+                              );
+                            }
+                          },
+                        ),
+                        SizedBox(height: 30),
+                        _buildSignUpButton(),
+                      ],
                     ),
-                    BlocBuilder<AuthBloc, AuthState>(
-                      builder: (context, state) {
-                        if (state is AuthInitial) {
-                          return _buildLoginButton(context);
-                          // }
-                          //else if (state is Success) {
-                          //   return _buildSuccessIndicator();
-                          // } else if (state is Failed) {
-                          //   return _buildFailedIndicator();
-                        } else {
-                          return _buildLoadingIndicator();
-                        }
-                      },
-                    ),
-                    SizedBox(height: 30),
-                    _buildSignUpButton(),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+                //  ),
+              );
+            }),
           );
         }
       },
@@ -128,60 +160,32 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   Widget _buildPasswordTextField() {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is Success) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('Done')));
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CreateOrJoinPage(),
-            ),
-          );
-         }
-        // else if (state is Offline) {
-        //   Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => OfflinePage(),
-        //     ),
-        //   );
-        // }else if(state is Failed){
-        //     Navigator.pushReplacement(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => ErrorPage(),
-        //   ),
-        // );
-        // }
-      },
-      child: LoginTextField(
-        secretPassword: IconButton(
-          onPressed: () {
-            setState(() {
-              _obscureText = !_obscureText;
-            });
-          },
-          icon: _obscureText == false
-              ? const Icon(Icons.visibility)
-              : const Icon(Icons.visibility_off),
-          color: AppColors.primaryColor,
-        ),
-        obscureText: _obscureText,
-        validate: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter your password';
-          }
-          if (value.length < 8) {
-            return 'Password must be at least 8 characters long';
-          }
-          return null;
+    return LoginTextField(
+      secretPassword: IconButton(
+        onPressed: () {
+          setState(() {
+            _obscureText = !_obscureText;
+          });
         },
-        text: "Password",
-        controller: _passwordController,
-      ).animate().fade(delay: .7.seconds, duration: .8.seconds),
-    );
+        icon: _obscureText == false
+            ? const Icon(Icons.visibility)
+            : const Icon(Icons.visibility_off),
+        color: AppColors.primaryColor,
+      ),
+      obscureText: _obscureText,
+      validate: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter your password';
+        }
+        if (value.length < 8) {
+          return 'Password must be at least 8 characters long';
+        }
+        return null;
+      },
+      text: "Password",
+      controller: _passwordController,
+    ).animate().fade(delay: .7.seconds, duration: .8.seconds);
+    // );
   }
 
   Widget _buildRememberMeCheckbox() {
@@ -255,6 +259,7 @@ class _LogInPageState extends State<LogInPage> {
         }
       },
     ).animate().fade(delay: .5.seconds, duration: .6.seconds);
+    //);
   }
 
   // Widget _buildSuccessIndicator() {

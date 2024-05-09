@@ -3,7 +3,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/pages/login_page.dart';
-import 'package:osscam/pages/sign_up_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ChangeLanguagePage extends StatelessWidget {
@@ -25,8 +24,8 @@ class ChangeLanguagePage extends StatelessWidget {
               AppImages.languageImage,
             ),
           ).animate().fade(
-              duration: Duration(milliseconds: 200),
-              delay: Duration(milliseconds: 100)),
+              duration:const Duration(milliseconds: 200),
+              delay:const Duration(milliseconds: 100)),
           SizedBox(
             height: screenHeight * 0.2,
           ),

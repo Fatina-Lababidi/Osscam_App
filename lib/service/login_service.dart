@@ -1,19 +1,20 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/url.dart';
 import 'package:osscam/model/login_user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 
-logIn(LoginUserModel user) async {
+
+Future<bool> logIn(LoginUserModel user) async {
   Dio dio = Dio();
   try {
     Response response = await dio.post(
-        "${AppUrl().login_url}",
-        data: user.toMap(),
-        );
-    config.get<SharedPreferences>().setString('token', response.data['token']);
+      AppUrl().login_url,
+      data: user.toMap(),
+    );
+   config.get<SharedPreferences>().setString('token', response.data['token']);
+
     if (response.statusCode == 200) {
       print('login true');
       return true;
@@ -21,11 +22,24 @@ logIn(LoginUserModel user) async {
       print('login false');
       return false;
     }
-  } catch (e) {
-    throw e;
-  }
-}
- 
+  } on DioException catch (e) {
+    if (e.error is SocketException) {
+      print('Offline: ${e.message}');
+      throw e;
+    } else if (e.response != null && e.response!.statusCode == 403) {
+      print('Forbidden: ${e.response!.data}');
+      throw e;
+    } else {
+      print('Dio error: ${e.message}');
+      throw e;
+    }
+   } 
+ }
+
+
+
+
+
 
 // Future<void> fetchData(String token) async {
 //  Dio dio = Dio();

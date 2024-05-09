@@ -24,7 +24,7 @@ logIn(LogoutModel logOutUser) async {
       print('logout false');
       return false;
     }
-  } catch (e) {
+  }on DioException catch (e) {
     throw e;
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/bloc/login_bloc/auth_bloc.dart';
 import 'package:osscam/bloc/logout_bloc/logout_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
@@ -12,7 +11,6 @@ import 'package:osscam/pages/sign_up_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LogOutPage extends StatefulWidget {
   LogOutPage({Key? key}) : super(key: key);

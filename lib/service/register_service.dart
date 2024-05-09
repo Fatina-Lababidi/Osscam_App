@@ -19,9 +19,8 @@ Future SignUpService(SignupUserModel userModel) async {
     } else {
       print('Error fetching data: ${response.statusCode}');
       return false;
-      // throw DioError(response: response,error: 'faild');
     }
-  } catch (e) {
+  }on DioException catch (e) {
     print(e);
     throw e;
   }

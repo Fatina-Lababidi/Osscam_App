@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:osscam/model/register_model.dart';
 import 'package:osscam/service/register_service.dart';
@@ -10,13 +13,24 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitial()) {
     on<Signup>((event, emit) async {
       emit(Loading());
-      bool result = await SignUpService(event.user);
-      if (result) {
-        emit(Success());
-      } else if (!result) {
-        emit(Failed());
-      } else {
-        emit(Offline());
+      try {
+        bool result = await SignUpService(event.user);
+        if (result) {
+          emit(Success());
+        } else {
+          emit(Failed());
+        }
+      } catch (e) {
+        if (e is DioException) {
+          if (e.error is SocketException ||
+              e.message!.contains('SocketException')) {
+            emit(Offline());
+          } else {
+            emit(Failed());
+          }
+        } else {
+          emit(Failed());
+        }
       }
     });
   }
