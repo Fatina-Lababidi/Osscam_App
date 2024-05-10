@@ -12,7 +12,7 @@ Future SignUpService(SignupUserModel userModel) async {
     Response response = await dio.post(
       "${AppUrl().sign_up_url}",
       data: userModel.toMap(),
-       options: getHeader(false),
+      //options: getHeader(false),
     );
     
     if (response.statusCode == 200) {
