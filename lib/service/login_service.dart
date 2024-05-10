@@ -1,22 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
+import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
 import 'package:osscam/model/login_user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
-
 Future<bool> logIn(LoginUserModel user) async {
   Dio dio = Dio();
   try {
     Response response = await dio.post(
-      AppUrl().login_url,
+      "${AppUrl().login_url}",
       data: user.toMap(),
+      options: getHeader(false),
     );
-   config.get<SharedPreferences>().setString('token', response.data['token']);
+    config.get<SharedPreferences>().setString('token', response.data['token']);
 
     if (response.statusCode == 200) {
       print('login true');
+      config
+          .get<SharedPreferences>()
+          .setString('token', response.data["token"]);
       return true;
     } else {
       print('login false');
@@ -33,8 +37,8 @@ Future<bool> logIn(LoginUserModel user) async {
       print('Dio error: ${e.message}');
       throw e;
     }
-   } 
- }
+  }
+}
 
 
 
