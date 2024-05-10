@@ -25,9 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else {
           emit(Failed());
         }
-      } catch (_) {
-        emit(Failed());
-      }
+      } 
     });
   }
 }

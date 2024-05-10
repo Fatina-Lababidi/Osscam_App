@@ -311,24 +311,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 delay: .5.seconds,
                 duration: .6.seconds,
               );
-          // } else if (state is Success) {
-          //   return Container(
-          //     color: Colors.green,
-          //     width: 100,
-          //     height: 50,
-          //     child: const Center(
-          //       child: Icon(Icons.check),
-          //     ),
-          //   );
-          // } else if (state is Failed) {
-          //   return Container(
-          //     color: Colors.red,
-          //     width: 100,
-          //     height: 50,
-          //     child: const Center(
-          //       child: Icon(Icons.check),
-          //     ),
-          //   );
         } else {
           return const CircularProgressIndicator(
             color: AppColors.continerColor,
