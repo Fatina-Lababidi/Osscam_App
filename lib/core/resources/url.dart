@@ -1,8 +1,10 @@
 class AppUrl {
-  final String login_url =
+  static const String login_url =
       "https://projects-management-system.onrender.com/api/v1/auth/authenticate";
-  final String sign_up_url =
+  static const String sign_up_url =
       "https://projects-management-system.onrender.com/api/v1/auth/register";
-  final String logout_url =
+  static const  String logout_url =
       "https://projects-management-system.onrender.com/api/v1/auth/logout";
+  static  const String get_projects_url =
+      "https://projects-management-system.onrender.com/swagger-ui/api/v1/auth/projects";
 }

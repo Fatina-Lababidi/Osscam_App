@@ -10,9 +10,9 @@ Future<bool> logIn(LoginUserModel user) async {
   Dio dio = Dio();
   try {
     Response response = await dio.post(
-      "${AppUrl().login_url}",
+      "${AppUrl.login_url}",
       data: user.toMap(),
-     //options: getHeader(false),
+     options: getHeader(false),
     );
     config.get<SharedPreferences>().setString('token', response.data['token']);
 

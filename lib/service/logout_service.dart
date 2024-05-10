@@ -9,7 +9,7 @@ logout(LogoutModel logOutUser) async {
   Dio dio = Dio();
   try {
     Response response = await dio.post(
-      "${AppUrl().logout_url}",
+      "${AppUrl.logout_url}",
       data: logOutUser.toMap(),
       options: getHeader(false),
     );
