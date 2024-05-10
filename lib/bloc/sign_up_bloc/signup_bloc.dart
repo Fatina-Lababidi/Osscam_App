@@ -12,24 +12,24 @@ part 'signup_state.dart';
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(SignupInitial()) {
     on<Signup>((event, emit) async {
-      emit(Loading());
+      emit(SignUpLoading());
       try {
         bool result = await SignUpService(event.user);
         if (result) {
-          emit(Success());
+          emit(SignUpSuccess());
         } else {
-          emit(Failed());
+          emit(SignUpFailed());
         }
       } catch (e) {
         if (e is DioException) {
           if (e.error is SocketException ||
               e.message!.contains('SocketException')) {
-            emit(Offline());
+            emit(SignUpOffline());
           } else {
-            emit(Failed());
+            emit(SignUpFailed());
           }
         } else {
-          emit(Failed());
+          emit(SignUpFailed());
         }
       }
     });

@@ -47,7 +47,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   backgroundColor: AppColors.primaryColor,
                   body: BlocListener<SignupBloc, SignupState>(
                       listener: (context, state) {
-                        if (state is Success) {
+                        if (state is SignUpSuccess) {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(SnackBar(content: Text('Done')));
                           Navigator.pushReplacement(
@@ -56,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               builder: (context) => CreateOrJoinPage(),
                             ),
                           );
-                        } else if (state is Offline) {
+                        } else if (state is SignUpOffline) {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(SnackBar(content: Text('Offline')));
                           Navigator.pushReplacement(
@@ -65,7 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               builder: (context) => OfflinePage(),
                             ),
                           );
-                        } else if (state is Failed) {
+                        } else if (state is SignUpFailed) {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(SnackBar(content: Text('Error')));
                           Navigator.pushReplacement(

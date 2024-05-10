@@ -5,10 +5,10 @@ sealed class AuthState {}
 
 final class AuthInitial extends AuthState {}
 
-class Success extends AuthState{}
+class AuthSuccess extends AuthState{}
 
-class Failed extends AuthState{}
+class AuthFailed extends AuthState{}
 
-class Loading extends AuthState{}
+class AuthLoading extends AuthState{}
 
-class Offline extends AuthState{}
+class AuthOffline extends AuthState{}

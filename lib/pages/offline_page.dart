@@ -12,13 +12,13 @@ class OfflinePage extends StatefulWidget {
 }
 
 class _OfflinePageState extends State<OfflinePage> {
-  // void initState() {
-  //   print('offline');
-  //   super.initState();
-  //   Future.delayed(const Duration(seconds: 4), () {
-  //     Navigator.pop(context);
-  //   });
-  // }
+  void initState() {
+    print('offline');
+    super.initState();
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.pop(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

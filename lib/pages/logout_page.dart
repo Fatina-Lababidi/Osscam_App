@@ -115,7 +115,7 @@ class _LogOutPageState extends State<LogOutPage> {
   }
 
   Widget _buildPasswordTextField() {
-    return BlocListener<AuthBloc, AuthState>(
+    return BlocListener<LogoutBloc, LogoutState>(
       listener: (context, state) {
         if (state is Success) {
           ScaffoldMessenger.of(context)

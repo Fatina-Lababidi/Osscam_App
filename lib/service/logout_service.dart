@@ -4,7 +4,7 @@ import 'package:osscam/core/resources/url.dart';
 import 'package:osscam/model/logout_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-logIn(LogoutModel logOutUser) async {
+logout(LogoutModel logOutUser) async {
   Dio dio = Dio();
   try {
     Response response = await dio.post(
@@ -16,7 +16,7 @@ logIn(LogoutModel logOutUser) async {
       print('logout true');
       print(token);
       if(token is String){
-        config.get<SharedPreferences>().remove('token');
+        // config.get<SharedPreferences>().remove('token');
         print("Deleted token ..");
       }
       return true;

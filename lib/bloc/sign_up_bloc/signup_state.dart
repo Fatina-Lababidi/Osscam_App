@@ -5,10 +5,10 @@ sealed class SignupState {}
 
 final class SignupInitial extends SignupState {}
 
-class Success extends SignupState{}
+class SignUpSuccess extends SignupState{}
 
-class Failed extends SignupState{}
+class SignUpFailed extends SignupState{}
 
-class Loading extends SignupState{}
+class SignUpLoading extends SignupState{}
 
-class Offline extends SignupState{}
+class SignUpOffline extends SignupState{}

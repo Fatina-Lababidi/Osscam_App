@@ -57,7 +57,7 @@ class _LogInPageState extends State<LogInPage> {
                 backgroundColor: AppColors.primaryColor,
                 body: BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    if (state is Success) {
+                    if (state is AuthSuccess) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text('Done')));
                       Navigator.pushReplacement(
@@ -66,7 +66,7 @@ class _LogInPageState extends State<LogInPage> {
                           builder: (context) => CreateOrJoinPage(),
                         ),
                       );
-                    } else if (state is Offline) {
+                    } else if (state is AuthOffline) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text('Offline')));
                       Navigator.pushReplacement(
@@ -75,7 +75,7 @@ class _LogInPageState extends State<LogInPage> {
                           builder: (context) => OfflinePage(),
                         ),
                       );
-                    } else if (state is Failed) {
+                    } else if (state is AuthFailed) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text('Error')));
                       Navigator.pushReplacement(

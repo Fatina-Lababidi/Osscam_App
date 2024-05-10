@@ -11,19 +11,19 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     on<Login>((event, emit) async {
-      emit(Loading());
+      emit(AuthLoading());
       try {
         bool result = await logIn(event.usermodel);
         if (result) {
-          emit(Success());
+          emit(AuthSuccess());
         } else {
-          emit(Failed());
+          emit(AuthFailed());
         }
       } on DioException catch (e) {
         if (e.error is SocketException ) {
-          emit(Offline());
+          emit(AuthOffline());
         } else {
-          emit(Failed());
+          emit(AuthFailed());
         }
       } 
     });
