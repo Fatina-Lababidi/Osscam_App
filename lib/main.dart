@@ -18,10 +18,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AppBloc(),
-      child: MaterialApp(
+      child:const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home://OfflinePage()
-        InterancePage(),
+        home: InterancePage(),
       ),
     );
   }

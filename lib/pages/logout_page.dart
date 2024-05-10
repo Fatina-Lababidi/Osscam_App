@@ -66,11 +66,6 @@ class _LogOutPageState extends State<LogOutPage> {
                       builder: (context, state) {
                         if (state is LogoutInitial) {
                           return _buildLoginButton(context);
-                          // }
-                          //else if (state is Success) {
-                          //   return _buildSuccessIndicator();
-                          // } else if (state is Failed) {
-                          //   return _buildFailedIndicator();
                         } else {
                           return _buildLoadingIndicator();
                         }
