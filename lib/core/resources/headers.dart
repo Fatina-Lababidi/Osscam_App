@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 getHeader(bool useToken) {
   if (useToken) {
     return Options(headers: {
-      'Authorization': '${config.get<SharedPreferences>().getString(
+      'Authorization': 'Bearer ${config.get<SharedPreferences>().getString(
             'token',
           )}',
       "contentType": "application/json",
