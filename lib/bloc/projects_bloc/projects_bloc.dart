@@ -14,7 +14,7 @@ class ProjectsBloc extends Bloc<ProjectsEvent, ProjectsState> {
     on<GetProjects>((event, emit) async {
       try {
         emit(LoadingGetProjects());
-        final dynamic temp = await getProjects(event.projectsM);
+         dynamic temp = await getProjects();
         if (temp is String) {
           emit(ErrorGetProjects());
         } else {

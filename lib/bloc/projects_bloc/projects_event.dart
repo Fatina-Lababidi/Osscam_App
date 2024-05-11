@@ -4,9 +4,10 @@ part of 'projects_bloc.dart';
 @immutable
 sealed class ProjectsEvent {}
 
+// ignore: must_be_immutable
 class GetProjects extends ProjectsEvent {
-  ProjectsModel projectsM;
-  GetProjects({
-    required this.projectsM,
-  });
+  // ProjectsModel projectsM;
+  // GetProjects({
+  //   required this.projectsM,
+  // });
 }
