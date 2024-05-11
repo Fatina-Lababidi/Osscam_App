@@ -48,7 +48,7 @@ class GetProjectsPage extends StatelessWidget {
               } else {
                 return Center(
                     child: CircularProgressIndicator(
-                  color: AppColors.cardApricotColor,
+                  color: AppColors.continerColor,
                 ));
               }
             },

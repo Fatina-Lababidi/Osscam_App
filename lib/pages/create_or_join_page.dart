@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/pages/get_projects_page.dart';
+import 'package:osscam/pages/create_new_project_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 
 //360*800
@@ -76,24 +76,14 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                                   color: AppColors.buttonColor,
                                   text: 'Create',
                                   onTap: () {
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           GetProjectsPage(),
-                                    //     ));
-                                    Future.delayed(const Duration(seconds: 1),
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const GetProjectsPage()),
-                                      );
-                                    });
-
                                     print('create');
                                     print('${MediaQuery.of(context).size}');
+                                    // i change this part just to now ,
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>CreateNewProjectPage(),
+                                        ));
                                   })
                               .animate()
                               .fadeIn(duration: .6.seconds, delay: .5.seconds);

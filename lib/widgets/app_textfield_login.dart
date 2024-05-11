@@ -47,7 +47,7 @@ class LoginTextField extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         title: Text(
-          text!,
+          text!,//! here appeare exeption !!
           style: const TextStyle(
               color: AppColors.primaryColor,
               fontSize: 15,
