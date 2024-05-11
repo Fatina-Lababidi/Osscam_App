@@ -12,7 +12,7 @@ class ErrorPage extends StatefulWidget {
 
 class _ErrorPageState extends State<ErrorPage> {
   void initState() {
-    print('offline');
+    print('error');
     super.initState();
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pop(context);

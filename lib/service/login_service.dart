@@ -6,7 +6,7 @@ import 'package:osscam/model/login_user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 
-Future<bool> logIn(LoginUserModel user) async {
+Future logIn(LoginUserModel user) async {
   Dio dio = Dio();
   try {
     Response response = await dio.post(
@@ -14,7 +14,7 @@ Future<bool> logIn(LoginUserModel user) async {
       data: user.toMap(),
      options: getHeader(false),
     );
-    config.get<SharedPreferences>().setString('token', response.data['token']);
+
 
     if (response.statusCode == 200) {
       print('login true');

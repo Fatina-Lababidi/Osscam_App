@@ -31,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   bool isChecked = false;
   bool obscureText = true;
-  final prefs = config<SharedPreferences>();
+  // final prefs = config<SharedPreferences>();
 
   @override
   Widget build(BuildContext context) {
