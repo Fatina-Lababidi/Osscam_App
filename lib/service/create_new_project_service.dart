@@ -12,7 +12,7 @@ Future<bool> createNewProject(CreateNewProjectModel createNewProject) async {
     Response response = await dio.post(
       AppUrl.post_new_project_url,
       data: createNewProject.toJson(),
-      options: getHeader(false),
+      options: getHeader(true),
     ); //we can fix the header and call the func
 
     if (response.statusCode == 200) {

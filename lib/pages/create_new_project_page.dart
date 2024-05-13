@@ -12,7 +12,7 @@ class CreateNewProjectPage extends StatelessWidget {
 
   TextEditingController _projectNameController = TextEditingController();
   TextEditingController _projectDescriptionController = TextEditingController();
-  TextEditingController _projectStatusController = TextEditingController();
+  // TextEditingController _projectStatusController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,17 +82,17 @@ class CreateNewProjectPage extends StatelessWidget {
                             }
                           }),
                       //change to options : NEW, IN_PROGRESS, COMPLETED
-                      LoginTextField(
-                          text: 'status',
-                          controller: _projectStatusController,
-                          hintText: 'please enter project status',
-                          validate: (value) {
-                            if (value!.isNotEmpty) {
-                              return null;
-                            } else {
-                              return 'please enter status';
-                            }
-                          }),
+                      // LoginTextField(
+                      //     text: 'status',
+                      //     controller: _projectStatusController,
+                      //     hintText: 'please enter project status',
+                      //     validate: (value) {
+                      //       if (value!.isNotEmpty) {
+                      //         return null;
+                      //       } else {
+                      //         return 'please enter status';
+                      //       }
+                      //     }),
                       ButtonApp(
                         textColor: Colors.white,
                         color: AppColors.buttonColor,
@@ -105,8 +105,8 @@ class CreateNewProjectPage extends StatelessWidget {
                                       projectName: _projectNameController.text,
                                       projectDescription:
                                           _projectDescriptionController.text,
-                                      projectStatus:
-                                          _projectStatusController.text,
+                                      projectStatus:"NEW"
+                                          ,
                                     ),
                                   ),
                                 );

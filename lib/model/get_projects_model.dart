@@ -6,19 +6,15 @@ class ProjectsModel {
   String name;
   String description;
   String createDate;
-  String lastModified;
   String status = "NEW";
   int createdBy;
-  int lastModifiedBy;
   ProjectsModel({
     required this.id,
     required this.name,
     required this.description,
     required this.createDate,
-    required this.lastModified,
     required this.status,
     required this.createdBy,
-    required this.lastModifiedBy,
   });
 
   ProjectsModel copyWith({
@@ -26,20 +22,16 @@ class ProjectsModel {
     String? name,
     String? description,
     String? createDate,
-    String? lastModified,
     String? status,
     int? createdBy,
-    int? lastModifiedBy,
   }) {
     return ProjectsModel(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
       createDate: createDate ?? this.createDate,
-      lastModified: lastModified ?? this.lastModified,
       status: status ?? this.status,
       createdBy: createdBy ?? this.createdBy,
-      lastModifiedBy: lastModifiedBy ?? this.lastModifiedBy,
     );
   }
 
@@ -49,10 +41,8 @@ class ProjectsModel {
       'name': name,
       'description': description,
       'createDate': createDate,
-      'lastModified': lastModified,
       'status': status,
       'createdBy': createdBy,
-      'lastModifiedBy': lastModifiedBy,
     };
   }
 
@@ -62,10 +52,8 @@ class ProjectsModel {
       name: map['name'] as String,
       description: map['description'] as String,
       createDate: map['createDate'] as String,
-      lastModified: map['lastModified'] as String,
       status: map['status'] as String,
       createdBy: map['createdBy'] as int,
-      lastModifiedBy: map['lastModifiedBy'] as int,
     );
   }
 
@@ -75,7 +63,7 @@ class ProjectsModel {
 
   @override
   String toString() {
-    return 'ProjectsModel(id: $id, name: $name, description: $description, createDate: $createDate, lastModified: $lastModified, status: $status, createdBy: $createdBy, lastModifiedBy: $lastModifiedBy)';
+    return 'ProjectsModel(id: $id, name: $name, description: $description, createDate: $createDate, status: $status, createdBy: $createdBy)';
   }
 
   @override
@@ -87,10 +75,8 @@ class ProjectsModel {
       other.name == name &&
       other.description == description &&
       other.createDate == createDate &&
-      other.lastModified == lastModified &&
       other.status == status &&
-      other.createdBy == createdBy &&
-      other.lastModifiedBy == lastModifiedBy;
+      other.createdBy == createdBy;
   }
 
   @override
@@ -99,9 +85,7 @@ class ProjectsModel {
       name.hashCode ^
       description.hashCode ^
       createDate.hashCode ^
-      lastModified.hashCode ^
       status.hashCode ^
-      createdBy.hashCode ^
-      lastModifiedBy.hashCode;
+      createdBy.hashCode;
   }
 }

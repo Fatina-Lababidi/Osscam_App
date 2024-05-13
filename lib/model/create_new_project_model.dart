@@ -4,7 +4,7 @@ import 'dart:convert';
 class CreateNewProjectModel {
   String projectName;
   String projectDescription;
-  String projectStatus;
+  String projectStatus = "NEW";
   CreateNewProjectModel({
     required this.projectName,
     required this.projectDescription,
