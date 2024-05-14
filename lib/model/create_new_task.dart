@@ -4,7 +4,7 @@ import 'dart:convert';
 class CreateNewTaskModel {
   String taskName;
   String taskDescription;
-  String taskStatus;
+  String taskStatus = "NEW";
   int project_id;
   CreateNewTaskModel({
     required this.taskName,
@@ -57,8 +57,8 @@ class CreateNewTaskModel {
   @override
   bool operator ==(covariant CreateNewTaskModel other) {
     if (identical(this, other)) return true;
-
-    return
+  
+    return 
       other.taskName == taskName &&
       other.taskDescription == taskDescription &&
       other.taskStatus == taskStatus &&

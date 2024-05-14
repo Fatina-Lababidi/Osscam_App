@@ -7,6 +7,7 @@ import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/create_new_project_model.dart';
 import 'package:osscam/model/create_new_task.dart';
+import 'package:osscam/model/get_projects_model.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
@@ -16,7 +17,7 @@ class CreateNewTaskPage extends StatelessWidget {
 
   TextEditingController _taskNameController = TextEditingController();
   TextEditingController _taskDescriptionController = TextEditingController();
-  TextEditingController _taskStatusController = TextEditingController();
+  TextEditingController _project_idController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -131,51 +132,51 @@ class CreateNewTaskPage extends StatelessWidget {
                         )
                             .animate()
                             .fade(delay: .7.seconds, duration: .6.seconds),
-                                 Padding(
-                          padding: EdgeInsets.only(left: screenWidth * 0.09),
-                          child: Text(
-                            'task status',
-                            style: TextStyle(
-                              fontSize: screenWidth * 0.05,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.textCreateColor,
-                            ),
-                          ),
-                        )
-                            .animate()
-                            .fade(delay: .5.seconds, duration: .4.seconds),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Center(
-                          child: Container(
-                            width: screenWidth * 0.9, // 310,
-                            height: screenHeight * 0.09, //75,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: TextFormField(
-                              cursorColor: AppColors.primaryColor,
-                              maxLines: 4,
-                              validator: (value) {
-                                if (value!.isNotEmpty) {
-                                  return null;
-                                } else {
-                                  return "please enter task's status";
-                                }
-                              },
-                              controller: _taskStatusController,
-                              obscureText: false,
-                              style: TextStyle(color: AppColors.inputTextColor),
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 16),
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ),
+                        //          Padding(
+                        //   padding: EdgeInsets.only(left: screenWidth * 0.09),
+                        //   child: Text(
+                        //     'project_id',
+                        //     style: TextStyle(
+                        //       fontSize: screenWidth * 0.05,
+                        //       fontWeight: FontWeight.w600,
+                        //       color: AppColors.textCreateColor,
+                        //     ),
+                        //   ),
+                        // )
+                        //     .animate()
+                        //     .fade(delay: .5.seconds, duration: .4.seconds),
+                        // const SizedBox(
+                        //   height: 10,
+                        // ),
+                        // Center(
+                        //   child: Container(
+                        //     width: screenWidth * 0.9, // 310,
+                        //     height: screenHeight * 0.09, //75,
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.white,
+                        //       borderRadius: BorderRadius.circular(15),
+                        //     ),
+                        //     child: TextFormField(
+                        //       cursorColor: AppColors.primaryColor,
+                        //       maxLines: 4,
+                        //       validator: (value) {
+                        //         if (value!.isNotEmpty) {
+                        //           return null;
+                        //         } else {
+                        //           return "please enter project_id";
+                        //         }
+                        //       },
+                        //       controller: _project_idController,
+                        //       obscureText: false,
+                        //       style: TextStyle(color: AppColors.inputTextColor),
+                        //       decoration: const InputDecoration(
+                        //         contentPadding: EdgeInsets.symmetric(
+                        //             horizontal: 16, vertical: 16),
+                        //         border: InputBorder.none,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -259,10 +260,12 @@ class CreateNewTaskPage extends StatelessWidget {
                                           taskName: _taskNameController.text,
                                           taskDescription:
                                               _taskDescriptionController.text,
-                                          taskStatus:
-                                              _taskStatusController.text,
-                                          project_id: 102,//!we have to take it form back?
-                                        )));
+                                          taskStatus: "NEW",
+                                          project_id:5 ,
+                                          // CreateNewTaskModel.fromJson("https://projects-management-system.onrender.com/api/v1/tasks").project_id ,//!we have to take it form back?
+                                        ),
+                                        //  id:ProjectsModel.fromJson("id").id 
+                                         ));
                                   }
                                 },
                               );
