@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/createNewProject_bloc/create_new_project_bloc.dart';
+import 'package:osscam/bloc/createNewTask/create_new_task_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/create_new_project_model.dart';
-import 'package:osscam/pages/create_new_task.dart';
+import 'package:osscam/model/create_new_task.dart';
+import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 
-class CreateNewProjectPage extends StatelessWidget {
-  CreateNewProjectPage({super.key});
+class CreateNewTaskPage extends StatelessWidget {
+  CreateNewTaskPage({super.key});
 
-  TextEditingController _projectNameController = TextEditingController();
-  TextEditingController _projectDescriptionController = TextEditingController();
-  // TextEditingController _projectStatusController = TextEditingController();
+  TextEditingController _taskNameController = TextEditingController();
+  TextEditingController _taskDescriptionController = TextEditingController();
+  TextEditingController _taskStatusController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,14 @@ class CreateNewProjectPage extends StatelessWidget {
 
     final formCreateKey = GlobalKey<FormState>();
     return BlocProvider(
-      create: (context) => CreateNewProjectBloc(),
+      create: (context) => CreateNewTaskBloc(),
       child: Builder(builder: (context) {
         return Scaffold(
           backgroundColor: AppColors.primaryColor,
           body: SingleChildScrollView(
-            child: BlocListener<CreateNewProjectBloc, CreateNewProjectState>(
+            child: BlocListener<CreateNewTaskBloc, CreateNewTaskState>(
               listener: (context, state) {
-                if (state is SuccessCreateProject) {
+                if (state is SuccessCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Success creating')));
                   // Navigator.push(
@@ -39,8 +41,12 @@ class CreateNewProjectPage extends StatelessWidget {
                   //     builder: (context) => GetProjectsPage(),
                   //   ),
                   // );
-                  Navigator.push(context, PageTransition(child:CreateNewTaskPage(), type:PageTransitionType.fade));
-                } else if (State is ErrorCreateProject) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: GetProjectsPage(),
+                          type: PageTransitionType.fade));
+                } else if (State is ErrorCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
@@ -48,7 +54,7 @@ class CreateNewProjectPage extends StatelessWidget {
                       duration: Duration(seconds: 1),
                     ),
                   );
-                } else if (State is OfflineCreateProject) {
+                } else if (State is OfflineCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
@@ -81,7 +87,7 @@ class CreateNewProjectPage extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: screenWidth * 0.09),
                           child: Text(
-                            'Project name',
+                            'task name',
                             style: TextStyle(
                               fontSize: screenWidth * 0.05,
                               fontWeight: FontWeight.w600,
@@ -109,10 +115,10 @@ class CreateNewProjectPage extends StatelessWidget {
                                 if (value!.isNotEmpty) {
                                   return null;
                                 } else {
-                                  return "please enter project's name";
+                                  return "please enter task's name";
                                 }
                               },
-                              controller: _projectNameController,
+                              controller: _taskNameController,
                               obscureText: false,
                               style: TextStyle(color: AppColors.inputTextColor),
                               decoration: const InputDecoration(
@@ -125,13 +131,58 @@ class CreateNewProjectPage extends StatelessWidget {
                         )
                             .animate()
                             .fade(delay: .7.seconds, duration: .6.seconds),
+                                 Padding(
+                          padding: EdgeInsets.only(left: screenWidth * 0.09),
+                          child: Text(
+                            'task status',
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.05,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textCreateColor,
+                            ),
+                          ),
+                        )
+                            .animate()
+                            .fade(delay: .5.seconds, duration: .4.seconds),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Center(
+                          child: Container(
+                            width: screenWidth * 0.9, // 310,
+                            height: screenHeight * 0.09, //75,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: TextFormField(
+                              cursorColor: AppColors.primaryColor,
+                              maxLines: 4,
+                              validator: (value) {
+                                if (value!.isNotEmpty) {
+                                  return null;
+                                } else {
+                                  return "please enter task's status";
+                                }
+                              },
+                              controller: _taskStatusController,
+                              obscureText: false,
+                              style: TextStyle(color: AppColors.inputTextColor),
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 16),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: screenWidth * 0.09),
                           child: Text(
-                            'Project script',
+                            'task discription',
                             style: TextStyle(
                               fontSize: screenWidth * 0.05,
                               fontWeight: FontWeight.w600,
@@ -144,6 +195,7 @@ class CreateNewProjectPage extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
+
                         Center(
                           child: Container(
                             width: screenWidth * 0.9, // 310,
@@ -161,10 +213,10 @@ class CreateNewProjectPage extends StatelessWidget {
                                 if (value!.isNotEmpty) {
                                   return null;
                                 } else {
-                                  return "please enter project's script";
+                                  return "please enter task's script";
                                 }
                               },
-                              controller: _projectDescriptionController,
+                              controller: _taskDescriptionController,
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 16),
@@ -191,28 +243,26 @@ class CreateNewProjectPage extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        BlocBuilder<CreateNewProjectBloc,
-                                CreateNewProjectState>(
+                        BlocBuilder<CreateNewTaskBloc, CreateNewTaskState>(
                           builder: (context, state) {
-                            if (state is CreateNewProjectInitial) {
+                            if (state is CreateNewTaskInitial) {
                               return ButtonApp(
                                 textColor: AppColors.primaryColor,
                                 color: AppColors.buttonColor,
                                 text: 'Create',
                                 onTap: () {
                                   if (formCreateKey.currentState!.validate()) {
-                                    context.read<CreateNewProjectBloc>().add(
-                                          CreateNewProject(
-                                            project: CreateNewProjectModel(
-                                              projectName:
-                                                  _projectNameController.text,
-                                              projectDescription:
-                                                  _projectDescriptionController
-                                                      .text,
-                                              projectStatus: "NEW",
-                                            ),
-                                          ),
-                                        );
+                                    context.read<CreateNewTaskBloc>().add(
+                                            CreateNewTask(
+                                                createNewTaskModel:
+                                                    CreateNewTaskModel(
+                                          taskName: _taskNameController.text,
+                                          taskDescription:
+                                              _taskDescriptionController.text,
+                                          taskStatus:
+                                              _taskStatusController.text,
+                                          project_id: 102,//!we have to take it form back?
+                                        )));
                                   }
                                 },
                               );

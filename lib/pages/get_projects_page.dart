@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/color.dart';
+import 'package:osscam/widgets/search_textField.dart';
 
-class GetProjectsPage extends StatelessWidget {
-  const GetProjectsPage({
-    super.key,
-  });
+class GetProjectsPage extends StatefulWidget {
+  const GetProjectsPage({super.key});
 
   @override
+  State<GetProjectsPage> createState() => _GetProjectsPageState();
+}
+
+class _GetProjectsPageState extends State<GetProjectsPage> {
+  @override
   Widget build(BuildContext context) {
-    //  // here we want to wrap the Scaffold with BlocProvider and Builder .. we cannot use the BlocBuilder without BlocProvider
     return BlocProvider(
       create: (context) => ProjectsBloc()..add(GetProjects()),
       child: Builder(builder: (context) {
@@ -19,37 +21,51 @@ class GetProjectsPage extends StatelessWidget {
           backgroundColor: AppColors.primaryColor,
           body: BlocBuilder<ProjectsBloc, ProjectsState>(
             builder: (context, state) {
-              if (state is ErrorGetProjects) {
-                return Center(
-                  child: Text('Error'),
-                );
-              } else if (state is SuccessGetProjects) {
+              if (state is SuccessGetProjects) {
                 return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "succes",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    SearchTextField(),
                     Container(
-                      width: 100,
-                      height: 100,
+                      height: 500,
                       child: ListView.builder(
-                          itemCount: state.projects.length,
-                          itemBuilder: (context, index) =>
-                              Text(state.projects[index].name)),
-                    ),
+                        itemCount: state.projects.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              // Navigator.push(
+                              //     context,
+                              //     PageTransition(
+                              //         child: ProjectDetels(),
+                              //         type: PageTransitionType.fade));
+                            },
+                            child: Container(
+                              margin:const EdgeInsets.all(5),
+                              height: 35,
+                              color: AppColors.textCreateColor,
+                              child: Text(state.projects[index].name),
+                            ),
+                          );
+                        },
+                      ),
+                    )
                   ],
                 );
               } else if (state is OfflineOnGetProjects) {
-                return Center(
-                  child: Text('Offline'),
+                return const Center(
+                  child: Text('offline'),
+                );
+              } else if (state is ErrorGetProjects) {
+                return const Center(
+                  child: Text(
+                    'Error',
+                  ),
                 );
               } else {
-                return Center(
-                    child: CircularProgressIndicator(
-                  color: AppColors.cardApricotColor,
-                ));
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.continerColor,
+                  ),
+                );
               }
             },
           ),

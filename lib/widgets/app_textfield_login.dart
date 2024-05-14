@@ -8,7 +8,10 @@ class LoginTextField extends StatelessWidget {
   String? text;
   IconButton? secretPassword;
   String? Function(String?)? validate;
+  Color fillColor;
   bool obscureText;
+  double width;
+  double height;
   LoginTextField({
     super.key,
     this.hintText,
@@ -16,7 +19,10 @@ class LoginTextField extends StatelessWidget {
     this.text,
     this.secretPassword,
     this.validate,
+    this.fillColor = AppColors.textFieldColor,
     this.obscureText = false,
+    this.width = double.infinity,
+    this.height = double.infinity,
   });
 
   withLockedPassword(String lockedPassword) {
@@ -47,20 +53,25 @@ class LoginTextField extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         title: Text(
-          text!,//! here appeare exeption !!
+          text!, //! here appeare exeption !!
           style: const TextStyle(
-              color: AppColors.primaryColor,
-              fontSize: 15,
-              fontWeight: FontWeight.w400),
+            color: AppColors.primaryColor,
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+          ),
         ),
         subtitle: Container(
-          width: screenWidth * 0.7, //226,
-          height: screenHeight * 0.07, //43
+          width: width == double.infinity
+              ? screenWidth * 0.7
+              : width, //screenWidth * 0.7, //226,
+          height: height == double.infinity
+              ? screenHeight * 0.07
+              : height, // screenHeight * 0.07, //43
           decoration: BoxDecoration(
-              color: AppColors.textFieldColor.withOpacity(0.75),
+              color: fillColor, //AppColors.textFieldColor.withOpacity(0.75),
               borderRadius: BorderRadius.circular(10)),
           child: TextFormField(
-             cursorHeight:20,
+            cursorHeight: 20,
             obscureText: obscureText,
             validator: validate,
             cursorColor: AppColors.primaryColor,
@@ -73,7 +84,8 @@ class LoginTextField extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              fillColor: AppColors.textFieldColor.withOpacity(0.75),
+              fillColor:
+                  fillColor, // AppColors.textFieldColor.withOpacity(0.75),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
@@ -84,7 +96,7 @@ class LoginTextField extends StatelessWidget {
               hintStyle:
                   const TextStyle(color: AppColors.primaryColor, fontSize: 12),
               suffixIcon: Padding(
-                padding: const EdgeInsetsDirectional.only(end: 12.0),
+                padding: const EdgeInsetsDirectional.only(end: 12),
                 child: secretPassword,
               ),
             ),

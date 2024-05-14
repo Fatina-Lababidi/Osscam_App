@@ -12,5 +12,7 @@ class AppColors {
   static const Color cardApricotColor = Color(0xffFFA69A);
   static const Color cardGreenColor = Color(0xffA5FFA9);
   static const Color checkboxColor = Color(0xff535353);
+  static const Color textCreateColor = Color(0xffCFD6E9);
+  static const Color inputTextColor = Color(0xff1B2F6C);
 // to use in main : AppColors.primaryColor
 }
