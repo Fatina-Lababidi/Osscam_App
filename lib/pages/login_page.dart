@@ -67,23 +67,24 @@ class _LogInPageState extends State<LogInPage> {
                         ),
                       );
                     } else if (state is AuthOffline) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Offline')));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Offline,please try later')));
                       Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OfflinePage(),
-                        ),
-                      );
+                          context,
+                          PageTransition(
+                              child: OfflinePage(
+                                previousPage: LogInPage(),
+                              ),
+                              type: PageTransitionType.fade));
                     } else if (state is AuthFailed) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Error')));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Error,please try again')));
                       Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ErrorPage(),
-                        ),
-                      );
+                          context,
+                          PageTransition(
+                            child: ErrorPage(previousPage: LogInPage()),
+                            type: PageTransitionType.fade,
+                          ));
                     }
                   },
                   child: SingleChildScrollView(

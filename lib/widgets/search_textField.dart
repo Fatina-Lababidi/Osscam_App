@@ -54,6 +54,8 @@ class _SearchTextFieldState extends State<SearchTextField> {
           color: _isFocused ? Colors.white : AppColors.textFieldColor,
         ),
         child: TextFormField(
+          obscureText: false,
+          style: TextStyle(color: AppColors.inputTextColor),
           // showCursor: ,
           cursorColor: AppColors.textFieldColor,
           focusNode: _focusNode,
@@ -91,7 +93,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
                       ],
                     ),
                   ),
-            hintText: _isFocused ? "SEARCH" : "All Projects",
+            hintText: _isFocused ? "Search .." : "All projects",
             hintStyle: TextStyle(
                 fontSize: 25,
                 color: _isFocused ? AppColors.textFieldColor : Colors.white),

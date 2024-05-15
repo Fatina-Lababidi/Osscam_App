@@ -57,22 +57,23 @@ class _SignUpPageState extends State<SignUpPage> {
                           );
                         } else if (state is SignUpOffline) {
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text('Offline')));
+                              .showSnackBar(SnackBar(content: Text('Offline,please try later')));
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => OfflinePage(),
+                            PageTransition(
+                              child: OfflinePage(previousPage: SignUpPage()),
+                              type: PageTransitionType.fade,
                             ),
                           );
                         } else if (state is SignUpFailed) {
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text('Error')));
+                              .showSnackBar(SnackBar(content: Text('Error,please try again')));
                           Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ErrorPage(),
-                            ),
-                          );
+                              context,
+                              PageTransition(
+                                child: ErrorPage(previousPage: SignUpPage()),
+                                type: PageTransitionType.fade,
+                              ));
                         }
                       },
                       child: SingleChildScrollView(

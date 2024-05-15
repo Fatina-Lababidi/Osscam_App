@@ -14,4 +14,5 @@ class AppImages {
   static const String noInternetImage = 'assets/images/noInternet.png';
   static const String noInternetVectorImage = 'assets/images/Vector.png';
   static const String osscamLogo = "assets/images/osscam_logo.png";
+ static const String vector_image = "assets/images/vector1.png";
 }

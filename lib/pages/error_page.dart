@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ErrorPage extends StatefulWidget {
-  const ErrorPage({super.key});
+  final Widget previousPage;
+  const ErrorPage({super.key, required this.previousPage});
 
   @override
   State<ErrorPage> createState() => _ErrorPageState();
@@ -15,7 +17,11 @@ class _ErrorPageState extends State<ErrorPage> {
     print('error');
     super.initState();
     Future.delayed(const Duration(seconds: 5), () {
-      Navigator.pop(context);
+      //Navigator.pop(context);
+      Navigator.pushReplacement(
+          context,
+          PageTransition(
+              child: widget.previousPage, type: PageTransitionType.fade));
     });
   }
 
@@ -36,21 +42,21 @@ class _ErrorPageState extends State<ErrorPage> {
                   fontSize: screenWidth * 0.08,
                   color: Colors.white,
                   fontFamily: 'Frijole'),
-            ).animate().fade(duration: .2.seconds,delay: .3.seconds),
+            ).animate().fade(duration: .2.seconds, delay: .3.seconds),
             Text(
               'went wrong !',
               style: TextStyle(
                   fontSize: screenWidth * 0.08,
                   color: Colors.white,
                   fontFamily: 'Frijole'),
-            ).animate().fade(duration: .4.seconds,delay: .5.seconds),
+            ).animate().fade(duration: .4.seconds, delay: .5.seconds),
             Image(
               width: screenWidth * 0.8,
               height: screenHeight * 0.5,
               image: const AssetImage(
                 AppImages.errorImage,
               ),
-            ).animate().fade(duration: .6.seconds,delay: .7.seconds),
+            ).animate().fade(duration: .6.seconds, delay: .7.seconds),
           ],
         ),
       ),

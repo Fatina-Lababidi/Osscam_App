@@ -11,4 +11,5 @@ class AppUrl {
       'https://projects-management-system.onrender.com/api/v1/projects';
   static const String post_new_task_url =
       "https://projects-management-system.onrender.com/api/v1/tasks";
+
 }

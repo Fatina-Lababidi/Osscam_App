@@ -10,14 +10,15 @@ Future<bool> createNewTask(CreateNewTaskModel createNewTaskModel) async {
     Dio dio = Dio();
     // ProjectsModel ?projectsModel;//!we have to think about this ..
     Response response = await dio.post(
-      "${AppUrl.post_new_task_url}",
-      queryParameters: {
-        'taskName': createNewTaskModel.taskName,
-        'taskDescription': createNewTaskModel.taskDescription,
-        'taskStatus': 'NEW',
-        'project_id': createNewTaskModel.project_id,
+      AppUrl.post_new_task_url,
 
-      },
+      // queryParameters: {
+      //   'taskName': createNewTaskModel.taskName,
+      //   'taskDescription': createNewTaskModel.taskDescription,
+      //   'taskStatus': 'NEW',
+      //   'project_id': createNewTaskModel.project_id,
+
+      //   },
       // ?taskName=${createNewTaskModel.taskName}&taskDescription=${createNewTaskModel.taskDescription}&taskStatus=NEW&project_id=${createNewTaskModel.project_id}",
 //"${AppUrl.post_new_project_url}"+"${createNewTaskModel.project_id=1}",
 // 'https://projects-management-system.onrender.com/api/v1/tasks?taskName=do&taskDescription=test&taskStatus=NEW&project_id=5',

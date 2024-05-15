@@ -17,7 +17,7 @@ class CreateNewTaskPage extends StatelessWidget {
 
   TextEditingController _taskNameController = TextEditingController();
   TextEditingController _taskDescriptionController = TextEditingController();
-  TextEditingController _project_idController = TextEditingController();
+ // TextEditingController _project_idController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class CreateNewTaskPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: GetProjectsPage(),
+                          child:const GetProjectsPage(),
                           type: PageTransitionType.fade));
                 } else if (State is ErrorCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -264,7 +264,7 @@ class CreateNewTaskPage extends StatelessWidget {
                                           project_id:5 ,
                                           // CreateNewTaskModel.fromJson("https://projects-management-system.onrender.com/api/v1/tasks").project_id ,//!we have to take it form back?
                                         ),
-                                        //  id:ProjectsModel.fromJson("id").id 
+                                        //  id:ProjectsModel.fromJson("id").id
                                          ));
                                   }
                                 },
