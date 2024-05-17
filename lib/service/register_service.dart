@@ -17,8 +17,8 @@ Future SignUpService(SignupUserModel userModel) async {
     if (response.statusCode == 200) {
       config
           .get<SharedPreferences>()
-          .setString('token', response.data["token"]);
-      print(response.data["token"]);
+          .setString('token', response.data["access_token"]);
+      print(response.data["access_token"]);
       return true;
     } else {
       print('Error fetching data: ${response.statusCode}');
