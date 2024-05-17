@@ -5,7 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
+import 'package:osscam/model/get_projects_model.dart';
+import 'package:osscam/pages/create_new_task.dart';
 import 'package:osscam/widgets/search_textField.dart';
+import 'package:page_transition/page_transition.dart';
 
 class GetProjectsPage extends StatefulWidget {
   const GetProjectsPage({super.key});
@@ -13,6 +16,9 @@ class GetProjectsPage extends StatefulWidget {
   @override
   State<GetProjectsPage> createState() => _GetProjectsPageState();
 }
+
+// List<ProjectsModel>? projects = response.data ;
+List<ProjectsModel> result = [];
 
 class _GetProjectsPageState extends State<GetProjectsPage> {
   @override
@@ -41,84 +47,163 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
               if (state is SuccessGetProjects) {
                 return Column(
                   children: [
-                    const SearchTextField(),
+                    SearchTextField(data: state.projects,),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ListView.builder(
-                          itemCount: state.projects.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     PageTransition(
-                                //         child: ProjectDetels(),
-                                //         type: PageTransitionType.fade));
-                              },
-                              child: Container(
-                                // curve: Curves.easeInOut,
-                                //  duration:
-                                //  Duration(milliseconds: 300 + (index * 100)),
-                                // transform: Matrix4.translationValues(
-                                //    0, 0, 0),
-                                decoration: BoxDecoration(
-                                  color: AppColors.continerColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                margin: const EdgeInsets.all(5),
-                                height: screenHeight * 0.13, //105,
-                                width: screenWidth * 0.3, //317,
-                                child: Row(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          width: 135, //screenWidth*0.25, //135,
-                                          height:
-                                              105, // screenHeight*0.13,//105,
-                                          child: Image(
-                                            fit: BoxFit.cover,
-                                            image: const AssetImage(
-                                                AppImages.vector_image),
+                      child: (result.length != 0)
+                          ? Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: ListView.builder(
+                                itemCount: result.length,
+                                itemBuilder: (context, ind) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      // Navigator.push(
+                                      //     context,
+                                      //     PageTransition(
+                                      //         child: CreateNewTaskPage( ),
+                                      //         type: PageTransitionType.fade));
+                                    },
+                                    child: Container(
+                                      // curve: Curves.easeInOut,
+                                      //  duration:
+                                      //  Duration(milliseconds: 300 + (index * 100)),
+                                      // transform: Matrix4.translationValues(
+                                      //    0, 0, 0),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.continerColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      margin: const EdgeInsets.all(5),
+                                      height: screenHeight * 0.13, //105,
+                                      width: screenWidth * 0.3, //317,
+                                      child: Row(
+                                        children: [
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width:
+                                                    135, //screenWidth*0.25, //135,
+                                                height:
+                                                    105, // screenHeight*0.13,//105,
+                                                child: Image(
+                                                  fit: BoxFit.cover,
+                                                  image: const AssetImage(
+                                                      AppImages.vector_image),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(20),
+                                                child: Text(
+                                                  result[ind].id.toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12,
+                                                    fontFamily: 'Frijole',
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(20),
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Text(
+                                                'Project name :' +
+                                                    result[ind].name.toString(),
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .inputTextColor),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ).animate().scaleXY(
+                                        delay: Duration(
+                                            milliseconds: 200 + (ind * 10)),
+                                        duration: Duration(
+                                            milliseconds: 100 + (ind * 10))),
+                                  );
+                                },
+                              ))
+                          : ListView.builder(
+                              itemCount: state.projects.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    // Navigator.push(
+                                    //     context,
+                                    //     PageTransition(
+                                    //         child: ProjectDetels(),
+                                    //         type: PageTransitionType.fade));
+                                  },
+                                  child: Container(
+                                    // curve: Curves.easeInOut,
+                                    //  duration:
+                                    //  Duration(milliseconds: 300 + (index * 100)),
+                                    // transform: Matrix4.translationValues(
+                                    //    0, 0, 0),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.continerColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    margin: const EdgeInsets.all(5),
+                                    height: screenHeight * 0.13, //105,
+                                    width: screenWidth * 0.3, //317,
+                                    child: Row(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              width:
+                                                  135, //screenWidth*0.25, //135,
+                                              height:
+                                                  105, // screenHeight*0.13,//105,
+                                              child: Image(
+                                                fit: BoxFit.cover,
+                                                image: const AssetImage(
+                                                    AppImages.vector_image),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(20),
+                                              child: Text(
+                                                state.projects[index].id
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12,
+                                                  fontFamily: 'Frijole',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(20),
-                                          child: Text(
-                                            state.projects[index].id.toString(),
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                              fontFamily: 'Frijole',
+                                          child: Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Text(
+                                              'Project name :' +
+                                                  state.projects[index].name.toString(),
+                                              style: TextStyle(
+                                                  color:
+                                                      AppColors.inputTextColor),
                                             ),
                                           ),
-                                        ),
+                                        )
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(20),
-                                      child: Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Text(
-                                          'Project name :' +
-                                              state.projects[index].name,
-                                          style: TextStyle(
-                                              color: AppColors.inputTextColor),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ).animate().scaleXY(
-                                  delay: Duration(
-                                      milliseconds: 200 + (index * 10)),
-                                  duration: Duration(
-                                      milliseconds: 100 + (index * 10))),
-                            );
-                          },
-                        ),
-                      ),
+                                  ).animate().scaleXY(
+                                      delay: Duration(
+                                          milliseconds: 200 + (index * 10)),
+                                      duration: Duration(
+                                          milliseconds: 100 + (index * 10))),
+                                );
+                              },
+                            ),
                     )
                   ],
                 );
