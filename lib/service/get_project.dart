@@ -14,10 +14,10 @@ Future getProjects() async {
 
   if (response.statusCode == 200) {
     dynamic responseData = response.data;
-    final test = config
-        .get<SharedPreferences>()
-        .setStringList('projects', response.data['name']);
-    print(test);
+    // final test = config
+    //     .get<SharedPreferences>()
+    //     .setStringList('projects', response.data['name']);
+    // print(test);
     print(responseData);
     return responseData;
   } else {

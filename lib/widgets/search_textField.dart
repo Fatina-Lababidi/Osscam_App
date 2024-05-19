@@ -4,6 +4,7 @@ import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/get_projects_model.dart';
+import 'package:osscam/pages/get_projects_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchTextField extends StatefulWidget {
@@ -20,7 +21,6 @@ class SearchTextField extends StatefulWidget {
 class _SearchTextFieldState extends State<SearchTextField> {
   late FocusNode _focusNode;
   bool _isFocused = false;
-  final List<ProjectsModel> result = [];
   @override
   void initState() {
     super.initState();
@@ -66,17 +66,15 @@ class _SearchTextFieldState extends State<SearchTextField> {
               child: TextFormField(
                 onChanged: (value) {
                   setState(() {
-                   List newResult = [];
-                    dynamic temp =
-                        config.get<SharedPreferences>().getStringList('projects');
-                    print(temp);
-                    List<ProjectsModel>? projects = widget.data;
-                    print(projects);
-                    projects!.forEach((element) {
+                   List<ProjectsModel> newResult = [];
+                    List<ProjectsModel> projects = widget.data;
+                    // print(projects);
+                    projects.forEach((element) {
                       if (element.name.contains(value)) {
                         newResult.add(element);
                       }
                     });
+                    result.value = newResult;
                   });
                 },
                 obscureText: false,
