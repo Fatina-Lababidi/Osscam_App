@@ -4,6 +4,7 @@ import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/core/config/bloc_observe.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/pages/interance_page.dart';
+import 'package:osscam/pages/project_details_page.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
@@ -20,12 +21,13 @@ class MyApp extends StatelessWidget {
       create: (context) => AppBloc(),
       child:const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: InterancePage(),
+        home: ProjectDetailsPage()//InterancePage(),
       ),
     );
   }
 }
-//log in email : sana8@gmail.com 
+//log in email : sana8@gmail.com
 //password:  ssssssss
 // guscks@gmail.com
 // 123456789
+//sanaTa2024@gmail.com

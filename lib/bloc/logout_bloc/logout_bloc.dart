@@ -14,7 +14,7 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
     on<Logout>((event, emit) async {
       emit(Loading());
       try {
-        bool result = await logout(event.logOutModel);
+        bool result = await logout();
         if (result) {
           emit(Success());
         } else {

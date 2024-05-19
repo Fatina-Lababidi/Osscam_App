@@ -56,8 +56,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                         } else if (state is SignUpOffline) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text('Offline,please try later')));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Offline,please try later')));
                           Navigator.pushReplacement(
                             context,
                             PageTransition(
@@ -66,8 +66,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                         } else if (state is SignUpFailed) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text('Error,please try again')));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Error,please try again')));
                           Navigator.pushReplacement(
                               context,
                               PageTransition(
@@ -162,9 +162,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                                   },
                                                   icon: obscureText == false
                                                       ? const Icon(
-                                                          Icons.visibility)
+                                                          Icons.visibility_off)
                                                       : const Icon(
-                                                          Icons.visibility_off),
+                                                          Icons.visibility),
                                                   color: AppColors.primaryColor,
                                                 ),
                                                 obscureText: obscureText,

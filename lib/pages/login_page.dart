@@ -169,8 +169,8 @@ class _LogInPageState extends State<LogInPage> {
           });
         },
         icon: _obscureText == false
-            ? const Icon(Icons.visibility)
-            : const Icon(Icons.visibility_off),
+            ? const Icon(Icons.visibility_off)
+            : const Icon(Icons.visibility),
         color: AppColors.primaryColor,
       ),
       obscureText: _obscureText,

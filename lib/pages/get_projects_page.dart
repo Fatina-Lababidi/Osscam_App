@@ -6,7 +6,7 @@ import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/widgets/search_textField.dart';
-
+//! we have to fix the text ..
 class GetProjectsPage extends StatefulWidget {
   const GetProjectsPage({super.key});
 

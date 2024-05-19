@@ -5,8 +5,8 @@ sealed class LogoutEvent {}
 
 // ignore: must_be_immutable
 class Logout extends LogoutEvent {
-  LogoutModel logOutModel;
-  Logout({
-    required this.logOutModel,
-  });
+ // LogoutModel logOutModel;
+ // Logout({
+  //  required this.logOutModel,
+ // });
 }
