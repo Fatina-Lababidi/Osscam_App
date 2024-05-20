@@ -10,16 +10,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc() : super(AppInitial()) {
 
 
-var token = config.get<SharedPreferences>().getBool('status');
-var firstTime = config.get<SharedPreferences>().getBool('second status');
-on<CheckAppStatus>((event, emit) {
-if(token == true && firstTime == false){
-  emit(HeSigendUp());
-  emit(HeLoggedIn());
-}else if(token ==false && firstTime == false ){
-  emit(HeLoggedOut());
-}
-});
+
 
 bool hasToken = false;
 bool hisFirstTime = true;
@@ -27,7 +18,7 @@ bool hisFirstTime = true;
        emit(HeSigendUp());
       print("He was signed up");
       hasToken = true;
-      hisFirstTime = false;
+      hisFirstTime = true;
     config.get<SharedPreferences>().setBool('status', hasToken);
     config.get<SharedPreferences>().setBool('second status', hisFirstTime);
     });
@@ -49,6 +40,20 @@ bool hisFirstTime = true;
   config.get<SharedPreferences>().setBool('status', hasToken);
     config.get<SharedPreferences>().setBool('second status', hisFirstTime);
     });
+
+    var token = config.get<SharedPreferences>().getBool('status');
+var firstTime = config.get<SharedPreferences>().getBool('second status');
+on<CheckAppStatus>((event, emit) {
+if(token == true && firstTime == true){
+  emit(HeSigendUp());
+}else if(token ==false && firstTime == false ){
+  emit(HeLoggedOut());
+}else if(token ==true && firstTime == false ){
+  emit(HeLoggedIn());
+}
+});
   }
 }
+
+
 

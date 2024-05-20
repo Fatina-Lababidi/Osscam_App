@@ -1,15 +1,17 @@
+import 'package:osscam/service/base_service.dart';
+
 class AppUrl {
-  static const String login_url =
-      "https://projects-management-system.onrender.com/api/v1/auth/authenticate";
-  static const String sign_up_url =
-      "https://projects-management-system.onrender.com/api/v1/auth/register";
-  static const String logout_url =
-      "https://projects-management-system.onrender.com/api/v1/auth/logout";
-  static const String get_projects_url =
-      "https://projects-management-system.onrender.com/api/v1/projects";
-  static const String post_new_project_url =
-      'https://projects-management-system.onrender.com/api/v1/projects';
-  static const String post_new_task_url =
-      "https://projects-management-system.onrender.com/api/v1/tasks";
+  static String login_url =
+      "${BaseService().baseUrl}auth/login";
+  static String sign_up_url =
+      "${BaseService().baseUrl}auth/register";
+  static String logout_url =
+      "${BaseService().baseUrl}auth/logout";
+  static String get_projects_url =
+      "${BaseService().baseUrl}projects";
+  static String post_new_project_url =
+      '${BaseService().baseUrl}projects';
+  static  String post_new_task_url =
+      "${BaseService().baseUrl}tasks";
 
 }

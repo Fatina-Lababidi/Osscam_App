@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-abstract class BaseService {
+ class BaseService {
   Dio dio = Dio();
-  final String baseUrl = '';
+  final String baseUrl = 'https://projects-management-system.onrender.com/api/v1/';
 }

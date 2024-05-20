@@ -36,12 +36,6 @@ class CreateNewTaskPage extends StatelessWidget {
                 if (state is SuccessCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Success creating')));
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => GetProjectsPage(),
-                  //   ),
-                  // );
                   Navigator.push(
                       context,
                       PageTransition(
@@ -132,51 +126,7 @@ class CreateNewTaskPage extends StatelessWidget {
                         )
                             .animate()
                             .fade(delay: .7.seconds, duration: .6.seconds),
-                        //          Padding(
-                        //   padding: EdgeInsets.only(left: screenWidth * 0.09),
-                        //   child: Text(
-                        //     'project_id',
-                        //     style: TextStyle(
-                        //       fontSize: screenWidth * 0.05,
-                        //       fontWeight: FontWeight.w600,
-                        //       color: AppColors.textCreateColor,
-                        //     ),
-                        //   ),
-                        // )
-                        //     .animate()
-                        //     .fade(delay: .5.seconds, duration: .4.seconds),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
-                        // Center(
-                        //   child: Container(
-                        //     width: screenWidth * 0.9, // 310,
-                        //     height: screenHeight * 0.09, //75,
-                        //     decoration: BoxDecoration(
-                        //       color: Colors.white,
-                        //       borderRadius: BorderRadius.circular(15),
-                        //     ),
-                        //     child: TextFormField(
-                        //       cursorColor: AppColors.primaryColor,
-                        //       maxLines: 4,
-                        //       validator: (value) {
-                        //         if (value!.isNotEmpty) {
-                        //           return null;
-                        //         } else {
-                        //           return "please enter project_id";
-                        //         }
-                        //       },
-                        //       controller: _project_idController,
-                        //       obscureText: false,
-                        //       style: TextStyle(color: AppColors.inputTextColor),
-                        //       decoration: const InputDecoration(
-                        //         contentPadding: EdgeInsets.symmetric(
-                        //             horizontal: 16, vertical: 16),
-                        //         border: InputBorder.none,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
+
                         const SizedBox(
                           height: 20,
                         ),
@@ -257,7 +207,7 @@ class CreateNewTaskPage extends StatelessWidget {
                                             CreateNewTask(
                                                 createNewTaskModel:
                                                     CreateNewTaskModel(
-                                          taskName: _taskNameController.text,
+                                          // taskName: _taskNameController.text,
                                           taskDescription:
                                               _taskDescriptionController.text,
                                           taskStatus: "NEW",

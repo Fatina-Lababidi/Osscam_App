@@ -7,7 +7,7 @@ import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/get_projects_model.dart';
-import 'package:osscam/pages/create_new_task.dart';
+import 'package:osscam/pages/create_new_task_page.dart';
 import 'package:osscam/widgets/search_textField.dart';
 import 'package:page_transition/page_transition.dart';
 
