@@ -35,12 +35,15 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppBloc, AppState>(
-      builder: (context, state) {
-        if (state is HeSigendUp) {
-          return const CreateOrJoinPage();
-        } else {
-          return BlocProvider(
+    return
+    // BlocBuilder<AppBloc, AppState>(
+    //   builder: (context, state) {
+    //     if (state is HeSigendUp) {
+    //       return const CreateOrJoinPage();
+    //     } else {
+    //       return
+
+           BlocProvider(
             create: (context) => SignupBloc(),
             child: Builder(builder: (context) {
               return Scaffold(
@@ -265,11 +268,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           ],
                         ),
                       )));
-            }),
-          );
-        }
-      },
-    );
+            }));
+      //    );
+    //    }
+  //    },
+// );
   }
 
   Widget _buildSignUpButton() {

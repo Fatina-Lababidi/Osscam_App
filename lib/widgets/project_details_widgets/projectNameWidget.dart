@@ -3,10 +3,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/widgets/project_details_widgets/pupUpMenuWidget.dart';
 
-
 class projectNameWidget extends StatelessWidget {
+  final String name;
   const projectNameWidget({
     super.key,
+    required this.name,
   });
 
   @override
@@ -29,13 +30,14 @@ class projectNameWidget extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-    //? here the drawer
+              //? here the drawer
             },
           ),
           const Spacer(),
-          const Text(
-    //?we will change this to widget.name depand on the prject we tap on
-            "project name",
+          Text(
+            //?we will change this to widget.name depand on the prject we tap on
+            name,
+            // "project name",
             style: TextStyle(fontSize: 25, color: Colors.white),
           ),
           const Spacer(),

@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.2.3
   animated_text_kit: ^4.2.2
   blur: ^3.1.0
+  shimmer: ^3.0.0
 
 
 dev_dependencies:

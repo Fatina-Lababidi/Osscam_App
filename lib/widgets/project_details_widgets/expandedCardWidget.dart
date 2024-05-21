@@ -1,9 +1,9 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
-import 'package:osscam/model/create_new_task.dart';
+import 'package:osscam/model/get_tasks_model.dart';
 
 class ExpandedCard extends StatelessWidget {
-  final CreateNewTaskModel task;
+  final GetAllTasks task;
   final Color color;
   final String status;
   final Color textAndIconColor;

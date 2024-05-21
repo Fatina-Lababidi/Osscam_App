@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
+import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
+import 'package:osscam/main.dart';
 import 'package:osscam/pages/create_new_project_page.dart';
 import 'package:osscam/widgets/app_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //360*800
 class CreateOrJoinPage extends StatefulWidget {
@@ -82,8 +85,12 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>CreateNewProjectPage(),
+                                          builder: (context) =>
+                                              CreateNewProjectPage(),
                                         ));
+                                    config
+                                        .get<SharedPreferences>()
+                                        .setBool('status', false);
                                   })
                               .animate()
                               .fadeIn(duration: .6.seconds, delay: .5.seconds);
@@ -232,6 +239,9 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                           //valediate
                           if (_joinController.text.isNotEmpty) {
                             //navigate
+                            config
+                                .get<SharedPreferences>()
+                                .setBool('status', false);
                             print('validate');
                           } else {
                             print('emty');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:osscam/model/create_new_task.dart';
+import 'package:osscam/model/get_tasks_model.dart';
 import 'package:osscam/widgets/project_details_widgets/itemWidget.dart';
 
 class DraggableColumn extends StatefulWidget {
@@ -7,7 +7,7 @@ class DraggableColumn extends StatefulWidget {
   final Color color;
   final String status;
   final Color textColor;
-  final Function(BuildContext, CreateNewTaskModel,Color,Color,String) onTap;
+  final Function(BuildContext, GetAllTasks,Color,Color,String) onTap;
   const DraggableColumn({
     Key? key,
     required this.widgetItems,
@@ -71,7 +71,7 @@ class _DraggableColumnState extends State<DraggableColumn> {
       onWillAccept: (data) {
         debugPrint('checking');
         if (data != null && data is ItemWidget) {
-          CreateNewTaskModel? taskModel = (data as ItemWidget).itemDescription;
+          GetAllTasks? taskModel = (data as ItemWidget).itemDescription;
           if (taskModel.taskDescription == 'Description 5') {
             // ScaffoldMessenger.of(context).showSnackBar(
             //   SnackBar(content: Text('Incorrect, please try again!')),

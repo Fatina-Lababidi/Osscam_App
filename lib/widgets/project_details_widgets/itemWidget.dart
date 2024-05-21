@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:osscam/model/create_new_task.dart';
+import 'package:osscam/model/get_tasks_model.dart';
 
 class ItemWidget extends StatelessWidget {
-  final CreateNewTaskModel itemDescription;
-  final Function(BuildContext, CreateNewTaskModel, Color, Color, String) onTap;
+  final GetAllTasks itemDescription;
+  final Function(BuildContext, GetAllTasks, Color, Color, String) onTap;
   final Color color;
   final Color textColor;
   final String status;

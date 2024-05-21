@@ -5,7 +5,6 @@ import 'package:osscam/bloc/createNewProject_bloc/create_new_project_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/create_new_project_model.dart';
-import 'package:osscam/pages/create_new_task_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
@@ -40,23 +39,26 @@ class CreateNewProjectPage extends StatelessWidget {
                   //     builder: (context) => GetProjectsPage(),
                   //   ),
                   // );
-                  Navigator.push(context, PageTransition(child:
-                  //CreateNewTaskPage(),
-GetProjectsPage(),
-                   type:PageTransitionType.fade));
-                } else if (State is ErrorCreateProject) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      action: SnackBarAction(label: "", onPressed: () {}),
-                      content: const Text("Error creating"),
-                      duration: Duration(seconds: 1),
-                    ),
-                  );
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child:
+                              //CreateNewTaskPage(),
+                              GetProjectsPage(),
+                          type: PageTransitionType.fade));
                 } else if (State is OfflineCreateProject) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
                       content: const Text("Offline while creating"),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                } else{
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      action: SnackBarAction(label: "", onPressed: () {}),
+                      content: const Text("Error creating"),
                       duration: Duration(seconds: 1),
                     ),
                   );

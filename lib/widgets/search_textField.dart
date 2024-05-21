@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
-import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/get_projects_model.dart';
 import 'package:osscam/pages/get_projects_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class SearchTextField extends StatefulWidget {
   //final String hintText;
@@ -54,7 +53,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
               duration: const Duration(
                 milliseconds: 300,
               ),
-              margin: const EdgeInsets.all(20),
+              margin: const EdgeInsets.all(15),
               padding: const EdgeInsets.only(left: 5, top: 2),
               decoration: BoxDecoration(
                 border: Border.all(

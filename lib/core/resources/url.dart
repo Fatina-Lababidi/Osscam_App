@@ -7,4 +7,7 @@ class AppUrl {
   static String get_projects_url = "${BaseService().baseUrl}projects";
   static String post_new_project_url = '${BaseService().baseUrl}projects';
   static String post_new_task_url = "${BaseService().baseUrl}tasks";
+  static String getTaskByProjectUrl(int projectId) {
+    return '${BaseService().baseUrl}tasks/tasks-by-project/$projectId';
+  }
 }
