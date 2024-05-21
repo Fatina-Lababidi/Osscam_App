@@ -1,6 +1,6 @@
 class AppUrl {
   static const String login_url =
-      "https://projects-management-system.onrender.com/api/v1/auth/authenticate";
+      "https://projects-management-system.onrender.com/api/v1/auth/login";
   static const String sign_up_url =
       "https://projects-management-system.onrender.com/api/v1/auth/register";
   static const String logout_url =

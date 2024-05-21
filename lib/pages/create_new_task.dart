@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osscam/bloc/createNewProject_bloc/create_new_project_bloc.dart';
 import 'package:osscam/bloc/createNewTask/create_new_task_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/model/create_new_project_model.dart';
 import 'package:osscam/model/create_new_task.dart';
-import 'package:osscam/model/get_projects_model.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 
+// ignore: must_be_immutable
 class CreateNewTaskPage extends StatelessWidget {
   CreateNewTaskPage({super.key});
 
@@ -52,7 +50,7 @@ class CreateNewTaskPage extends StatelessWidget {
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
                       content: const Text("Error creating"),
-                      duration: Duration(seconds: 1),
+                      duration:const Duration(seconds: 1),
                     ),
                   );
                 } else if (State is OfflineCreateTask) {
@@ -60,7 +58,7 @@ class CreateNewTaskPage extends StatelessWidget {
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
                       content: const Text("Offline while creating"),
-                      duration: Duration(seconds: 1),
+                      duration:const Duration(seconds: 1),
                     ),
                   );
                 }
@@ -121,7 +119,7 @@ class CreateNewTaskPage extends StatelessWidget {
                               },
                               controller: _taskNameController,
                               obscureText: false,
-                              style: TextStyle(color: AppColors.inputTextColor),
+                              style:const TextStyle(color: AppColors.inputTextColor),
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 16),
@@ -207,7 +205,7 @@ class CreateNewTaskPage extends StatelessWidget {
                             ),
                             child: TextFormField(
                               obscureText: false,
-                              style: TextStyle(color: AppColors.inputTextColor),
+                              style:const TextStyle(color: AppColors.inputTextColor),
                               cursorColor: AppColors.primaryColor,
                               maxLines: 12,
                               validator: (value) {

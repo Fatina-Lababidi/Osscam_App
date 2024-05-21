@@ -5,7 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
+import 'package:osscam/pages/project_details_page.dart';
 import 'package:osscam/widgets/search_textField.dart';
+import 'package:page_transition/page_transition.dart';
+
 //! we have to fix the text ..
 class GetProjectsPage extends StatefulWidget {
   const GetProjectsPage({super.key});
@@ -50,11 +53,13 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //     context,
-                                //     PageTransition(
-                                //         child: ProjectDetels(),
-                                //         type: PageTransitionType.fade));
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: ProjectDetailsPage(),
+                                    type: PageTransitionType.fade,
+                                  ),
+                                );
                               },
                               child: Container(
                                 // curve: Curves.easeInOut,
