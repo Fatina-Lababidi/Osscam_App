@@ -5,7 +5,7 @@ import 'package:osscam/widgets/project_details_widgets/draggableColumnWidget.dar
 import 'package:osscam/widgets/project_details_widgets/itemWidget.dart';
 
 class MyWidget extends StatefulWidget {
-  final Function(BuildContext, CreateNewTaskModel,Color,Color,String) showCardFouced;
+  final Function(BuildContext, CreateNewTaskModelWithColor,Color,Color,String) showCardFouced;
   const MyWidget({Key? key, required this.showCardFouced}) : super(key: key);
 
   @override
@@ -14,39 +14,39 @@ class MyWidget extends StatefulWidget {
 
 class _MyWidgetState extends State<MyWidget> {
 //? this data will came from back that just for testing ...
-  final List<CreateNewTaskModel> allTasks = [
-    CreateNewTaskModel(
-        taskName: 'Task 1',
+  final List<CreateNewTaskModelWithColor> allTasks = [
+    CreateNewTaskModelWithColor(
+        // taskName: 'Task 1',
         taskDescription: 'Description 1',
         taskStatus: 'NEW',
         project_id: 1),
-    CreateNewTaskModel(
-        taskName: 'Task 2',
+    CreateNewTaskModelWithColor(
+        // taskName: 'Task 2',
         taskDescription: 'Description 2',
         taskStatus: 'ON_PROGRESS',
         project_id: 1),
-    CreateNewTaskModel(
-        taskName: 'Task 3',
+    CreateNewTaskModelWithColor(
+        // taskName: 'Task 3',
         taskDescription: 'Description 3',
         taskStatus: 'DONE',
         project_id: 1),
-    CreateNewTaskModel(
-        taskName: 'Task 4',
+    CreateNewTaskModelWithColor(
+        // taskName: 'Task 4',
         taskDescription: 'Description 4',
         taskStatus: 'NEW',
         project_id: 1),
-    CreateNewTaskModel(
-        taskName: 'Task 5',
+    CreateNewTaskModelWithColor(
+        // taskName: 'Task 5',
         taskDescription: 'Description 5',
         taskStatus: 'ON_PROGRESS',
         project_id: 1),
-    CreateNewTaskModel(
-        taskName: 'Task 6',
+    CreateNewTaskModelWithColor(
+        // taskName: 'Task 6',
         taskDescription: 'Description 6',
         taskStatus: 'DONE',
         project_id: 1),
-    CreateNewTaskModel(
-        taskName: 'Task 7',
+    CreateNewTaskModelWithColor(
+        // taskName: 'Task 7',
         taskDescription: 'Description 7',
         taskStatus: 'ON_PROGRESS',
         project_id: 1),
@@ -56,22 +56,22 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     //?? we have to filtering the tasks by status ..
 
-    List<CreateNewTaskModel> newTasks = allTasks
+    List<CreateNewTaskModelWithColor> newTasks = allTasks
         .where((onlyNewtask) => onlyNewtask.taskStatus == "NEW")
         .toList();
 //! if we need to pass the color throw the model
     // List<CreateNewTaskModelWithColor> newColoredTask = List.generate(
     //     newTasks.length,
     //     (index) => CreateNewTaskModelWithColor(
-    //         taskName: newTasks[index].taskName,
+            // taskName: newTasks[index].taskName,
     //         taskDescription: newTasks[index].taskDescription,
     //         taskStatus: newTasks[index].taskStatus,
     //         project_id: newTasks[index].project_id,
     //         color: AppColors.checkboxColor));
 
-    List<CreateNewTaskModel> onProgressTasks =
+    List<CreateNewTaskModelWithColor> onProgressTasks =
         allTasks.where((task) => task.taskStatus == "ON_PROGRESS").toList();
-    List<CreateNewTaskModel> doneTasks =
+    List<CreateNewTaskModelWithColor> doneTasks =
         allTasks.where((task) => task.taskStatus == "DONE").toList();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

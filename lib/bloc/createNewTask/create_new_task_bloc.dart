@@ -5,8 +5,9 @@ import 'package:meta/meta.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/model/create_new_project_model.dart';
 import 'package:osscam/model/create_new_task.dart';
-import 'package:osscam/model/get_projects_model.dart';
+
 import 'package:osscam/service/create_new_task.dart';
+
 
 part 'create_new_task_event.dart';
 part 'create_new_task_state.dart';

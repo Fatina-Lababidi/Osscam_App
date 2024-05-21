@@ -6,6 +6,7 @@ import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/create_new_task.dart';
 import 'package:osscam/pages/get_projects_page.dart';
+import 'package:osscam/pages/project_details_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -37,7 +38,7 @@ class CreateNewTaskPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child:const GetProjectsPage(),
+                          child:const ProjectDetailsPage(),
                           type: PageTransitionType.fade));
                 } else if (State is ErrorCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -204,12 +205,11 @@ class CreateNewTaskPage extends StatelessWidget {
                                     context.read<CreateNewTaskBloc>().add(
                                             CreateNewTask(
                                                 createNewTaskModel:
-                                                    CreateNewTaskModel(
-                                         taskName: _taskNameController.text,
-                                          taskDescription:
+                                                    CreateNewTaskModelWithColor(
+                                        taskDescription:
                                               _taskDescriptionController.text,
                                           taskStatus: "NEW",
-                                          project_id:5 ,
+                                          project_id:5,
                                           // CreateNewTaskModel.fromJson("https://projects-management-system.onrender.com/api/v1/tasks").project_id ,//!we have to take it form back?
                                         ),
                                         //  id:ProjectsModel.fromJson("id").id

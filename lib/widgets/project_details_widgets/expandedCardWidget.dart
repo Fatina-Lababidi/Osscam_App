@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:osscam/model/create_new_task.dart';
 
 class ExpandedCard extends StatelessWidget {
-  final CreateNewTaskModel task;
+  final CreateNewTaskModelWithColor task;
   final Color color;
   final String status;
   final Color textAndIconColor;

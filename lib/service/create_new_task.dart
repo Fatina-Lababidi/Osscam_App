@@ -4,7 +4,7 @@ import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
 import 'package:osscam/model/create_new_task.dart';
 
-Future<bool> createNewTask(CreateNewTaskModel createNewTaskModel) async {
+Future<bool> createNewTask(CreateNewTaskModelWithColor createNewTaskModel) async {
   print(createNewTaskModel.toJson());
   try {
     Dio dio = Dio();

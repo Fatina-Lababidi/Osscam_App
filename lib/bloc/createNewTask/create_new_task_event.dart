@@ -7,7 +7,7 @@ sealed class CreateNewTaskEvent {}
 // i need int value : id , and i will get it from projectModel
 class CreateNewTask extends CreateNewTaskEvent {
 //  int id;
-  CreateNewTaskModel createNewTaskModel;
+  CreateNewTaskModelWithColor createNewTaskModel;
   CreateNewTask({
   //  required this.id,
     required this.createNewTaskModel,

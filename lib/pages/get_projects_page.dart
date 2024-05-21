@@ -138,13 +138,13 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                   itemCount: state.projects.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
-                                      onTap: () {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     PageTransition(
-                                        //         child: ProjectDetels(),
-                                        //         type: PageTransitionType.fade));
-                                      },
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  child: CreateNewTaskPage( ),
+                                                  type: PageTransitionType.fade));
+                                        },
                                       child: Container(
                                         // curve: Curves.easeInOut,
                                         //  duration:

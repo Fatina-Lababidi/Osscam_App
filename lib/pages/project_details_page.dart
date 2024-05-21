@@ -31,7 +31,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
   }
 
   void _showCardExpanded(
-      BuildContext context, CreateNewTaskModel task, Color color,Color textColor,String status) {
+      BuildContext context, CreateNewTaskModelWithColor task, Color color,Color textColor,String status) {
     Navigator.push(
         context,
         PageTransition(
@@ -85,7 +85,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
               child: MyWidget(
                 showCardFouced:
                     //!! we can make it as function  before the build ?
-                    (BuildContext context, CreateNewTaskModel task,
+                    (BuildContext context, CreateNewTaskModelWithColor task,
                         Color color,Color textColor,String status) {
                   _showCardExpanded(context, task, color,textColor,status);
                 },
