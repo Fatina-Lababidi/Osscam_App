@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/bloc/login_bloc/auth_bloc.dart';
+import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/login_user_model.dart';
@@ -13,6 +14,7 @@ import 'package:osscam/pages/sign_up_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LogInPage extends StatefulWidget {
   LogInPage({Key? key}) : super(key: key);
@@ -66,6 +68,7 @@ class _LogInPageState extends State<LogInPage> {
                           builder: (context) => CreateOrJoinPage(),
                         ),
                       );
+                      context.read<AppBloc>().add(LoggedIn());
                     } else if (state is AuthOffline) {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Offline,please try later')));
@@ -118,9 +121,9 @@ class _LogInPageState extends State<LogInPage> {
                     ),
                   ),
                 ),
-                //  ),
+                 
               );
-            }),
+        }),
           );
         }
       },
@@ -186,7 +189,7 @@ class _LogInPageState extends State<LogInPage> {
       text: "Password",
       controller: _passwordController,
     ).animate().fade(delay: .7.seconds, duration: .8.seconds);
-    // );
+    
   }
 
   Widget _buildRememberMeCheckbox() {
@@ -198,7 +201,9 @@ class _LogInPageState extends State<LogInPage> {
           value: isChecked,
           onChanged: (value) {
             setState(() {
-              isChecked = !isChecked;
+              isChecked = value!;
+              // isChecked = !isChecked;
+                  config.get<SharedPreferences>().setBool('remember me', isChecked);
             });
           },
         ),
@@ -260,30 +265,8 @@ class _LogInPageState extends State<LogInPage> {
         }
       },
     ).animate().fade(delay: .5.seconds, duration: .6.seconds);
-    //);
+  
   }
-
-  // Widget _buildSuccessIndicator() {
-  //   return Container(
-  //     color: Colors.green,
-  //     width: 100,
-  //     height: 50,
-  //     child: const Center(
-  //       child: Icon(Icons.check),
-  //     ),
-  //   );
-  // }
-
-  // Widget _buildFailedIndicator() {
-  //   return Container(
-  //     color: Colors.red,
-  //     width: 100,
-  //     height: 50,
-  //     child: const Center(
-  //       child: Icon(Icons.check),
-  //     ),
-  //   );
-  // }
 
   Widget _buildLoadingIndicator() {
     return const CircularProgressIndicator(

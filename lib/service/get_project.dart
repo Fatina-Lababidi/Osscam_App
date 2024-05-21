@@ -9,13 +9,15 @@ Future getProjects() async {
   Dio dio = Dio();
 
   print(config.get<SharedPreferences>().getString('token'));
-  Response response = await dio.get(
-    AppUrl.get_projects_url,
-       options: getHeader(true)
-  );
+  Response response =
+      await dio.get(AppUrl.get_projects_url, options: getHeader(true));
 
   if (response.statusCode == 200) {
     dynamic responseData = response.data;
+    // final test = config
+    //     .get<SharedPreferences>()
+    //     .setStringList('projects', response.data['name']);
+    // print(test);
     print(responseData);
     return responseData;
   } else {

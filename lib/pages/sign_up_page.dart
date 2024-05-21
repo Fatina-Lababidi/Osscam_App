@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/bloc/sign_up_bloc/signup_bloc.dart';
+import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/register_model.dart';
@@ -37,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return BlocBuilder<AppBloc, AppState>(
       builder: (context, state) {
         if (state is HeSigendUp) {
-          return LogInPage();
+          return const CreateOrJoinPage();
         } else {
           return BlocProvider(
             create: (context) => SignupBloc(),
@@ -183,7 +184,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                                     value: isChecked,
                                                     onChanged: (value) {
                                                       setState(() {
-                                                        isChecked = !isChecked;
+                                                        isChecked = value!;
+                                                        // isChecked = !isChecked;
+                                                         config.get<SharedPreferences>().setBool('remember me', isChecked);
                                                       });
                                                     },
                                                   ),

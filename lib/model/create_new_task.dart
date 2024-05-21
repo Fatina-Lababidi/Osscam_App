@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -55,7 +54,9 @@ class CreateNewTaskModelWithColor {
 
   String toJson() => json.encode(toMap());
 
-  factory CreateNewTaskModelWithColor.fromJson(String source) => CreateNewTaskModelWithColor.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory CreateNewTaskModelWithColor.fromJson(String source) =>
+      CreateNewTaskModelWithColor.fromMap(
+          json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -66,28 +67,27 @@ class CreateNewTaskModelWithColor {
   bool operator ==(covariant CreateNewTaskModelWithColor other) {
     if (identical(this, other)) return true;
 
-    return
-      other.taskName == taskName &&
-      other.taskDescription == taskDescription &&
-      other.taskStatus == taskStatus &&
-      other.project_id == project_id &&
-      other.color == color;
+    return other.taskName == taskName &&
+        other.taskDescription == taskDescription &&
+        other.taskStatus == taskStatus &&
+        other.project_id == project_id &&
+        other.color == color;
   }
 
   @override
   int get hashCode {
     return taskName.hashCode ^
-      taskDescription.hashCode ^
-      taskStatus.hashCode ^
-      project_id.hashCode ^
-      color.hashCode;
+        taskDescription.hashCode ^
+        taskStatus.hashCode ^
+        project_id.hashCode ^
+        color.hashCode;
   }
 }
 
 class CreateNewTaskModel {
   String taskName;
   String taskDescription;
-  String taskStatus = "NEW";
+  String taskStatus;
   int project_id;
   CreateNewTaskModel({
     required this.taskName,
@@ -97,13 +97,13 @@ class CreateNewTaskModel {
   });
 
   CreateNewTaskModel copyWith({
-    String? taskName,
+    String ? taskName,
     String? taskDescription,
     String? taskStatus,
     int? project_id,
   }) {
     return CreateNewTaskModel(
-      taskName: taskName ?? this.taskName,
+        taskName: taskName ?? this.taskName,
       taskDescription: taskDescription ?? this.taskDescription,
       taskStatus: taskStatus ?? this.taskStatus,
       project_id: project_id ?? this.project_id,
@@ -112,7 +112,6 @@ class CreateNewTaskModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'taskName': taskName,
       'taskDescription': taskDescription,
       'taskStatus': taskStatus,
       'project_id': project_id,
@@ -121,7 +120,7 @@ class CreateNewTaskModel {
 
   factory CreateNewTaskModel.fromMap(Map<String, dynamic> map) {
     return CreateNewTaskModel(
-      taskName: map['taskName'] as String,
+         taskName: map['taskName'] as String,
       taskDescription: map['taskDescription'] as String,
       taskStatus: map['taskStatus'] as String,
       project_id: map['project_id'] as int,
@@ -135,7 +134,7 @@ class CreateNewTaskModel {
 
   @override
   String toString() {
-    return 'CreateNewTaskModel(taskName: $taskName, taskDescription: $taskDescription, taskStatus: $taskStatus, project_id: $project_id)';
+    return 'CreateNewTaskModel( taskDescription: $taskDescription, taskStatus: $taskStatus, project_id: $project_id)';
   }
 
   @override
