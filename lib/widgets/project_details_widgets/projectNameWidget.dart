@@ -12,8 +12,9 @@ class projectNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.sizeOf(context).height;
     return Container(
-      height: 51,
+      height:screenHeight*0.07, //51,
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.only(left: 10, right: 10),
       decoration: BoxDecoration(
@@ -38,7 +39,10 @@ class projectNameWidget extends StatelessWidget {
             //?we will change this to widget.name depand on the prject we tap on
             name,
             // "project name",
-            style: TextStyle(fontSize: 25, color: Colors.white),
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize:screenHeight*0.03 ,//25,
+             color: Colors.white),
           ),
           const Spacer(),
           Container(
@@ -50,7 +54,7 @@ class projectNameWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 2,
+            width: 5,
           ),
           PopUpMenuWidget(),
         ],

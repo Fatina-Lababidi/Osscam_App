@@ -7,7 +7,7 @@ class DraggableColumn extends StatefulWidget {
   final Color color;
   final String status;
   final Color textColor;
-  final Function(BuildContext, GetAllTasks,Color,Color,String) onTap;
+  final Function(BuildContext, GetAllTasks, Color, Color, String) onTap;
   const DraggableColumn({
     Key? key,
     required this.widgetItems,
@@ -88,46 +88,68 @@ class _DraggableColumnState extends State<DraggableColumn> {
           // but we can design it better not to appeare
           children: items.isEmpty
               ? [
-                  Container(
-                    padding: EdgeInsets.all(16),
-                    height: 100,
-                    width: MediaQuery.sizeOf(context).width * 0.2,
-                    //color: widget.color.withOpacity(0.2),
-                    child: Center(
-                      child: Text('drop '),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 2, right: 2, bottom: 15),
+                    child: Container(
+                      width: 150,
+                      height: 100,
+                      child: Center(
+                        child: Text('drop '),
+                      ),
+                      //elevation: 4
                     ),
-                  )
+                  ),
                 ]
               : items
                   .map(
                     (item) => Draggable<Widget>(
                       data: item,
                       feedback: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            elevation: 8,
-                            color: widget.color,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      widget.status,
-                                      style: TextStyle(color: widget.textColor),
-                                    ),
-                                    Icon(
-                                      Icons.pest_control_outlined,
-                                      color: widget.textColor,
-                                    )
-                                  ],
-                                ),
-                                item,
-                              ],
+                          padding: const EdgeInsets.only(
+                              left: 2, right: 2, bottom: 15),
+                          child: Material(
+                            borderRadius: BorderRadius.circular(7),
+                            child: Container(
+                              width: 150,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                                color: widget.color,
+                              ),
+                              //  elevation: 8,
+
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        widget.status,
+                                        style:
+                                            TextStyle(color: widget.textColor),
+                                      ),
+                                      Icon(
+                                        Icons.pest_control_outlined,
+                                        color: widget.textColor,
+                                      )
+                                    ],
+                                  ),
+                                  item,
+                                ],
+                              ),
                             ),
                           )),
-                      childWhenDragging: SizedBox(
-                        width: 150,
+                      childWhenDragging: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 2, right: 2, bottom: 15),
+                        child: SizedBox(
+                          width: 150,
+                          height: 100,
+                        ),
                       ),
+                      // SizedBox(
+                      //  width: 150,
+                      //),
                       onDragCompleted: () {
                         //!! maybe here we have to make a conditoin depends on the response of the update request .......
                         //! maybe if its return true so update the ui using setState bellow ,if it false do nothing
@@ -139,13 +161,20 @@ class _DraggableColumnState extends State<DraggableColumn> {
                         print('privous status:' + widget.status);
                       },
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          elevation: 4,
-                          color: widget.color,
+                        padding: const EdgeInsets.only(
+                            left: 2, right: 2, bottom: 15),
+                        child: Container(
+                          width: 150,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: widget.color,
+                          ),
                           child: Column(
                             children: [
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     widget.status,

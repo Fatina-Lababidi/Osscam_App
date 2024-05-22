@@ -23,11 +23,11 @@ class ItemWidget extends StatelessWidget {
         status,
       ),
       child: Container(
-        margin: const EdgeInsets.all(10),
-        width: screenWidth * 0.2, //150,
-        height: 73,
+        margin: const EdgeInsets.all(5),
+        width:170,// screenWidth * 0.2, //150,
+        height:65,// 73,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(7),
           color: Colors.white,
         ),
         child: Center(

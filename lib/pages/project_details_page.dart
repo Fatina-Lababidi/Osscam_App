@@ -63,6 +63,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight= MediaQuery.sizeOf(context).height;
     //? this way divide the text into words ,but we also can use text.subString(0,100) to divide it by letters
     //? this will came from widget.description :
     String text = widget.projectDescription;
@@ -84,6 +85,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                   return SingleChildScrollView(
                     child: Column(
                       children: [
+                        SizedBox(height:screenHeight*0.03 ,),
                         projectNameWidget(
                           name: widget.projectName,
                         )
@@ -95,12 +97,12 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                           isExpanded: _isExpanded,
                           changeContainerExpanded: _changeContainerExpanded,
                         ),
-                        const SizedBox(
-                          height: 10,
+                         SizedBox(
+                          height:screenHeight*0.05,
                         ),
                         SizedBox(
                           width: double.infinity,
-                          height: 3000,
+                          height: 6000,
                            // Expanded(
                           //!! i have to fix this ...if i remove it there is no space to add new stuff
                           child: MyWidget(

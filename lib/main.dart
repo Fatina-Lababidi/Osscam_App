@@ -16,7 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   // A a = A(name: 'name', App: APP.COMPLETED.name);
   Bloc.observer = MyBlocObserver();
- init();
+  init();
   runApp(MyApp());
 }
 
@@ -90,10 +90,8 @@ class MyApp extends StatelessWidget {
 
 class HomeScreen extends StatelessWidget {
   Future<void> _clearToken() async {
-     config.get<SharedPreferences>().clear();
-    // final prefs = await SharedPreferences.getInstance();
-    // await prefs
-    //     .remove('access_token'); // 'token' is the key of the value to be removed
+    config.get<SharedPreferences>().remove('token');
+    // config.get<SharedPreferences>().clear();
     print('Token removed from SharedPreferences');
   }
 
@@ -106,13 +104,13 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Center(
           child: ElevatedButton(
-            onPressed: () {
-              _clearToken();
-            },
-            child: Text('Clear Token'),
-          ),
+              onPressed: () {
+                _clearToken();
+              },
+              child: Text('Clear Token')),
         ),
       ),
     );
   }
 }
+//ff22@gmail.com, ffffffffff
