@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
                   PageTransition(
                       child: GetProjectsPage(), type: PageTransitionType.fade));
             }
-          },
+          }, //!! we have to fix this
           child: Text('hello'),
         ),
 

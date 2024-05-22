@@ -6,7 +6,6 @@ import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/main.dart';
 import 'package:osscam/pages/create_new_project_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';

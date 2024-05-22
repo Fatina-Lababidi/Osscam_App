@@ -8,12 +8,13 @@ class ItemWidget extends StatelessWidget {
   final Color textColor;
   final String status;
 
-  const ItemWidget(this.itemDescription, this.onTap, this.color, this.textColor, this.status);
+  const ItemWidget(this.itemDescription, this.onTap, this.color, this.textColor,
+      this.status);
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    // final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onDoubleTap: () => onTap(
         context,
@@ -24,8 +25,8 @@ class ItemWidget extends StatelessWidget {
       ),
       child: Container(
         margin: const EdgeInsets.all(5),
-        width:170,// screenWidth * 0.2, //150,
-        height:65,// 73,
+        width: screenWidth * 0.3, //170,
+        height: screenHeight * 0.08, //65,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           color: Colors.white,

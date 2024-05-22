@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/logout_bloc/logout_bloc.dart';
 import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
+import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/model/get_tasks_model.dart';
 import 'package:osscam/widgets/project_details_widgets/expandedCardWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/myWidget.dart';
@@ -63,7 +64,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight= MediaQuery.sizeOf(context).height;
+    final double screenHeight = MediaQuery.sizeOf(context).height;
     //? this way divide the text into words ,but we also can use text.subString(0,100) to divide it by letters
     //? this will came from widget.description :
     String text = widget.projectDescription;
@@ -71,9 +72,16 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
     int wrodsCount = 30;
     final words = text.split(' ');
     final lessText = words.take(wrodsCount).join(' ');
-    return BlocProvider<ProjectTaskBloc>(
-      create: (context) =>
-          ProjectTaskBloc()..add(GetTasksByProject(widget.projectId)),
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProjectTaskBloc>(
+            create: (context) =>
+                ProjectTaskBloc()..add(GetTasksByProject(widget.projectId))),
+        BlocProvider<UpdateTaskStatusBloc>(
+          create: (context) => UpdateTaskStatusBloc(),
+        )
+      ],
       child: Builder(
         builder: (context) {
           return Scaffold(
@@ -85,7 +93,9 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                   return SingleChildScrollView(
                     child: Column(
                       children: [
-                        SizedBox(height:screenHeight*0.03 ,),
+                        SizedBox(
+                          height: screenHeight * 0.03,
+                        ),
                         projectNameWidget(
                           name: widget.projectName,
                         )
@@ -97,30 +107,34 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                           isExpanded: _isExpanded,
                           changeContainerExpanded: _changeContainerExpanded,
                         ),
-                         SizedBox(
-                          height:screenHeight*0.05,
-                        ),
                         SizedBox(
-                          width: double.infinity,
-                          height: 6000,
-                           // Expanded(
-                          //!! i have to fix this ...if i remove it there is no space to add new stuff
-                          child: MyWidget(
-                            tasks: tasks,
-                            showCardFouced:
-                                //!! we can make it as function  before the build ?
-                                (BuildContext context,
-                                    GetAllTasks task,
-                                    Color color,
-                                    Color textColor,
-                                    String status) {
-                              _showCardExpanded(
-                                  context, task, color, textColor, status);
-                            },
-                          ),
-                        )
-                            .animate()
-                            .fade(duration: .7.seconds, delay: .6.seconds),
+                          height: screenHeight * 0.05,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 6000,
+                            // Expanded(
+                            //!! i have to fix this ...if i remove it there is no space to add new stuff
+                            child: MyWidget(
+                              project_id: widget.projectId,
+                              tasks: tasks,
+                              showCardFouced:
+                                  //!! we can make it as function  before the build ?
+                                  (BuildContext context,
+                                      GetAllTasks task,
+                                      Color color,
+                                      Color textColor,
+                                      String status) {
+                                _showCardExpanded(
+                                    context, task, color, textColor, status);
+                              },
+                            ),
+                          )
+                              .animate()
+                              .fade(duration: .7.seconds, delay: .6.seconds),
+                        ),
                       ],
                     ),
                   );

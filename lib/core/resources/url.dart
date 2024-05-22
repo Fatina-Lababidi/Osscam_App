@@ -10,4 +10,8 @@ class AppUrl {
   static String getTaskByProjectUrl(int projectId) {
     return '${BaseService().baseUrl}tasks/tasks-by-project/$projectId';
   }
+
+  static String updateTasksStatusUrl(int taskId) {
+    return '${BaseService().baseUrl}tasks/$taskId';
+  }
 }
