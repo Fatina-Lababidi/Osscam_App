@@ -29,7 +29,7 @@ class LogoutPage extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     icon: Icon(
-                      Icons.arrow_back,
+                      Icons.logout_outlined,
                       color: AppColors.buttonColor,
                     ),
                   ),

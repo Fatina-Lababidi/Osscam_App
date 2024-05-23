@@ -7,7 +7,9 @@ final class UpdateTaskStatusInitial extends UpdateTaskStatusState {}
 
 class FailedUpdate extends UpdateTaskStatusState{}//error
 
-class SuccessUpdate extends UpdateTaskStatusState{}
+class SuccessUpdate extends UpdateTaskStatusState{
+
+}
 
 class OfflineUpdate extends UpdateTaskStatusState{}
 

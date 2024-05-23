@@ -13,12 +13,13 @@ class CreateNewTaskBloc extends Bloc<CreateNewTaskEvent, CreateNewTaskState> {
     on<CreateNewTask>((event, emit) async {
       try {
         emit(LoadingCreateTask());
-        dynamic temp = await createNewTask(event.createNewTaskModel);
-        if (temp) {
-          emit(SuccessCreateTask());
-          CreateNewTaskEvent;
-        } else {
+        var temp = await createNewTask(event.taskModel);
+        if (temp is String) {
           emit(ErrorCreateTask());
+          // CreateNewTaskEvent;
+        } else {
+           CreateNewTaskModel taskModel = CreateNewTaskModel.fromMap(temp);
+          emit(SuccessCreateTask(taskModel: taskModel));
         }
       } on DioException catch (e) {
         if (e.error is SocketException) {

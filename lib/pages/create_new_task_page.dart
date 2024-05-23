@@ -225,7 +225,7 @@ class CreateNewTaskPage extends StatelessWidget {
                                     context
                                         .read<CreateNewTaskBloc>()
                                         .add(CreateNewTask(
-                                          createNewTaskModel:
+                                          taskModel:
                                               CreateNewTaskModel(
                                             //  taskName: _taskNameController.text,
                                             taskDescription:
@@ -233,7 +233,7 @@ class CreateNewTaskPage extends StatelessWidget {
                                             taskStatus: "NEW",
                                             project_id: project_id,
                                             // CreateNewTaskModel.fromJson("https://projects-management-system.onrender.com/api/v1/tasks").project_id ,//!we have to take it form back?
-                                          ),
+                                          ),  
                                           //  id:ProjectsModel.fromJson("id").id
                                         ));
                                   }

@@ -22,7 +22,7 @@ class _AddNewTaskState extends State<AddNewTask> {
             color: AppColors.cardPurpleColor,
           ),
           child: Center(child: TextField(
-            
+            decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
           )),
         ),
       ),
