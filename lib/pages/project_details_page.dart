@@ -68,7 +68,8 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
     final double screenHeight = MediaQuery.sizeOf(context).height;
     //? this way divide the text into words ,but we also can use text.subString(0,100) to divide it by letters
     //? this will came from widget.description :
-    String text = widget.projectDescription + ' Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F';
+    String text = widget.projectDescription +
+        ' Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F';
     int wrodsCount = 30;
     final words = text.split(' ');
     final lessText = words.take(wrodsCount).join(' ');
@@ -80,6 +81,9 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                 ProjectTaskBloc()..add(GetTasksByProject(widget.projectId))),
         BlocProvider<UpdateTaskStatusBloc>(
           create: (context) => UpdateTaskStatusBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(),
         )
       ],
       child: Builder(

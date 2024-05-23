@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
+import 'package:osscam/pages/create_new_project_page.dart';
+import 'package:osscam/pages/create_or_join_page.dart';
+import 'package:osscam/pages/logout_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DrawerWidget extends StatelessWidget {
   @override
@@ -11,7 +15,6 @@ class DrawerWidget extends StatelessWidget {
     return Drawer(
       backgroundColor: AppColors.drawerColor,
       width: screenWidth * 0.6,
-
       child: Column(
         children: [
           SizedBox(
@@ -71,6 +74,11 @@ class DrawerWidget extends StatelessWidget {
             ),
             onTap: () {
               //navigate to create page
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: CreateOrJoinPage(),
+                      type: PageTransitionType.fade));
             },
           ),
           SizedBox(
@@ -111,6 +119,11 @@ class DrawerWidget extends StatelessWidget {
             ),
             onTap: () {
               //navigate to change language page
+              Navigator.push(
+                context,
+                PageTransition(
+                    child: LogoutPage(), type: PageTransitionType.fade),
+              );
             },
           ),
           SizedBox(

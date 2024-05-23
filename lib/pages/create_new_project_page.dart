@@ -6,7 +6,8 @@ import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/create_new_project_model.dart';
 import 'package:osscam/pages/create_new_task_page.dart';
-import 'package:osscam/pages/get_projects_page.dart';
+import 'package:osscam/pages/error_page.dart';
+import 'package:osscam/pages/offline_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -43,9 +44,10 @@ class CreateNewProjectPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child:
-                              CreateNewTaskPage(),
-                             // GetProjectsPage(),
+                          child: CreateNewTaskPage(
+                            project_id: state.project.id,
+                          ),
+                          // GetProjectsPage(),
                           type: PageTransitionType.fade));
                 } else if (State is OfflineCreateProject) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -55,7 +57,13 @@ class CreateNewProjectPage extends StatelessWidget {
                       duration: Duration(seconds: 1),
                     ),
                   );
-                } else{
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child:
+                              OfflinePage(previousPage: CreateNewProjectPage()),
+                          type: PageTransitionType.fade));
+                } else if(state is ErrorCreateProject){
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
@@ -63,6 +71,12 @@ class CreateNewProjectPage extends StatelessWidget {
                       duration: Duration(seconds: 1),
                     ),
                   );
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child:
+                              ErrorPage(previousPage: CreateNewProjectPage()),
+                          type: PageTransitionType.fade));
                 }
               },
               child: Form(
