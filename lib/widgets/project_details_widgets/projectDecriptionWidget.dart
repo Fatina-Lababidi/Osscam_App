@@ -32,7 +32,7 @@ class ProjectDescriptionWidget extends StatelessWidget {
           ),
           //! second way : this better
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(5),
             child: RichText(
               text: TextSpan(
                   text: isExpanded ? text : lessText,

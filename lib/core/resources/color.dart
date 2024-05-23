@@ -18,5 +18,7 @@ class AppColors {
   static const Color progressTextColor = Color(0xffA2473B);
   static const Color doneTextColor = Color(0xff5CB35F);
   static const Color dropTextColor = Color(0xff747474);
+  static const Color drawerColor = Color(0xff0C4266);
+  static const Color drawerDetailsColor = Color(0xff90C6CD);
 // to use in main : AppColors.primaryColor
 }

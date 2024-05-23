@@ -3,13 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/core/config/bloc_observe.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
-import 'package:osscam/pages/create_new_project_page.dart';
 import 'package:osscam/pages/create_or_join_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/pages/interance_page.dart';
 import 'package:osscam/pages/login_page.dart';
-import 'package:osscam/pages/sign_up_page.dart';
-import 'package:osscam/widgets/project_loading_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

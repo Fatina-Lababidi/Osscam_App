@@ -5,6 +5,7 @@ import 'package:osscam/bloc/createNewProject_bloc/create_new_project_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/create_new_project_model.dart';
+import 'package:osscam/pages/create_new_task_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
@@ -43,8 +44,8 @@ class CreateNewProjectPage extends StatelessWidget {
                       context,
                       PageTransition(
                           child:
-                              //CreateNewTaskPage(),
-                              GetProjectsPage(),
+                              CreateNewTaskPage(),
+                             // GetProjectsPage(),
                           type: PageTransitionType.fade));
                 } else if (State is OfflineCreateProject) {
                   ScaffoldMessenger.of(context).showSnackBar(

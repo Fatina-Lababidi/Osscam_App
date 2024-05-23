@@ -6,6 +6,7 @@ import 'package:osscam/bloc/logout_bloc/logout_bloc.dart';
 import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/model/get_tasks_model.dart';
+import 'package:osscam/widgets/project_details_widgets/drawer.dart';
 import 'package:osscam/widgets/project_details_widgets/expandedCardWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/myWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/projectDecriptionWidget.dart';
@@ -67,8 +68,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
     final double screenHeight = MediaQuery.sizeOf(context).height;
     //? this way divide the text into words ,but we also can use text.subString(0,100) to divide it by letters
     //? this will came from widget.description :
-    String text = widget.projectDescription;
-    // ' Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F';
+    String text = widget.projectDescription + ' Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F Enterprise equipment management system Through which information is stored All types of equipment available And all maintenance operations are with Possibility of issuing reports and statements F';
     int wrodsCount = 30;
     final words = text.split(' ');
     final lessText = words.take(wrodsCount).join(' ');
@@ -85,6 +85,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
       child: Builder(
         builder: (context) {
           return Scaffold(
+            drawer: DrawerWidget(),
             backgroundColor: AppColors.primaryColor,
             body: BlocBuilder<ProjectTaskBloc, ProjectTaskState>(
               builder: (context, state) {

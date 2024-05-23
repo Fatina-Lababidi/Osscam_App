@@ -32,6 +32,7 @@ class projectNameWidget extends StatelessWidget {
             ),
             onPressed: () {
               //? here the drawer
+               Scaffold.of(context).openDrawer();
             },
           ),
           const Spacer(),

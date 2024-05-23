@@ -6,7 +6,7 @@ import 'package:osscam/core/resources/url.dart';
 
 Future updateTaskStatus(int taskId, String taskDescription, String taskStatus,
     int project_id) async {
-  // try {
+  try {
   Dio dio = Dio();
   final url = AppUrl.updateTasksStatusUrl(taskId);
   Response response = await dio.put(
@@ -25,16 +25,16 @@ Future updateTaskStatus(int taskId, String taskDescription, String taskStatus,
   } else {
     return false;
   }
-  // } on DioException catch (e) {
-  //   if (e.error is SocketException) {
-  //     print('Offline: ${e.message}');
-  //     throw e;
-  //   } else if (e.response != null && e.response!.statusCode == 403) {
-  //     print('Forbidden: ${e.response!.data}');
-  //     throw e;
-  //   } else {
-  //     print('Dio error: ${e.message}');
-  //     throw e;
-  //   }
-  // }
+  } on DioException catch (e) {
+    if (e.error is SocketException) {
+      print('Offline: ${e.message}');
+      throw e;
+    } else if (e.response != null && e.response!.statusCode == 403) {
+      print('Forbidden: ${e.response!.data} dio Error${e.response!.statusCode}');
+      throw e;
+    } else {
+      print('Dio error: ${e.message}');
+      throw e;
+    }
+  }
 }
