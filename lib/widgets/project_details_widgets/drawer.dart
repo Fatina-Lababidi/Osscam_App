@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/pages/create_new_project_page.dart';
 import 'package:osscam/pages/create_or_join_page.dart';
 import 'package:osscam/pages/logout_page.dart';
 import 'package:page_transition/page_transition.dart';
@@ -43,14 +42,13 @@ class DrawerWidget extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: screenWidth * 0.05,
-              //fontWeight: FontWeight.bold,
               fontFamily: 'Frijole',
             ),
           ),
           SizedBox(
             height: screenHeight * 0.02,
           ),
-          Divider(
+          const Divider(
             color: AppColors.drawerDetailsColor,
             endIndent: 5,
             indent: 5,
@@ -60,7 +58,7 @@ class DrawerWidget extends StatelessWidget {
             height: screenHeight * 0.03,
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.link,
               color: AppColors.drawerDetailsColor,
             ),
@@ -77,7 +75,7 @@ class DrawerWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   PageTransition(
-                      child: CreateOrJoinPage(),
+                      child: const CreateOrJoinPage(),
                       type: PageTransitionType.fade));
             },
           ),
@@ -85,7 +83,7 @@ class DrawerWidget extends StatelessWidget {
             height: screenHeight * 0.03,
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.library_books,
               color: AppColors.drawerDetailsColor,
             ),
@@ -122,14 +120,14 @@ class DrawerWidget extends StatelessWidget {
               Navigator.push(
                 context,
                 PageTransition(
-                    child: LogoutPage(), type: PageTransitionType.fade),
+                    child: const LogoutPage(), type: PageTransitionType.fade),
               );
             },
           ),
           SizedBox(
             height: screenHeight * 0.03,
           ),
-          Divider(
+          const Divider(
             color: AppColors.drawerDetailsColor,
             endIndent: 5,
             indent: 5,

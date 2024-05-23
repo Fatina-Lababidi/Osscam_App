@@ -40,11 +40,19 @@ class _DraggableColumnState extends State<DraggableColumn> {
   }
 
   void taskUpdateStatus(Widget item, GetAllTasks taskModel) {
+    String status;
+    if (widget.status == "Done") {
+      status = "COMPLETED";
+    } else if (widget.status == "Backing") {
+      status = "NEW";
+    } else {
+      status = "IN_PROGRESS";
+    }
     context.read<UpdateTaskStatusBloc>().add(
           UpdateEvent(
             task_id: taskModel.taskId,
             project_id: widget.project_id,
-            taskStatus: widget.status,
+            taskStatus: status,
             taskDescription: taskModel.taskDescription,
           ),
         );

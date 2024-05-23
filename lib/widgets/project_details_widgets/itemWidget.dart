@@ -24,8 +24,8 @@ class ItemWidget extends StatelessWidget {
         status,
       ),
       child: Container(
-        margin: const EdgeInsets.all(5),
-        width: screenWidth * 0.3, //170,
+        //margin: const EdgeInsets.all(5),
+        width: screenWidth * 0.25, //170,
         height: screenHeight * 0.08, //65,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),

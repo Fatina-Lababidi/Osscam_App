@@ -12,6 +12,6 @@ class AppUrl {
   }
 
   static String updateTasksStatusUrl(int taskId) {
-    return '${BaseService().baseUrl}tasks/$taskId';
+    return '${BaseService().baseUrl}tasks/${taskId}';
   }
 }

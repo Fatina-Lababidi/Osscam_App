@@ -79,9 +79,9 @@ class _MyWidgetState extends State<MyWidget> {
     //         color: AppColors.checkboxColor));
 
     List<GetAllTasks> onProgressTasks =
-        allTasks.where((task) => task.taskStatus == "ON_PROGRESS").toList();
+        allTasks.where((task) => task.taskStatus == "IN_PROGRESS").toList();
     List<GetAllTasks> doneTasks =
-        allTasks.where((task) => task.taskStatus == "DONE").toList();
+        allTasks.where((task) => task.taskStatus == "COMPLETED").toList();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [

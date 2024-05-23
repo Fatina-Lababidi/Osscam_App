@@ -55,7 +55,7 @@ class _LogInPageState extends State<LogInPage> {
         //     } else {
 
         //       return
-        BlocProvider(
+        BlocProvider<AuthBloc>(
       create: (context) => AuthBloc(),
       child: Builder(builder: (context) {
         return Scaffold(

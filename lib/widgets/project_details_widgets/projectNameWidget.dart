@@ -12,9 +12,11 @@ class projectNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+
     final double screenHeight = MediaQuery.sizeOf(context).height;
     return Container(
-      height:screenHeight*0.07, //51,
+      height: screenHeight * 0.07, //51,
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.only(left: 10, right: 10),
       decoration: BoxDecoration(
@@ -32,7 +34,7 @@ class projectNameWidget extends StatelessWidget {
             ),
             onPressed: () {
               //? here the drawer
-               Scaffold.of(context).openDrawer();
+              Scaffold.of(context).openDrawer();
             },
           ),
           const Spacer(),
@@ -41,9 +43,9 @@ class projectNameWidget extends StatelessWidget {
             name,
             // "project name",
             style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize:screenHeight*0.03 ,//25,
-             color: Colors.white),
+                fontWeight: FontWeight.w600,
+                fontSize: screenWidth * 0.05, //screenHeight * 0.03, //25,
+                color: Colors.white),
           ),
           const Spacer(),
           Container(

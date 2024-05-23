@@ -17,7 +17,6 @@ void main() {
   runApp(MyApp());
 }
 
-//bool hisFirstTime = true;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -111,3 +110,15 @@ class HomeScreen extends StatelessWidget {
   }
 }
 //ff22@gmail.com, ffffffffff
+
+
+//!! it give me this error after log in :
+/*
+[ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: Bad state: add(LoggedIn) was called without a registered event handler.
+Make sure to register a handler via on<LoggedIn>((event, emit) {...})
+#0      Bloc.add.<anonymous closure> (package:bloc/src/bloc.dart:91:9)
+#1      Bloc.add (package:bloc/src/bloc.dart:97:6)
+
+*/
+
+//! ontap projects after search
