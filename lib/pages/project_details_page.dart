@@ -1,16 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/model/get_tasks_model.dart';
+import 'package:osscam/pages/error_page.dart';
+import 'package:osscam/pages/offline_page.dart';
 import 'package:osscam/widgets/project_details_widgets/drawer.dart';
 import 'package:osscam/widgets/project_details_widgets/expandedCardWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/myWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/projectDecriptionWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/projectNameWidget.dart';
+import 'package:osscam/widgets/project_details_widgets/project_details_loading_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:osscam/core/resources/color.dart';
 // /! this page will take an object from the privous page in order to appear only the tasks of the taped continer?
@@ -84,78 +86,101 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         BlocProvider<UpdateTaskStatusBloc>(
           create: (context) => UpdateTaskStatusBloc(),
         ),
-        // BlocProvider(
-        //   create: (context) => LogoutBloc(),
+        // BlocProvider<DeleteProjectBloc>(
+        //   create: (context) => DeleteProjectBloc(),
         // )
       ],
       child: Builder(
         builder: (context) {
           return Scaffold(
-            drawer: DrawerWidget(),
-            backgroundColor: AppColors.primaryColor,
-            body: BlocBuilder<ProjectTaskBloc, ProjectTaskState>(
-              builder: (context, state) {
-                if (state is ProjectTaskSuccess) {
-                  List<GetAllTasks> tasks = state.tasks;
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: screenHeight * 0.03,
+              drawer: DrawerWidget(),
+              backgroundColor: AppColors.primaryColor,
+              body: BlocConsumer<ProjectTaskBloc, ProjectTaskState>(
+                listener: (context, state) {
+                  if (state is ProjectTaskOffline) {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: OfflinePage(
+                                previousPage: ProjectDetailsPage(
+                              projectDescription: widget.projectDescription,
+                              projectId: widget.projectId,
+                              projectName: widget.projectName,
+                            )),
+                            type: PageTransitionType.fade));
+                  } else if (state is ProjectTaskError) {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: ErrorPage(
+                                previousPage: ProjectDetailsPage(
+                              projectDescription: widget.projectDescription,
+                              projectId: widget.projectId,
+                              projectName: widget.projectName,
+                            )),
+                            type: PageTransitionType.fade));
+                  }
+                },
+                builder: (context, state) {
+                  return BlocBuilder<ProjectTaskBloc, ProjectTaskState>(
+                      builder: (context, state) {
+                    if (state is ProjectTaskSuccess) {
+                      List<GetAllTasks> tasks = state.tasks;
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: screenHeight * 0.03,
+                            ),
+                            projectNameWidget(
+                              name: widget.projectName,
+                              projectId: widget.projectId,
+                            )
+                                .animate()
+                                .fade(duration: .3.seconds, delay: .2.seconds),
+                            ProjectDescriptionWidget(
+                              text: text,
+                              lessText: lessText,
+                              isExpanded: _isExpanded,
+                              changeContainerExpanded: _changeContainerExpanded,
+                            ),
+                            SizedBox(
+                              height: screenHeight * 0.05,
+                            ),
+                            SizedBox(
+                              width: screenWidth,
+                              height: 6000,
+                              // Expanded(
+                              //!! i have to fix this ...if i remove it there is no space to add new stuff
+                              child: MyWidget(
+                                projectDescription: widget.projectDescription,
+                                projectName: widget.projectName,
+                                project_id: widget.projectId,
+                                tasks: tasks,
+                                showCardFouced:
+                                    //!! we can make it as function  before the build ?
+                                    (BuildContext context,
+                                        GetAllTasks task,
+                                        Color color,
+                                        Color textColor,
+                                        String status) {
+                                  _showCardExpanded(
+                                      context, task, color, textColor, status);
+                                },
+                              ),
+                            )
+                                .animate()
+                                .fade(duration: .7.seconds, delay: .6.seconds),
+                          ],
                         ),
-                        projectNameWidget(
-                          name: widget.projectName,
-                        )
-                            .animate()
-                            .fade(duration: .3.seconds, delay: .2.seconds),
-                        ProjectDescriptionWidget(
-                          text: text,
-                          lessText: lessText,
-                          isExpanded: _isExpanded,
-                          changeContainerExpanded: _changeContainerExpanded,
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.05,
-                        ),
-                        SizedBox(
-                          width: screenWidth,
-                          height: 6000,
-                          // Expanded(
-                          //!! i have to fix this ...if i remove it there is no space to add new stuff
-                          child: MyWidget(
-                            project_id: widget.projectId,
-                            tasks: tasks,
-                            showCardFouced:
-                                //!! we can make it as function  before the build ?
-                                (BuildContext context,
-                                    GetAllTasks task,
-                                    Color color,
-                                    Color textColor,
-                                    String status) {
-                              _showCardExpanded(
-                                  context, task, color, textColor, status);
-                            },
-                          ),
-                        )
-                            .animate()
-                            .fade(duration: .7.seconds, delay: .6.seconds),
-                      ],
-                    ),
-                  );
-                } else if (state is ProjectTaskLoading) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (state is ProjectTaskOffline) {
-                  return Center(
-                    child: Text('offline'),
-                  );
-                } else {
-                  return Center(
-                    child: Text('Error'),
-                  );
-                }
-              },
-            ),
-          );
+                      );
+                    } else {
+                      //loading card
+                      return ProjectDetailsLoadingWidget();
+                    }
+                  });
+                },
+              ));
         },
       ),
     );
@@ -171,4 +196,3 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
 //     required this.App,
 //   });
 // }
-

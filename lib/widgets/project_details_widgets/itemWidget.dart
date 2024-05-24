@@ -32,7 +32,10 @@ class ItemWidget extends StatelessWidget {
           color: Colors.white,
         ),
         child: Center(
-          child: Text(itemDescription.taskDescription),
+          child: Text(
+            itemDescription.taskDescription,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ),
     );

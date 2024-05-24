@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/widgets/project_details_widgets/pupUpMenuWidget.dart';
 
 class projectNameWidget extends StatelessWidget {
   final String name;
+  final int projectId;
   const projectNameWidget({
     super.key,
     required this.name,
+    required this.projectId,
   });
 
   @override
@@ -59,7 +63,9 @@ class projectNameWidget extends StatelessWidget {
           const SizedBox(
             width: 5,
           ),
-          PopUpMenuWidget(),
+          PopUpMenuWidget(
+            projectId: projectId,
+          ),
         ],
       ).animate().fade(duration: .4.seconds, delay: .3.seconds),
     );

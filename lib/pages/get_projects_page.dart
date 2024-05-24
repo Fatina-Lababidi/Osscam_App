@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
 import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
@@ -13,7 +14,6 @@ import 'package:osscam/widgets/project_loading_widget.dart';
 import 'package:osscam/widgets/search_textField.dart';
 import 'package:page_transition/page_transition.dart';
 
-//! we have to fix the text ..
 class GetProjectsPage extends StatefulWidget {
   const GetProjectsPage({super.key});
 
@@ -25,18 +25,13 @@ class GetProjectsPage extends StatefulWidget {
 ValueNotifier<List<ProjectsModel>> result = ValueNotifier([]);
 
 class _GetProjectsPageState extends State<GetProjectsPage> {
-  @override
-
   // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  //     setState(() {
-  //       startAnimation = true;
-  //     });
-  //   });
+  // void dispose() {
+  //   result.dispose();
+  //   super.dispose();
   // }
 
+  @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -49,6 +44,9 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
         BlocProvider(
           create: (context) => ProjectTaskBloc(),
         ),
+        BlocProvider<DeleteProjectBloc>(
+          create: (context) => DeleteProjectBloc(),
+        )
       ],
       child: Builder(builder: (context) {
         return Scaffold(
@@ -57,20 +55,24 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
             listener: (context, state) {
               if (state is ErrorGetProjects) {
                 Navigator.push(
-                    context,
-                    PageTransition(
-                        child:const ErrorPage(
-                          previousPage: GetProjectsPage(),
-                        ),
-                        type: PageTransitionType.fade));
+                  context,
+                  PageTransition(
+                    child: const ErrorPage(
+                      previousPage: GetProjectsPage(),
+                    ),
+                    type: PageTransitionType.fade,
+                  ),
+                );
               } else if (state is OfflineOnGetProjects) {
                 Navigator.push(
-                    context,
-                    PageTransition(
-                        child:const OfflinePage(
-                          previousPage: GetProjectsPage(),
-                        ),
-                        type: PageTransitionType.fade));
+                  context,
+                  PageTransition(
+                    child: const OfflinePage(
+                      previousPage: GetProjectsPage(),
+                    ),
+                    type: PageTransitionType.fade,
+                  ),
+                );
               }
             },
             builder: (context, state) {
@@ -95,30 +97,24 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                           itemBuilder: (context, ind) {
                                             return GestureDetector(
                                               onTap: () {
+                                                result.value = [];
                                                 Navigator.push(
-                                                    context,
-                                                    PageTransition(
-                                                        child:
-                                                            ProjectDetailsPage(
-                                                          projectId: state
-                                                              .projects[ind].id,
-                                                          projectName: state
-                                                              .projects[ind]
-                                                              .name,
-                                                          projectDescription:
-                                                              state
-                                                                  .projects[ind]
-                                                                  .description,
-                                                        ),
-                                                        type: PageTransitionType
-                                                            .fade));
+                                                  context,
+                                                  PageTransition(
+                                                    child: ProjectDetailsPage(
+                                                      projectId: value[ind].id,
+                                                      projectName:
+                                                          value[ind].name,
+                                                      projectDescription:
+                                                          value[ind]
+                                                              .description,
+                                                    ),
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                  ),
+                                                );
                                               },
                                               child: Container(
-                                                // curve: Curves.easeInOut,
-                                                //  duration:
-                                                //  Duration(milliseconds: 300 + (index * 100)),
-                                                // transform: Matrix4.translationValues(
-                                                //    0, 0, 0),
                                                 decoration: BoxDecoration(
                                                   color:
                                                       AppColors.continerColor,
@@ -134,10 +130,10 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                                     Stack(
                                                       children: [
                                                         Container(
-                                                          width:
-                                                              135, //screenWidth*0.25, //135,
-                                                          height:
-                                                              105, // screenHeight*0.13,//105,
+                                                          width: screenWidth *
+                                                              0.25, //135,
+                                                          height: screenHeight *
+                                                              0.12, //105,
                                                           child: Image(
                                                             fit: BoxFit.cover,
                                                             image: const AssetImage(
@@ -204,6 +200,7 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                           itemBuilder: (context, index) {
                                             return GestureDetector(
                                               onTap: () {
+                                                result.value = [];
                                                 Navigator.push(
                                                     context,
                                                     PageTransition(
@@ -225,11 +222,6 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                                             .fade));
                                               },
                                               child: Container(
-                                                // curve: Curves.easeInOut,
-                                                //  duration:
-                                                //  Duration(milliseconds: 300 + (index * 100)),
-                                                // transform: Matrix4.translationValues(
-                                                //    0, 0, 0),
                                                 decoration: BoxDecoration(
                                                   color:
                                                       AppColors.continerColor,
@@ -245,13 +237,13 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                                     Stack(
                                                       children: [
                                                         Container(
-                                                          width:
-                                                              135, //screenWidth*0.25, //135,
-                                                          height:
-                                                              105, // screenHeight*0.13,//105,
-                                                          child: Image(
+                                                          width: screenWidth *
+                                                              0.35, //135,
+                                                          height: screenHeight *
+                                                              0.13, //105,
+                                                          child: const Image(
                                                             fit: BoxFit.cover,
-                                                            image: const AssetImage(
+                                                            image: AssetImage(
                                                                 AppImages
                                                                     .vector_image),
                                                           ),
@@ -316,18 +308,8 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                             })
                       ],
                     );
-                    // } else if (state is OfflineOnGetProjects) {
-                    //   return const Center(
-                    //     child: Text('offline'),
-                    //   );
-                    // } else if (state is ErrorGetProjects) {
-                    //   return const Center(
-                    //     child: Text(
-                    //       'Error',
-                    //     ),
-                    //   );
                   } else {
-                    return ProjectsLoadingWidget();
+                    return const ProjectsLoadingWidget();
                   }
                 },
               );

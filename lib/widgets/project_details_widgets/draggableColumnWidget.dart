@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
+import 'package:osscam/core/resources/asset.dart';
+import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/get_tasks_model.dart';
+import 'package:osscam/pages/offline_page.dart';
+import 'package:osscam/pages/project_details_page.dart';
 import 'package:osscam/widgets/project_details_widgets/itemWidget.dart';
+import 'package:page_transition/page_transition.dart';
 
 class DraggableColumn extends StatefulWidget {
   final List<Widget> widgetItems;
@@ -11,6 +16,8 @@ class DraggableColumn extends StatefulWidget {
   final Color textColor;
   final Function(BuildContext, GetAllTasks, Color, Color, String) onTap;
   final int project_id;
+  final String projectName;
+  final String projectDescription;
   const DraggableColumn({
     Key? key,
     required this.widgetItems,
@@ -19,6 +26,8 @@ class DraggableColumn extends StatefulWidget {
     required this.textColor,
     required this.onTap,
     required this.project_id,
+    required this.projectName,
+    required this.projectDescription,
   }) : super(key: key);
 
   @override
@@ -66,31 +75,55 @@ class _DraggableColumnState extends State<DraggableColumn> {
     return BlocConsumer<UpdateTaskStatusBloc, UpdateTaskStatusState>(
       listener: (context, state) {
         if (state is FailedUpdate) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('faild')));
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text('faild')));
           setState(() {
             items = List.from(widget.widgetItems);
+          });
+          ErrorDialog(context, screenWidth);
+          Future.delayed(Duration(seconds: 3), () {
+            Navigator.of(context).pop();
           });
         } else if (state is SuccessUpdate) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('success')));
+
+          Navigator.push(
+              context,
+              PageTransition(
+                  child: ProjectDetailsPage(
+                      projectId: widget.project_id,
+                      projectName: widget.projectName,
+                      projectDescription: widget.projectDescription),
+                  type: PageTransitionType.fade));
+        } else if (state is OfflineUpdate) {
+          Navigator.push(
+              context,
+              PageTransition(
+                  child: OfflinePage(
+                      previousPage: ProjectDetailsPage(
+                          projectId: widget.project_id,
+                          projectName: widget.projectName,
+                          projectDescription: widget.projectDescription)),
+                  type: PageTransitionType.fade));
         }
       },
       builder: (context, state) {
         return DragTarget<Widget>(
           //! // !!so here we take the status to update it ?
           onAcceptWithDetails: (details) {
-            setState(() {
-              widget.widgetItems.remove(details.data);
-              items.add(details.data);
-            });
             //! for update
             if (details.data is ItemWidget) {
               GetAllTasks taskModel =
                   (details.data as ItemWidget).itemDescription;
               taskUpdateStatus(details.data, taskModel);
             }
+            setState(() {
+              widget.widgetItems.remove(details.data);
+              items.add(details.data);
+            });
             print('new status: ' + widget.status);
+
             // if (details.data is ItemWidget) {
             //   CreateNewTaskModel? taskModel = (details.data as ItemWidget).itemDescription;
             //   if (taskModel != null && taskModel.taskDescription == 'Description 5') {
@@ -114,19 +147,19 @@ class _DraggableColumnState extends State<DraggableColumn> {
           // },
           // !!so here we take the status to update it ?
           //!!!! why it happeans more than one time ???
-          onWillAccept: (data) {
-            debugPrint('checking');
-            if (data != null && data is ItemWidget) {
-              GetAllTasks? taskModel = (data as ItemWidget).itemDescription;
-              if (taskModel.taskDescription == 'Description 5') {
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //   SnackBar(content: Text('Incorrect, please try again!')),
-                // );
-                return false;
-              }
-            }
-            return true;
-          },
+          // onWillAccept: (data) {
+          //   debugPrint('checking');
+          //   if (data != null && data is ItemWidget) {
+          //     GetAllTasks? taskModel = (data as ItemWidget).itemDescription;
+          //     if (taskModel.taskDescription == 'Description 5') {
+          //       // ScaffoldMessenger.of(context).showSnackBar(
+          //       //   SnackBar(content: Text('Incorrect, please try again!')),
+          //       // );
+          //       return false;
+          //     }
+          //   }
+          //   return true;
+          // },
 
           builder: (context, candidateData, rejectedData) {
             return Column(
@@ -249,6 +282,43 @@ class _DraggableColumnState extends State<DraggableColumn> {
                       .toList(),
             );
           },
+        );
+      },
+    );
+  }
+
+  Future<dynamic> ErrorDialog(BuildContext context, double screenWidth) {
+    return showDialog(
+      barrierColor: AppColors.primaryColor.withOpacity(0.3),
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Dialog(
+            backgroundColor: AppColors.textFieldColor.withOpacity(0.4),
+            child: Padding(
+              padding: EdgeInsets.all(screenWidth * 0.02),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(AppImages.noInternetImage),
+                  SizedBox(height: 16),
+                  Text(
+                    'Failed to update',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Please try again later.',
+                    style:
+                        TextStyle(fontSize: 16, color: AppColors.primaryColor),
+                  ),
+                ],
+              ),
+            ),
+          ),
         );
       },
     );

@@ -20,5 +20,8 @@ class AppColors {
   static const Color dropTextColor = Color(0xff747474);
   static const Color drawerColor = Color(0xff0C4266);
   static const Color drawerDetailsColor = Color(0xff90C6CD);
+  static const Color bugsButtonColor = Color(0xff35A3A3);
+  static const Color deleteCardColor = Color(0xffFF7B7B);
+  static const Color sureButtonColor = Color(0xff999999);
 // to use in main : AppColors.primaryColor
 }

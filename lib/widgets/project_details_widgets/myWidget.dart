@@ -9,8 +9,16 @@ class MyWidget extends StatefulWidget {
   final Function(BuildContext, GetAllTasks, Color, Color, String)
       showCardFouced;
   final int project_id;
-  const MyWidget({Key? key, required this.showCardFouced, required this.tasks, required this.project_id})
-      : super(key: key);
+  final String projectName;
+  final String projectDescription;
+  const MyWidget({
+    Key? key,
+    required this.showCardFouced,
+    required this.tasks,
+    required this.project_id,
+    required this.projectName,
+    required this.projectDescription
+  }) : super(key: key);
 
   @override
   _MyWidgetState createState() => _MyWidgetState();
@@ -86,6 +94,8 @@ class _MyWidgetState extends State<MyWidget> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         DraggableColumn(
+          projectDescription: widget.projectDescription,
+          projectName: widget.projectName,
           project_id: widget.project_id,
           key: UniqueKey(),
           // items: [
@@ -107,6 +117,8 @@ class _MyWidgetState extends State<MyWidget> {
           onTap: widget.showCardFouced,
         ),
         DraggableColumn(
+          projectDescription: widget.projectDescription,
+          projectName: widget.projectName,
           project_id: widget.project_id,
           key: UniqueKey(),
           // items: [
@@ -128,6 +140,8 @@ class _MyWidgetState extends State<MyWidget> {
           onTap: widget.showCardFouced,
         ),
         DraggableColumn(
+          projectDescription: widget.projectDescription,
+          projectName: widget.projectName,
           project_id: widget.project_id,
           key: UniqueKey(),
           //   items: [ItemWidget('item 7'), ItemWidget('item 8')],

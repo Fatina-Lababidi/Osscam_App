@@ -19,6 +19,7 @@ class ProjectsLoadingWidget extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
+             // SizedBox(height: screenHeight*0.01,),
               Container(
                 width: screenWidth * 2,
                 height: 51,

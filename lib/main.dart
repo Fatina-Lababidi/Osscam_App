@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/app_bloc/app_bloc.dart';
+import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
 import 'package:osscam/core/config/bloc_observe.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
+import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/pages/create_or_join_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/pages/interance_page.dart';
@@ -17,17 +19,22 @@ void main() {
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppBloc()..add(CheckAppStatus()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AppBloc()..add(CheckAppStatus()),
+        ),
+        BlocProvider<DeleteProjectBloc>(
+          create: (context) => DeleteProjectBloc(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-
         home: BlocListener<AppBloc, AppState>(
           listener: (context, state) {
             if (state is HeJoinApp) {
@@ -53,7 +60,9 @@ class MyApp extends StatelessWidget {
                       child: GetProjectsPage(), type: PageTransitionType.fade));
             }
           }, //!! we have to fix this
-          child: Text('hello'),
+          child: Container(
+            color: AppColors.primaryColor,
+          ),
         ),
 
         // home: BlocBuilder<AppBloc, AppState>(
@@ -122,3 +131,9 @@ Make sure to register a handler via on<LoggedIn>((event, emit) {...})
 */
 
 //! ontap projects after search
+
+//! service of the update task
+
+//! get all projects media query
+
+//! log in exeption

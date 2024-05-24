@@ -1,13 +1,21 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/get_tasks_model.dart';
+import 'package:osscam/pages/bugs_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ExpandedCard extends StatelessWidget {
   final GetAllTasks task;
   final Color color;
   final String status;
   final Color textAndIconColor;
-  const ExpandedCard({Key? key, required this.task, required this.color, required this.status, required this.textAndIconColor});
+  const ExpandedCard(
+      {Key? key,
+      required this.task,
+      required this.color,
+      required this.status,
+      required this.textAndIconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -45,38 +53,80 @@ class ExpandedCard extends StatelessWidget {
                 elevation: 8,
                 color: color, // Colors.orange[100],
                 child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              status,
-                              style: TextStyle(color: textAndIconColor),
+                  padding: EdgeInsets.only(
+                      top: screenHeight * 0.05,
+                      left: screenWidth * 0.02,
+                      right: screenWidth * 0.02,
+                      bottom: screenHeight * 0.02),
+                  child: Container(
+                    // margin: const EdgeInsets.all(10),
+                    width: screenWidth * 0.72, //150,
+                    height: screenHeight * 0.44,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(task.taskDescription),
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: GestureDetector(
+                              onTap: () {
+                                //navigate to bug page
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: BugsPage(),
+                                    type: PageTransitionType.fade,
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 125,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: AppColors.bugsButtonColor,
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 8,
+                                        spreadRadius: 2,
+                                      )
+                                    ]),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: screenHeight * 0.001,
+                                      horizontal: screenWidth * 0.01),
+                                  child: const Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Add Bugs",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.pest_control_outlined,
+                                        color: Colors.white,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                            Icon(
-                              Icons.pest_control_outlined,
-                              color:textAndIconColor,
-                            )
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        width: screenWidth * 0.7, //150,
-                        height: screenHeight * 0.4,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        child: Center(
-                          child: Text(task.taskDescription),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
