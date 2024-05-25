@@ -7,9 +7,7 @@ final class DeleteProjectInitial extends DeleteProjectState {}
 
 class SuccessDeleteProject extends DeleteProjectState{}
 
-class FailedDeleteProject extends DeleteProjectState{
-
-}
+class FailedDeleteProject extends DeleteProjectState{}
 
 
 class OfflineDeleteProject extends DeleteProjectState{}

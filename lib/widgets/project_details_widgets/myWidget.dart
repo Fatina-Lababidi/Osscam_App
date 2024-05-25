@@ -8,14 +8,14 @@ class MyWidget extends StatefulWidget {
   final List<GetAllTasks> tasks;
   final Function(BuildContext, GetAllTasks, Color, Color, String)
       showCardFouced;
-  final int project_id;
+  final int projectId;
   final String projectName;
   final String projectDescription;
   const MyWidget({
     Key? key,
     required this.showCardFouced,
     required this.tasks,
-    required this.project_id,
+    required this.projectId,
     required this.projectName,
     required this.projectDescription
   }) : super(key: key);
@@ -96,7 +96,7 @@ class _MyWidgetState extends State<MyWidget> {
         DraggableColumn(
           projectDescription: widget.projectDescription,
           projectName: widget.projectName,
-          project_id: widget.project_id,
+          project_id: widget.projectId,
           key: UniqueKey(),
           // items: [
           //   ItemWidget('Item 1'),
@@ -119,7 +119,7 @@ class _MyWidgetState extends State<MyWidget> {
         DraggableColumn(
           projectDescription: widget.projectDescription,
           projectName: widget.projectName,
-          project_id: widget.project_id,
+          project_id: widget.projectId,
           key: UniqueKey(),
           // items: [
           //   ItemWidget('Item 4'),
@@ -142,7 +142,7 @@ class _MyWidgetState extends State<MyWidget> {
         DraggableColumn(
           projectDescription: widget.projectDescription,
           projectName: widget.projectName,
-          project_id: widget.project_id,
+          project_id: widget.projectId,
           key: UniqueKey(),
           //   items: [ItemWidget('item 7'), ItemWidget('item 8')],
           widgetItems: doneTasks

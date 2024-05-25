@@ -19,4 +19,12 @@ class AppUrl {
   static String deleteProjectUrl(int ProjectId) {
     return '${BaseService().baseUrl}projects/$ProjectId';
   }
+
+  static String joinUserToProjectUrl(int projectId) {
+    return '${BaseService().baseUrl}projects/$projectId/new-user-to-project';
+  }
+
+  static String getOneProjectUrl(int projectId) {
+    return '${BaseService().baseUrl}projects/$projectId';
+  }
 }

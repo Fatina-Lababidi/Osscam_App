@@ -85,13 +85,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//log in email : sana20@gmail.com
-//password:  ssssssss
-// guscks@gmail.com
-// 123456789
-//sanaTa2024@gmail.com
 
-//card testing ...
 
 class HomeScreen extends StatelessWidget {
   Future<void> _clearToken() async {
@@ -130,10 +124,14 @@ Make sure to register a handler via on<LoggedIn>((event, emit) {...})
 
 */
 
-//! ontap projects after search
 
 //! service of the update task
 
 //! get all projects media query
 
 //! log in exeption
+
+//! make the details page dialogs un tapped in order not to pop twice
+
+
+//sanaTa@gmail.com

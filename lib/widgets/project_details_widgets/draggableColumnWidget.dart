@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
@@ -87,15 +89,19 @@ class _DraggableColumnState extends State<DraggableColumn> {
         } else if (state is SuccessUpdate) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('success')));
-
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: ProjectDetailsPage(
-                      projectId: widget.project_id,
-                      projectName: widget.projectName,
-                      projectDescription: widget.projectDescription),
-                  type: PageTransitionType.fade));
+          setState(() {
+            context
+                .read<ProjectTaskBloc>()
+                .add(GetTasksByProject(widget.project_id));
+          });
+          // Navigator.push(
+          //     context,
+          //     PageTransition(
+          //         child: ProjectDetailsPage(
+          //             projectId: widget.project_id,
+          //             projectName: widget.projectName,
+          //             projectDescription: widget.projectDescription),
+          //         type: PageTransitionType.fade));
         } else if (state is OfflineUpdate) {
           Navigator.push(
               context,
@@ -173,9 +179,9 @@ class _DraggableColumnState extends State<DraggableColumn> {
                         child: SizedBox(
                           width: screenWidth * 0.3, //150,
                           height: screenHieght * 0.125, // 100,
-                          child: Center(
-                            child: Text('drop '),
-                          ),
+                          // child:const Center(
+                          //   child: Text('drop '),
+                          // ),
                           //elevation: 4
                         ),
                       ),
@@ -300,21 +306,23 @@ class _DraggableColumnState extends State<DraggableColumn> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.asset(AppImages.noInternetImage),
-                  SizedBox(height: 16),
-                  Text(
+                  Image.asset(AppImages.noInternetImage)
+                      .animate()
+                      .fadeIn(duration: 0.2.seconds, delay: .1.seconds),
+                  const SizedBox(height: 16),
+                  const Text(
                     'Failed to update',
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: AppColors.primaryColor),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
+                  ).animate().fadeIn(duration: .4.seconds, delay: .3.seconds),
+                  const SizedBox(height: 8),
+                  const Text(
                     'Please try again later.',
                     style:
                         TextStyle(fontSize: 16, color: AppColors.primaryColor),
-                  ),
+                  ).animate().fadeIn(duration: .6.seconds, delay: .5.seconds),
                 ],
               ),
             ),

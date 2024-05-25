@@ -86,101 +86,101 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         BlocProvider<UpdateTaskStatusBloc>(
           create: (context) => UpdateTaskStatusBloc(),
         ),
-        // BlocProvider<DeleteProjectBloc>(
-        //   create: (context) => DeleteProjectBloc(),
-        // )
       ],
       child: Builder(
         builder: (context) {
           return Scaffold(
-              drawer: DrawerWidget(),
-              backgroundColor: AppColors.primaryColor,
-              body: BlocConsumer<ProjectTaskBloc, ProjectTaskState>(
-                listener: (context, state) {
-                  if (state is ProjectTaskOffline) {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: OfflinePage(
-                                previousPage: ProjectDetailsPage(
+            drawer: DrawerWidget(),
+            backgroundColor: AppColors.primaryColor,
+            body: BlocConsumer<ProjectTaskBloc, ProjectTaskState>(
+              listener: (context, state) {
+                if (state is ProjectTaskOffline) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: OfflinePage(
+                              previousPage: ProjectDetailsPage(
+                            projectDescription: widget.projectDescription,
+                            projectId: widget.projectId,
+                            projectName: widget.projectName,
+                          )),
+                          type: PageTransitionType.fade));
+                } else if (state is ProjectTaskError) {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      child: ErrorPage(
+                          previousPage: ProjectDetailsPage(
+                        projectDescription: widget.projectDescription,
+                        projectId: widget.projectId,
+                        projectName: widget.projectName,
+                      )),
+                      type: PageTransitionType.fade,
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                return BlocBuilder<ProjectTaskBloc, ProjectTaskState>(
+                    builder: (context, state) {
+                  if (state is ProjectTaskSuccess) {
+                    List<GetAllTasks> tasks = state.tasks;
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: screenHeight * 0.03,
+                          ),
+                          projectNameWidget(
+                            name: widget.projectName,
+                            projectId: widget.projectId,
+                          )
+                              .animate()
+                              .fade(duration: .3.seconds, delay: .2.seconds),
+                          ProjectDescriptionWidget(
+                            text: text,
+                            lessText: lessText,
+                            isExpanded: _isExpanded,
+                            changeContainerExpanded: _changeContainerExpanded,
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.05,
+                          ),
+                          SizedBox(
+                            width: screenWidth,
+                            height: 6000,
+                            // Expanded(
+                            //!! i have to fix this ...if i remove it there is no space to add new stuff
+                            child: MyWidget(
                               projectDescription: widget.projectDescription,
-                              projectId: widget.projectId,
                               projectName: widget.projectName,
-                            )),
-                            type: PageTransitionType.fade));
-                  } else if (state is ProjectTaskError) {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: ErrorPage(
-                                previousPage: ProjectDetailsPage(
-                              projectDescription: widget.projectDescription,
                               projectId: widget.projectId,
-                              projectName: widget.projectName,
-                            )),
-                            type: PageTransitionType.fade));
+                              tasks: tasks,
+                              showCardFouced:
+                                  //!! we can make it as function  before the build ?
+                                  (BuildContext context,
+                                      GetAllTasks task,
+                                      Color color,
+                                      Color textColor,
+                                      String status) {
+                                _showCardExpanded(
+                                    context, task, color, textColor, status);
+                              },
+                            ),
+                          )
+                              .animate()
+                              .fade(duration: .7.seconds, delay: .6.seconds),
+                        ],
+                      ),
+                    );
+                  } else {
+                    //loading card
+                    return const ProjectDetailsLoadingWidget();
                   }
-                },
-                builder: (context, state) {
-                  return BlocBuilder<ProjectTaskBloc, ProjectTaskState>(
-                      builder: (context, state) {
-                    if (state is ProjectTaskSuccess) {
-                      List<GetAllTasks> tasks = state.tasks;
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: screenHeight * 0.03,
-                            ),
-                            projectNameWidget(
-                              name: widget.projectName,
-                              projectId: widget.projectId,
-                            )
-                                .animate()
-                                .fade(duration: .3.seconds, delay: .2.seconds),
-                            ProjectDescriptionWidget(
-                              text: text,
-                              lessText: lessText,
-                              isExpanded: _isExpanded,
-                              changeContainerExpanded: _changeContainerExpanded,
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.05,
-                            ),
-                            SizedBox(
-                              width: screenWidth,
-                              height: 6000,
-                              // Expanded(
-                              //!! i have to fix this ...if i remove it there is no space to add new stuff
-                              child: MyWidget(
-                                projectDescription: widget.projectDescription,
-                                projectName: widget.projectName,
-                                project_id: widget.projectId,
-                                tasks: tasks,
-                                showCardFouced:
-                                    //!! we can make it as function  before the build ?
-                                    (BuildContext context,
-                                        GetAllTasks task,
-                                        Color color,
-                                        Color textColor,
-                                        String status) {
-                                  _showCardExpanded(
-                                      context, task, color, textColor, status);
-                                },
-                              ),
-                            )
-                                .animate()
-                                .fade(duration: .7.seconds, delay: .6.seconds),
-                          ],
-                        ),
-                      );
-                    } else {
-                      //loading card
-                      return ProjectDetailsLoadingWidget();
-                    }
-                  });
-                },
-              ));
+                });
+              },
+            ),
+          );
         },
       ),
     );

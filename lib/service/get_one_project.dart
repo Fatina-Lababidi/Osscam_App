@@ -1,17 +1,18 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
 
-Future deleteProjectService(int projectId) async {
+Future getOneProjectService(int projectId) async {
   Dio dio = Dio();
-  String deleteUrl = AppUrl.deleteProjectUrl(projectId);
+  String oneProjectUrl = AppUrl.getOneProjectUrl(projectId);
   try {
-    Response response = await dio.delete(deleteUrl,options: getHeader(true));
+    Response response = await dio.get(oneProjectUrl, options: getHeader(true));
     if (response.statusCode == 200) {
-      return true;
+      return response.data;
     } else {
-      return false;
+      return 'false';
     }
   } on DioException catch (e) {
     if (e.error is SocketException) {

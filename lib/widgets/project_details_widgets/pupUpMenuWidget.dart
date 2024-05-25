@@ -4,9 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/pages/error_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
-import 'package:osscam/pages/project_details_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class PopUpMenuWidget extends StatefulWidget {
@@ -57,78 +55,113 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                           borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Are you sure you want to ',
-                                style: TextStyle(fontSize: 17),
-                              ),
-                              Text(
-                                'delete this project ? ',
-                                style: TextStyle(fontSize: 17),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  BlocListener<DeleteProjectBloc,
-                                      DeleteProjectState>(
-                                    listener: (context, state) {
-                                      if (state is SuccessDeleteProject) {
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                child: GetProjectsPage(),
-                                                type: PageTransitionType.fade));
-                                      } else if (state is FailedDeleteProject) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text('Faild')));
-                                      }
-                                    },
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        //will do the delete method : context. ...
-                                        // it just need project id
-                                        context.read<DeleteProjectBloc>().add(
-                                            DeleteProject(
-                                                projectId: widget.projectId));
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            color: AppColors.sureButtonColor),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: screenHeight * 0.01,
-                                              horizontal: screenWidth * 0.01),
-                                          child: Center(
-                                            child: Text(
-                                              'yes,i sure',
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                        child:
+                            BlocConsumer<DeleteProjectBloc, DeleteProjectState>(
+                          listener: (context, state) {
+                            if (state is SuccessDeleteProject) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                  'success',style: TextStyle(color: Colors.black),
+                                ),
+                                backgroundColor: AppColors.cardGreenColor,
+                              ));
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: const GetProjectsPage(),
+                                  type: PageTransitionType.fade,
+                                ),
+                              );
+                            } else if (state is OfflineDeleteProject ||
+                                state is FailedDeleteProject) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                  'Faild',style: TextStyle(color: Colors.black)
+                                ),
+                                backgroundColor: AppColors.deleteCardColor,
+                              ));
+                              Navigator.pop(context);
+                            }
+                          },
+                          builder: (context, state) {
+                            return BlocBuilder<DeleteProjectBloc,
+                                DeleteProjectState>(builder: (context, state) {
+                              if (state is DeleteProjectInitial) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'Are you sure you want to ',
+                                        style: TextStyle(fontSize: 17),
+                                      ),
+                                      const Text(
+                                        'delete this project ? ',
+                                        style: TextStyle(fontSize: 17),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              //will do the delete method : context. ...
+                                              // it just need project id
+                                              context
+                                                  .read<DeleteProjectBloc>()
+                                                  .add(DeleteProject(
+                                                      projectId:
+                                                          widget.projectId));
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: AppColors
+                                                      .sureButtonColor),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical:
+                                                        screenHeight * 0.01,
+                                                    horizontal:
+                                                        screenWidth * 0.01),
+                                                child: const Center(
+                                                  child: Text(
+                                                    'yes,i sure',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    ),
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'Cancel',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ))
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text(
-                                        'Cancel',
-                                        style: TextStyle(color: Colors.black),
-                                      ))
-                                ],
-                              )
-                            ],
-                          ),
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.deleteCardColor,
+                                  ),
+                                );
+                              }
+                            });
+                          },
                         ),
                       ),
                     ),
@@ -147,23 +180,24 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                 context: context,
                 barrierColor: AppColors.primaryColor.withOpacity(0.3),
                 builder: (context) {
-                  return Column(
+                  return const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Center(
                           child: AnimatedPrompt(
-                              title: 'Copied ID',
-                              subTitle: 'You can paste it when ever you want!',
-                              child: Icon(
-                                Icons.check,
-                                color: AppColors.buttonColor,
-                              )),
+                            title: 'Copied ID',
+                            subTitle: 'You can paste it when ever you want!',
+                            child: Icon(
+                              Icons.check,
+                              color: AppColors.buttonColor,
+                            ),
+                          ),
                         ),
                       ]);
                 },
               );
-              Future.delayed(Duration(seconds: 2), () {
+              Future.delayed(const Duration(seconds: 2), () {
                 Navigator.of(context).pop();
               });
               break;
@@ -273,10 +307,10 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _yAnimation = Tween<Offset>(
-      begin: Offset(0, 0),
-      end: Offset(0, -0.23),
+      begin: const Offset(0, 0),
+      end: const Offset(0, -0.23),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
     _iconScaleAnimation = Tween<double>(begin: 7, end: 6)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
@@ -306,7 +340,7 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                 color: Colors.black.withOpacity(0.5),
                 blurRadius: 7,
                 spreadRadius: 5,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ]),
         child: ConstrainedBox(
@@ -324,24 +358,24 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     Text(
                       widget.title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
                       widget.subTitle,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
                           color: Colors.black),
@@ -355,7 +389,7 @@ class _AnimatedPromptState extends State<AnimatedPrompt>
                 child: ScaleTransition(
                   scale: _containerScaleAnimation,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.primaryColor,
                     ),

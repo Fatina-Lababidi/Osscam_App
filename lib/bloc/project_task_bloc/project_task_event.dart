@@ -8,3 +8,5 @@ class GetTasksByProject extends ProjectTaskEvent {
 
   GetTasksByProject(this.projectId);
 }
+
+// class AfterUpdate extends ProjectTaskEvent{}
