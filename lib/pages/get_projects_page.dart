@@ -254,17 +254,13 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                                   children: [
                                                     Stack(
                                                       children: [
-                                                        Container(
-                                                          width: screenWidth *
-                                                              0.35, //135,
-                                                          height: screenHeight *
-                                                              0.13, //105,
-                                                          child: const Image(
-                                                            fit: BoxFit.cover,
-                                                            image: AssetImage(
-                                                                AppImages
-                                                                    .vector_image),
-                                                          ),
+                                                         Image(
+                                                          width: screenWidth*0.37,
+                                                          height: screenHeight*0.13,
+                                                          fit: BoxFit.cover,
+                                                          image: AssetImage(
+                                                              AppImages
+                                                                  .vector_image),
                                                         ),
                                                         Padding(
                                                           padding:
@@ -314,10 +310,10 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                               ).animate().scaleXY(
                                                   delay: Duration(
                                                       milliseconds:
-                                                          200 + (index * 10)),
+                                                          10 + (index * 10)),
                                                   duration: Duration(
                                                       milliseconds:
-                                                          100 + (index * 10))),
+                                                          10 + (index * 10))),
                                             );
                                           },
                                         ),

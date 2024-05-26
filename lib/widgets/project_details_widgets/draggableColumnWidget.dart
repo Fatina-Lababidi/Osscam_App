@@ -303,6 +303,7 @@ class _DraggableColumnState extends State<DraggableColumn> {
 
   Future<dynamic> ErrorDialog(BuildContext context, double screenWidth) {
     return showDialog(
+      barrierDismissible: false,
       barrierColor: AppColors.primaryColor.withOpacity(0.3),
       context: context,
       builder: (context) {

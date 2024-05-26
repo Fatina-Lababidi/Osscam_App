@@ -9,7 +9,7 @@ import 'package:osscam/pages/create_or_join_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/pages/interance_page.dart';
 import 'package:osscam/pages/login_page.dart';
-import 'package:osscam/pages/task.dart';
+import 'package:osscam/pages/create_new_task_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-<<<<<<< HEAD
         home: BlocListener<AppBloc, AppState>(
           listener: (context, state) {
             if (state is HeJoinApp) {
@@ -71,9 +70,11 @@ class MyApp extends StatelessWidget {
         //   builder: (context, state) {
         //     if (state is HeSigendUp || state is HeLoggedIn) {
         //       return GetProjectsPage();
-=======
 
-        home:TextFieldListPage(id: 2,),
+     //   home:CreateNewTaskPage(id: 2,),
+
+
+
         // AddTaskPage(),
         // BlocListener<AppBloc, AppState>(
         //   listener: (context, state) {
@@ -83,7 +84,6 @@ class MyApp extends StatelessWidget {
         //           PageTransition(
         //               child: CreateOrJoinPage(),
         //               type: PageTransitionType.fade));
->>>>>>> new
         //     } else if (state is HeLoggedOut) {
         //       Navigator.push(
         //           context,

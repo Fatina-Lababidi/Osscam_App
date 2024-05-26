@@ -30,6 +30,7 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
             case 1:
               //what will delete exactually??
               showDialog(
+                barrierDismissible: false,
                 barrierColor: AppColors.primaryColor.withOpacity(0.3),
                 context: context,
                 builder: (context) {
@@ -168,7 +169,7 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                     ],
                                   ),
                                 );
-                              } else {
+                              } else  {
                                 return const Center(
                                   child: CircularProgressIndicator(
                                     color: AppColors.deleteCardColor,
@@ -188,10 +189,11 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
               // edit : will nav to the create or what ?
               break;
             case 3:
-              //copy Id ;
+              //copy Id :
               Clipboard.setData(
                   ClipboardData(text: widget.projectId.toString()));
               showDialog(
+                barrierDismissible: false,
                 context: context,
                 barrierColor: AppColors.primaryColor.withOpacity(0.3),
                 builder: (context) {
