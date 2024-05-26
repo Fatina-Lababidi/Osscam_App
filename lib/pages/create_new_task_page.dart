@@ -13,18 +13,19 @@ import 'package:page_transition/page_transition.dart';
 
 // ignore: must_be_immutable
 class CreateNewTaskPage extends StatelessWidget {
-  final int project_id;
-  CreateNewTaskPage({super.key, required this.project_id});
+  final int id;
+  CreateNewTaskPage({super.key, required this.id});
 
-  TextEditingController _taskNameController = TextEditingController();
+  // TextEditingController _taskNameController = TextEditingController();
   TextEditingController _taskDescriptionController = TextEditingController();
+  
   // TextEditingController _project_idController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
-
+    String temp="";
     final formCreateKey = GlobalKey<FormState>();
     return BlocProvider(
       create: (context) => CreateNewTaskBloc(),
@@ -34,15 +35,20 @@ class CreateNewTaskPage extends StatelessWidget {
           body: SingleChildScrollView(
             child: BlocListener<CreateNewTaskBloc, CreateNewTaskState>(
               listener: (context, state) {
-                if (state is SuccessCreateTask) {
+                if (state is SuccessCreateTask2) {
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Success creating')));
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: const GetProjectsPage(),
+                          child: ListView.builder(
+                    itemCount: state.taskModel.project_id,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(state.taskModel.taskDescription),
+                    ),
+                  ),
                           type: PageTransitionType.fade));
-                } else if (State is ErrorCreateTask) {
+                } else if (State is ErrorCreateTask2) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
@@ -55,10 +61,10 @@ class CreateNewTaskPage extends StatelessWidget {
                       PageTransition(
                           child: ErrorPage(
                               previousPage: CreateNewTaskPage(
-                            project_id: project_id,
+                          id: id,
                           )),
                           type: PageTransitionType.fade));
-                } else if (State is OfflineCreateTask) {
+                } else if (State is OfflineCreateTask2) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
@@ -71,7 +77,7 @@ class CreateNewTaskPage extends StatelessWidget {
                       PageTransition(
                           child: OfflinePage(
                               previousPage: CreateNewTaskPage(
-                            project_id: project_id,
+                           id: id,
                           )),
                           type: PageTransitionType.fade));
                 }
@@ -130,7 +136,7 @@ class CreateNewTaskPage extends StatelessWidget {
                                   return "please enter task's name";
                                 }
                               },
-                              controller: _taskNameController,
+                              // controller: _taskNameController,
                               obscureText: false,
                               style: const TextStyle(
                                   color: AppColors.inputTextColor),
@@ -215,7 +221,7 @@ class CreateNewTaskPage extends StatelessWidget {
                         ),
                         BlocBuilder<CreateNewTaskBloc, CreateNewTaskState>(
                           builder: (context, state) {
-                            if (state is CreateNewTaskInitial) {
+                            if (state is CreateNewTaskInitial2) {
                               return ButtonApp(
                                 textColor: AppColors.primaryColor,
                                 color: AppColors.buttonColor,
@@ -231,7 +237,7 @@ class CreateNewTaskPage extends StatelessWidget {
                                             taskDescription:
                                                 _taskDescriptionController.text,
                                             taskStatus: "NEW",
-                                            project_id: project_id,
+                                            project_id: id,
                                             // CreateNewTaskModel.fromJson("https://projects-management-system.onrender.com/api/v1/tasks").project_id ,//!we have to take it form back?
                                           ),  
                                           //  id:ProjectsModel.fromJson("id").id

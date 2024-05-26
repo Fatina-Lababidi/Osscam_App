@@ -4,18 +4,18 @@ part of 'create_new_task_bloc.dart';
 @immutable
 sealed class CreateNewTaskState {}
 
-final class CreateNewTaskInitial extends CreateNewTaskState {}
+final class CreateNewTaskInitial2 extends CreateNewTaskState {}
 
-class SuccessCreateTask extends CreateNewTaskState {
+class SuccessCreateTask2 extends CreateNewTaskState {
   CreateNewTaskModel taskModel;
-  SuccessCreateTask({
+  SuccessCreateTask2({
     required this.taskModel,
   });
 }
 // we can make it return a model of createNewtaskModel, and make the service also return it , maybe this benifit in projects?
-class ErrorCreateTask extends CreateNewTaskState {}
+class ErrorCreateTask2 extends CreateNewTaskState {}
 
-class LoadingCreateTask extends CreateNewTaskState {}
+class LoadingCreateTask2 extends CreateNewTaskState {}
 
-class OfflineCreateTask extends CreateNewTaskState {}
+class OfflineCreateTask2 extends CreateNewTaskState {}
 

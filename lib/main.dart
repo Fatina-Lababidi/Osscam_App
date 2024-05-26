@@ -7,6 +7,7 @@ import 'package:osscam/pages/create_or_join_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/pages/interance_page.dart';
 import 'package:osscam/pages/login_page.dart';
+import 'package:osscam/pages/task.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,50 +30,36 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
 
-        home: BlocListener<AppBloc, AppState>(
-          listener: (context, state) {
-            if (state is HeJoinApp) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: CreateOrJoinPage(),
-                      type: PageTransitionType.fade));
-            } else if (state is HeLoggedOut) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: LogInPage(), type: PageTransitionType.fade));
-            } else if (state is HisFirstTime) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: InterancePage(), type: PageTransitionType.fade));
-            } else if (state is UseingApp) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: GetProjectsPage(), type: PageTransitionType.fade));
-            }
-          }, //!! we have to fix this
-          child: Text('hello'),
-        ),
-
-        // home: BlocBuilder<AppBloc, AppState>(
-        //   builder: (context, state) {
-        //     if (state is HeSigendUp || state is HeLoggedIn) {
-        //       return GetProjectsPage();
+        home:TextFieldListPage(id: 2,),
+        // AddTaskPage(),
+        // BlocListener<AppBloc, AppState>(
+        //   listener: (context, state) {
+        //     if (state is HeJoinApp) {
+        //       Navigator.push(
+        //           context,
+        //           PageTransition(
+        //               child: CreateOrJoinPage(),
+        //               type: PageTransitionType.fade));
         //     } else if (state is HeLoggedOut) {
-        //       return LogInPage();
-        //     } else {
-        //       return
-        //           //ProjectsLoadingWidget();
-        //           // CreateNewProjectPage();
-        //           GetProjectsPage();
-        //       // const InterancePage();
+        //       Navigator.push(
+        //           context,
+        //           PageTransition(
+        //               child: LogInPage(), type: PageTransitionType.fade));
+        //     } else if (state is HisFirstTime) {
+        //       Navigator.push(
+        //           context,
+        //           PageTransition(
+        //               child: InterancePage(), type: PageTransitionType.fade));
+        //     } else if (state is UseingApp) {
+        //       Navigator.push(
+        //           context,
+        //           PageTransition(
+        //               child: GetProjectsPage(), type: PageTransitionType.fade));
         //     }
-        //   },
+        //   }, //!! we have to fix this
+        //   child: Text('hello'),
         // ),
-        // GetProjectsPage(),
+
       ),
     );
   }
