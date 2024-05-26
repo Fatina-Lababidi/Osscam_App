@@ -5,7 +5,7 @@ import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
 import 'package:osscam/model/create_new_project_model.dart';
 
-Future<bool> createNewProject(CreateNewProjectModel createNewProject) async {
+Future createNewProject(CreateNewProjectModel createNewProject) async {
   print(createNewProject.toJson());
   try {
     Dio dio = Dio();
@@ -17,10 +17,10 @@ Future<bool> createNewProject(CreateNewProjectModel createNewProject) async {
 
     if (response.statusCode == 200) {
       print(response.data);
-      return true;
+      return response.data;
     } else {
       print('error in create new project');
-      return false;
+      return 'false';
     }
   } on DioException catch (e) {
     if (e.error is SocketException) {

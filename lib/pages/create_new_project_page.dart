@@ -6,7 +6,8 @@ import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/create_new_project_model.dart';
 import 'package:osscam/pages/create_new_task_page.dart';
-import 'package:osscam/pages/get_projects_page.dart';
+import 'package:osscam/pages/error_page.dart';
+import 'package:osscam/pages/offline_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -33,33 +34,55 @@ class CreateNewProjectPage extends StatelessWidget {
               listener: (context, state) {
                 if (state is SuccessCreateProject) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Success creating')));
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => GetProjectsPage(),
-                  //   ),
-                  // );
-                  Navigator.push(context, PageTransition(child:
-                  //CreateNewTaskPage(),
-GetProjectsPage(),
-                   type:PageTransitionType.fade));
-                } else if (State is ErrorCreateProject) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      action: SnackBarAction(label: "", onPressed: () {}),
-                      content: const Text("Error creating"),
-                      duration: Duration(seconds: 1),
+                    const SnackBar(
+                      content: Text(
+                        'Successful creating new project ...',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      backgroundColor: AppColors.cardGreenColor,
+                      duration: Duration(seconds: 2),
                     ),
                   );
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: CreateNewTaskPage(
+                            project_id: state.project.id,
+                          ),
+                          // GetProjectsPage(),
+                          type: PageTransitionType.fade));
                 } else if (State is OfflineCreateProject) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      action: SnackBarAction(label: "", onPressed: () {}),
-                      content: const Text("Offline while creating"),
-                      duration: Duration(seconds: 1),
+                  const SnackBar(
+                    content: Text(
+                      'Offline,please try later...',
+                      style: TextStyle(color: Colors.black),
                     ),
+                    backgroundColor: AppColors.dropTextColor,
+                    duration: Duration(seconds: 2),
                   );
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child:
+                              OfflinePage(previousPage: CreateNewProjectPage()),
+                          type: PageTransitionType.fade));
+                } else if (state is ErrorCreateProject) {
+                  const SnackBar(
+                    content: Text(
+                      'Error,please try again...',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    backgroundColor: AppColors.deleteCardColor,
+                    duration: Duration(seconds: 2),
+                  );
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child:
+                              ErrorPage(previousPage: CreateNewProjectPage()),
+                          type: PageTransitionType.fade));
                 }
               },
               child: Form(
@@ -221,8 +244,8 @@ GetProjectsPage(),
                                 },
                               );
                             } else {
-                              return Center(
-                                child: const CircularProgressIndicator(
+                              return const Center(
+                                child: CircularProgressIndicator(
                                   color: AppColors.continerColor,
                                 ),
                               );

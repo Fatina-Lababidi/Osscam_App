@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
-import 'package:osscam/model/create_new_project_model.dart';
 import 'package:osscam/model/create_new_task.dart';
 
 import 'package:osscam/service/create_new_task.dart';

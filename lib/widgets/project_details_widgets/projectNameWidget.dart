@@ -3,16 +3,22 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/widgets/project_details_widgets/pupUpMenuWidget.dart';
 
-
 class projectNameWidget extends StatelessWidget {
+  final String name;
+  final int projectId;
   const projectNameWidget({
     super.key,
+    required this.name,
+    required this.projectId,
   });
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+
+    final double screenHeight = MediaQuery.sizeOf(context).height;
     return Container(
-      height: 51,
+      height: screenHeight * 0.07, //51,
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.only(left: 10, right: 10),
       decoration: BoxDecoration(
@@ -29,14 +35,19 @@ class projectNameWidget extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-    //? here the drawer
+              //? here the drawer
+              Scaffold.of(context).openDrawer();
             },
           ),
           const Spacer(),
-          const Text(
-    //?we will change this to widget.name depand on the prject we tap on
-            "project name",
-            style: TextStyle(fontSize: 25, color: Colors.white),
+          Text(
+            //?we will change this to widget.name depand on the prject we tap on
+            name,
+            // "project name",
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: screenWidth * 0.05, //screenHeight * 0.03, //25,
+                color: Colors.white),
           ),
           const Spacer(),
           Container(
@@ -48,9 +59,11 @@ class projectNameWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 2,
+            width: 5,
           ),
-          PopUpMenuWidget(),
+          PopUpMenuWidget(
+            projectId: projectId,
+          ),
         ],
       ).animate().fade(duration: .4.seconds, delay: .3.seconds),
     );

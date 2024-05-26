@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:osscam/model/create_new_project_model.dart';
+import 'package:osscam/model/get_projects_model.dart';
 import 'package:osscam/service/create_new_project_service.dart';
 
 part 'create_new_project_event.dart';
@@ -15,11 +16,12 @@ class CreateNewProjectBloc
     on<CreateNewProject>((event, emit) async {
       try {
         emit(LoadingCreateProject());
-        bool temp = await createNewProject(event.project);
-        if (temp) {
-          emit(SuccessCreateProject());
-        } else {
+        var temp = await createNewProject(event.project);
+        if (temp is String) {
           emit(ErrorCreateProject());
+        } else {
+          ProjectsModel project = ProjectsModel.fromMap(temp);
+          emit(SuccessCreateProject(project: project));
         }
       } on DioException catch (e) {
         if (e.error is SocketException) {

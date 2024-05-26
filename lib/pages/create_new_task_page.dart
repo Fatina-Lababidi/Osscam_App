@@ -5,18 +5,20 @@ import 'package:osscam/bloc/createNewTask/create_new_task_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/create_new_task.dart';
+import 'package:osscam/pages/error_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
-import 'package:osscam/pages/project_details_page.dart';
+import 'package:osscam/pages/offline_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 
 // ignore: must_be_immutable
 class CreateNewTaskPage extends StatelessWidget {
-  CreateNewTaskPage({super.key});
+  final int project_id;
+  CreateNewTaskPage({super.key, required this.project_id});
 
   TextEditingController _taskNameController = TextEditingController();
   TextEditingController _taskDescriptionController = TextEditingController();
- // TextEditingController _project_idController = TextEditingController();
+  // TextEditingController _project_idController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,24 +40,40 @@ class CreateNewTaskPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child:const ProjectDetailsPage(),
+                          child: const GetProjectsPage(),
                           type: PageTransitionType.fade));
                 } else if (State is ErrorCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
                       content: const Text("Error creating"),
-                      duration:const Duration(seconds: 1),
+                      duration: const Duration(seconds: 1),
                     ),
                   );
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: ErrorPage(
+                              previousPage: CreateNewTaskPage(
+                            project_id: project_id,
+                          )),
+                          type: PageTransitionType.fade));
                 } else if (State is OfflineCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       action: SnackBarAction(label: "", onPressed: () {}),
                       content: const Text("Offline while creating"),
-                      duration:const Duration(seconds: 1),
+                      duration: const Duration(seconds: 1),
                     ),
                   );
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: OfflinePage(
+                              previousPage: CreateNewTaskPage(
+                            project_id: project_id,
+                          )),
+                          type: PageTransitionType.fade));
                 }
               },
               child: Form(
@@ -114,7 +132,8 @@ class CreateNewTaskPage extends StatelessWidget {
                               },
                               controller: _taskNameController,
                               obscureText: false,
-                              style:const TextStyle(color: AppColors.inputTextColor),
+                              style: const TextStyle(
+                                  color: AppColors.inputTextColor),
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 16),
@@ -156,7 +175,8 @@ class CreateNewTaskPage extends StatelessWidget {
                             ),
                             child: TextFormField(
                               obscureText: false,
-                              style:const TextStyle(color: AppColors.inputTextColor),
+                              style: const TextStyle(
+                                  color: AppColors.inputTextColor),
                               cursorColor: AppColors.primaryColor,
                               maxLines: 12,
                               validator: (value) {
@@ -202,18 +222,20 @@ class CreateNewTaskPage extends StatelessWidget {
                                 text: 'Create',
                                 onTap: () {
                                   if (formCreateKey.currentState!.validate()) {
-                                    context.read<CreateNewTaskBloc>().add(
-                                            CreateNewTask(
-                                                createNewTaskModel:
-                                                    CreateNewTaskModelWithColor(
-                                        taskDescription:
-                                              _taskDescriptionController.text,
-                                          taskStatus: "NEW",
-                                          project_id:5,
-                                          // CreateNewTaskModel.fromJson("https://projects-management-system.onrender.com/api/v1/tasks").project_id ,//!we have to take it form back?
-                                        ),
-                                        //  id:ProjectsModel.fromJson("id").id
-                                         ));
+                                    context
+                                        .read<CreateNewTaskBloc>()
+                                        .add(CreateNewTask(
+                                          createNewTaskModel:
+                                              CreateNewTaskModel(
+                                            //  taskName: _taskNameController.text,
+                                            taskDescription:
+                                                _taskDescriptionController.text,
+                                            taskStatus: "NEW",
+                                            project_id: project_id,
+                                            // CreateNewTaskModel.fromJson("https://projects-management-system.onrender.com/api/v1/tasks").project_id ,//!we have to take it form back?
+                                          ),
+                                          //  id:ProjectsModel.fromJson("id").id
+                                        ));
                                   }
                                 },
                               );

@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // logout(LogoutModel logOutUser) async {
 //   Dio dio = Dio();
@@ -30,17 +28,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 //   }
 // }
 
-logout() async {
+Future logout() async {
   Dio dio = Dio();
   try {
     Response response =
         await dio.put(AppUrl.logout_url, options: getHeader(true));
-    if (response is String) {
-      config.get<SharedPreferences>().clear();
-      print('logout success,' +
-          'token : ${config.get<SharedPreferences>().clear()}');
+    if (response.statusCode == 200) {
+      //! here we make it clear or remove just token ?
+      //  config.get<SharedPreferences>().remove('token');
+      //   config.get<SharedPreferences>().clear();
+      //   print('logout success,' +
+      //       'token : ${config.get<SharedPreferences>().clear()}');
+      return response.data;
     } else {
       print('error when logout');
+      return false;
     }
   } on DioException catch (e) {
     print(e);

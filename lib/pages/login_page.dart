@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/bloc/login_bloc/auth_bloc.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/asset.dart';
@@ -47,88 +46,117 @@ class _LogInPageState extends State<LogInPage> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return BlocBuilder<AppBloc, AppState>(
-      builder: (context, state) {
-        if (state is HeLoggedIn) {
-          return CreateOrJoinPage();
-        } else {
-          return BlocProvider(
-            create: (context) => AuthBloc(),
-            child: Builder(builder: (context) {
-              return Scaffold(
-                backgroundColor: AppColors.primaryColor,
-                body: BlocListener<AuthBloc, AuthState>(
-                  listener: (context, state) {
-                    if (state is AuthSuccess) {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text('Done')));
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CreateOrJoinPage(),
-                        ),
-                      );
-                      context.read<AppBloc>().add(LoggedIn());
-                    } else if (state is AuthOffline) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Offline,please try later')));
-                      Navigator.pushReplacement(
-                          context,
-                          PageTransition(
-                              child: OfflinePage(
-                                previousPage: LogInPage(),
-                              ),
-                              type: PageTransitionType.fade));
-                    } else if (state is AuthFailed) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Error,please try again')));
-                      Navigator.pushReplacement(
-                          context,
-                          PageTransition(
-                            child: ErrorPage(previousPage: LogInPage()),
-                            type: PageTransitionType.fade,
-                          ));
-                    }
-                  },
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+    return
+        // BlocBuilder<AppBloc, AppState>(
+        //   builder: (context, state) {
+        //     if (state is HeLoggedIn) {
+        //       return CreateOrJoinPage();
+        //     } else {
+
+        //       return
+        BlocProvider<AuthBloc>(
+      create: (context) => AuthBloc(),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          backgroundColor: AppColors.primaryColor,
+          body: BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Successful authentication...',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    backgroundColor: AppColors.cardGreenColor,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                        child: const CreateOrJoinPage(),
+                        type: PageTransitionType.fade));
+                // context.read<AppBloc>().add(LoggedIn());
+              } else if (state is AuthOffline) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Offline,please try later...',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    backgroundColor: AppColors.dropTextColor,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                Navigator.pushReplacement(
+                  context,
+                  PageTransition(
+                    child: OfflinePage(
+                      previousPage: LogInPage(),
+                    ),
+                    type: PageTransitionType.fade,
+                  ),
+                );
+              } else if (state is AuthFailed) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Error,please try again...',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    backgroundColor: AppColors.deleteCardColor,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                Navigator.pushReplacement(
+                  context,
+                  PageTransition(
+                    child: ErrorPage(previousPage: LogInPage()),
+                    type: PageTransitionType.fade,
+                  ),
+                );
+              }
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: screenHeight * 0.8,
+                    child: Stack(
+                      alignment: AlignmentDirectional.center,
                       children: [
-                        SizedBox(
-                          height: screenHeight * 0.8,
-                          child: Stack(
-                            alignment: AlignmentDirectional.center,
-                            children: [
-                              _buildLoginForm(screenWidth, screenHeight),
-                              _buildAvatar(screenWidth, screenHeight),
-                            ],
-                          ),
-                        ),
-                        BlocBuilder<AuthBloc, AuthState>(
-                          builder: (context, state) {
-                            if (state is AuthInitial) {
-                              return _buildLoginButton(context);
-                            } else {
-                              return CircularProgressIndicator(
-                                color: AppColors.continerColor,
-                              );
-                            }
-                          },
-                        ),
-                        SizedBox(height: 30),
-                        _buildSignUpButton(),
+                        _buildLoginForm(screenWidth, screenHeight),
+                        _buildAvatar(screenWidth, screenHeight),
                       ],
                     ),
                   ),
-                ),
-                 
-              );
-        }),
-          );
-        }
-      },
+                  BlocBuilder<AuthBloc, AuthState>(
+                    builder: (context, state) {
+                      if (state is AuthInitial) {
+                        return _buildLoginButton(context);
+                      } else {
+                        return const CircularProgressIndicator(
+                          color: AppColors.continerColor,
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  _buildSignUpButton(),
+                ],
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
+  //  },
+  // );
 
   Widget _buildLoginForm(double screenWidth, double screenHeight) {
     return Container(
@@ -143,7 +171,7 @@ class _LogInPageState extends State<LogInPage> {
           key: _formKey,
           child: Column(
             children: [
-              SizedBox(height: 90),
+              const SizedBox(height: 90),
               _buildEmailTextField(),
               _buildPasswordTextField(),
               _buildRememberMeCheckbox(),
@@ -189,13 +217,12 @@ class _LogInPageState extends State<LogInPage> {
       text: "Password",
       controller: _passwordController,
     ).animate().fade(delay: .7.seconds, duration: .8.seconds);
-    
   }
 
   Widget _buildRememberMeCheckbox() {
     return Row(
       children: [
-        SizedBox(width: 20),
+        const SizedBox(width: 20),
         Checkbox(
           activeColor: AppColors.primaryColor,
           value: isChecked,
@@ -203,7 +230,7 @@ class _LogInPageState extends State<LogInPage> {
             setState(() {
               isChecked = value!;
               // isChecked = !isChecked;
-                  config.get<SharedPreferences>().setBool('remember me', isChecked);
+              config.get<SharedPreferences>().setBool('remember me', isChecked);
             });
           },
         ),
@@ -265,7 +292,6 @@ class _LogInPageState extends State<LogInPage> {
         }
       },
     ).animate().fade(delay: .5.seconds, duration: .6.seconds);
-  
   }
 
   Widget _buildLoadingIndicator() {
