@@ -16,7 +16,7 @@ void main() {
   // A a = A(name: 'name', App: APP.COMPLETED.name);
   Bloc.observer = MyBlocObserver();
   init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
               Navigator.push(
                   context,
                   PageTransition(
-                      child: CreateOrJoinPage(),
+                      child:const CreateOrJoinPage(),
                       type: PageTransitionType.fade));
             } else if (state is HeLoggedOut) {
               Navigator.push(
@@ -52,12 +52,12 @@ class MyApp extends StatelessWidget {
               Navigator.push(
                   context,
                   PageTransition(
-                      child: InterancePage(), type: PageTransitionType.fade));
+                      child:const InterancePage(), type: PageTransitionType.fade));
             } else if (state is UseingApp) {
               Navigator.push(
                   context,
                   PageTransition(
-                      child: GetProjectsPage(), type: PageTransitionType.fade));
+                      child:const GetProjectsPage(), type: PageTransitionType.fade));
             }
           }, //!! we have to fix this
           child: Container(
@@ -112,26 +112,14 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-//ff22@gmail.com, ffffffffff
 
 
-//!! it give me this error after log in :
-/*
-[ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: Bad state: add(LoggedIn) was called without a registered event handler.
-Make sure to register a handler via on<LoggedIn>((event, emit) {...})
-#0      Bloc.add.<anonymous closure> (package:bloc/src/bloc.dart:91:9)
-#1      Bloc.add (package:bloc/src/bloc.dart:97:6)
 
-*/
-
-
-//! service of the update task
 
 //! get all projects media query
 
-//! log in exeption
 
 //! make the details page dialogs un tapped in order not to pop twice
 
 
-//sanaTa@gmail.com
+//sanata@gmail.com

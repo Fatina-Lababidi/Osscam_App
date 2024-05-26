@@ -28,20 +28,41 @@ class LogoutPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     PageTransition(
-                        child: MyApp(), type: PageTransitionType.fade));
+                        child: const MyApp(), type: PageTransitionType.fade));
               } else if (state is LogOutFailed) {
+                const SnackBar(
+                  content: Text(
+                    'Error,please try again...',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  backgroundColor: AppColors.deleteCardColor,
+                  duration: Duration(seconds: 2),
+                );
                 Navigator.push(
-                    context,
-                    PageTransition(
-                        child: ErrorPage(
-                          previousPage: LogoutPage(),
-                        ),
-                        type: PageTransitionType.fade));
+                  context,
+                  PageTransition(
+                    child: const ErrorPage(
+                      previousPage: LogoutPage(),
+                    ),
+                    type: PageTransitionType.fade,
+                  ),
+                );
               } else if (state is LogOutOffline) {
+                const SnackBar(
+                  content: Text(
+                    'Offline,please try later...',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  backgroundColor: AppColors.dropTextColor,
+                  duration: Duration(seconds: 2),
+                );
+
                 Navigator.push(
                     context,
                     PageTransition(
-                        child: OfflinePage(
+                        child:const OfflinePage(
                           previousPage: LogoutPage(),
                         ),
                         type: PageTransitionType.fade));

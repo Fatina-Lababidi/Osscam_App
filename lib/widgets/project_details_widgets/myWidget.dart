@@ -96,7 +96,8 @@ class _MyWidgetState extends State<MyWidget> {
         DraggableColumn(
           projectDescription: widget.projectDescription,
           projectName: widget.projectName,
-          project_id: widget.projectId,
+          projectId: widget.projectId,
+
           key: UniqueKey(),
           // items: [
           //   ItemWidget('Item 1'),
@@ -119,7 +120,7 @@ class _MyWidgetState extends State<MyWidget> {
         DraggableColumn(
           projectDescription: widget.projectDescription,
           projectName: widget.projectName,
-          project_id: widget.projectId,
+          projectId: widget.projectId,
           key: UniqueKey(),
           // items: [
           //   ItemWidget('Item 4'),
@@ -142,7 +143,7 @@ class _MyWidgetState extends State<MyWidget> {
         DraggableColumn(
           projectDescription: widget.projectDescription,
           projectName: widget.projectName,
-          project_id: widget.projectId,
+          projectId: widget.projectId,
           key: UniqueKey(),
           //   items: [ItemWidget('item 7'), ItemWidget('item 8')],
           widgetItems: doneTasks

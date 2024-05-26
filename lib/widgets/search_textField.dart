@@ -6,6 +6,7 @@ import 'package:osscam/model/get_projects_model.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 
 
+// ignore: must_be_immutable
 class SearchTextField extends StatefulWidget {
   //final String hintText;
   List<ProjectsModel> data;

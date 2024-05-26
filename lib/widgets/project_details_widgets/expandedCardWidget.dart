@@ -39,13 +39,6 @@ class ExpandedCard extends StatelessWidget {
             ),
           ),
           Center(
-            // child: Container(
-            //   width: screenWidth * 0.8,
-            //   height: screenHeight * 0.5,
-            //   decoration: BoxDecoration(
-            //     color: Colors.white,
-            //     borderRadius: BorderRadius.circular(10),
-            //   ),
             child: SizedBox(
               height: screenHeight * 0.5,
               width: screenWidth * 0.8,
@@ -59,7 +52,6 @@ class ExpandedCard extends StatelessWidget {
                       right: screenWidth * 0.02,
                       bottom: screenHeight * 0.02),
                   child: Container(
-                    // margin: const EdgeInsets.all(10),
                     width: screenWidth * 0.72, //150,
                     height: screenHeight * 0.44,
                     decoration: BoxDecoration(

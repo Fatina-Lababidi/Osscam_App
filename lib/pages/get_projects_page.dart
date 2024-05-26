@@ -54,6 +54,16 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
           body: BlocConsumer<ProjectsBloc, ProjectsState>(
             listener: (context, state) {
               if (state is ErrorGetProjects) {
+                const SnackBar(
+                  content: Text(
+                    'Error,please try again...',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  backgroundColor: AppColors.deleteCardColor,
+                  duration: Duration(seconds: 2),
+                );
                 Navigator.push(
                   context,
                   PageTransition(
@@ -64,6 +74,14 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                   ),
                 );
               } else if (state is OfflineOnGetProjects) {
+                const SnackBar(
+                  content: Text(
+                    'Offline,please try later...',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  backgroundColor: AppColors.dropTextColor,
+                  duration: Duration(seconds: 2),
+                );
                 Navigator.push(
                   context,
                   PageTransition(
@@ -317,117 +335,6 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
           ),
         );
       }),
-    );
-  }
-}
-
-
-//! testing :
-
-
-class CircularBorderPainter extends CustomPainter {
-  final Color fillColor;
-  final Color borderColor;
-  final double borderRadius;
-  final double borderWidth;
-
-  CircularBorderPainter({
-    required this.fillColor,
-    required this.borderColor,
-    required this.borderRadius,
-    required this.borderWidth,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = fillColor
-      ..style = PaintingStyle.fill;
-
-    final rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
-    canvas.drawRRect(rrect, paint);
-
-    final borderPaint = Paint()
-      ..color = borderColor
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = borderWidth;
-    canvas.drawRRect(rrect, borderPaint);
-
-    final linePaint = Paint()
-      ..color = borderColor
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = borderWidth
-      ..strokeCap = StrokeCap.round;  // Add this to round the ends of the line
-
-    final linePath = Path();
-    linePath.moveTo(size.width * 0.75, 0);
-    linePath.lineTo(0, size.height-5);
-    canvas.drawPath(linePath, linePaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
-
-
-
-class CustomPaintedContainer extends StatelessWidget {
-  final double height;
-  final double width;
-  final Color fillColor;
-  final Color borderColor;
-  final double borderRadius;
-  final double borderWidth;
-
-  const CustomPaintedContainer({
-    Key? key,
-    required this.height,
-    required this.width,
-    required this.fillColor,
-    required this.borderColor,
-    required this.borderRadius,
-    required this.borderWidth,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: CircularBorderPainter(
-        fillColor: fillColor,
-        borderColor: borderColor,
-        borderRadius: borderRadius,
-        borderWidth: borderWidth,
-      ),
-      child: SizedBox(
-        height: height,
-        width: width,
-      ),
-    );
-  }
-}
-
-class YourWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
-
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: CustomPaintedContainer(
-            height: screenHeight * 0.13, // Adjust the height as needed
-            width: screenWidth * 0.3, // Adjust the width as needed
-            fillColor: Colors.blue, // Replace with your fill color
-            borderColor: Colors.red, // Replace with your border color
-            borderRadius: 10,
-            borderWidth: 2, // Adjust the border width as needed
-          ),
-        ),
-      ),
     );
   }
 }

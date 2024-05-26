@@ -7,6 +7,7 @@ import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/pages/error_page.dart';
 import 'package:osscam/pages/offline_page.dart';
 import 'package:osscam/pages/project_details_page.dart';
+import 'package:osscam/widgets/oneProjectLoading_widget.dart';
 import 'package:osscam/widgets/project_details_widgets/projectNameWidget.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -33,6 +34,16 @@ class OneProjectPage extends StatelessWidget {
         body: BlocConsumer<OneProjectBloc, OneProjectState>(
           listener: (context, state) {
             if (state is ErrorOneProject) {
+              const SnackBar(
+                content: Text(
+                  'Error,please try again...',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                backgroundColor: AppColors.deleteCardColor,
+                duration: Duration(seconds: 2),
+              );
               Navigator.push(
                 context,
                 PageTransition(
@@ -45,6 +56,14 @@ class OneProjectPage extends StatelessWidget {
                 ),
               );
             } else if (state is OfflineOneProject) {
+              const SnackBar(
+                content: Text(
+                  'Offline,please try later...',
+                  style: TextStyle(color: Colors.black),
+                ),
+                backgroundColor: AppColors.dropTextColor,
+                duration: Duration(seconds: 2),
+              );
               Navigator.push(
                 context,
                 PageTransition(
@@ -88,8 +107,8 @@ class OneProjectPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           margin: const EdgeInsets.all(5),
-                          height:screenHeight*0.13, //105,
-                          width: screenWidth*1,//317,
+                          height: screenHeight * 0.13, //105,
+                          width: screenWidth * 1, //317,
                           child: Row(
                             children: [
                               Stack(
@@ -137,7 +156,7 @@ class OneProjectPage extends StatelessWidget {
                 ],
               );
             } else {
-              return Center(child: CircularProgressIndicator(color: AppColors.textFieldColor,));
+              return const OneProjectLoadingWidget();
             }
           },
         ),

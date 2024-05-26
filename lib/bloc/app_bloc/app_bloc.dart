@@ -31,9 +31,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         } else if (hasToken == true && hisFirstTime == false) {
           emit(UseingApp());
         } else if (hasToken == false && hisFirstTime == false) {
-          emit(HisFirstTime());
-        } else if (hasToken == false && hisFirstTime == true) {
           emit(HeLoggedOut());
+        } else if (hasToken == false && hisFirstTime == true) {
+          emit(HisFirstTime());
         }
       },
     );

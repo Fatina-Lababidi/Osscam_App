@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // logout(LogoutModel logOutUser) async {
 //   Dio dio = Dio();
@@ -30,7 +28,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //   }
 // }
 
-logout() async {
+Future logout() async {
   Dio dio = Dio();
   try {
     Response response =

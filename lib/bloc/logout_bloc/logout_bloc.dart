@@ -18,7 +18,7 @@ class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
         var result = await logout();
         if (result is String) {
           config.get<SharedPreferences>().remove('token');
-          config.get<SharedPreferences>().clear();
+         // config.get<SharedPreferences>().clear();
           print('logout success,' +
               'token : ${config.get<SharedPreferences>().clear()}');
           emit(LogOutSuccess(message: result));

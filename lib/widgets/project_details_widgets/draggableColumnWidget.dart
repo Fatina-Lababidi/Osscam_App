@@ -17,20 +17,21 @@ class DraggableColumn extends StatefulWidget {
   final String status;
   final Color textColor;
   final Function(BuildContext, GetAllTasks, Color, Color, String) onTap;
-  final int project_id;
+  final int projectId;
   final String projectName;
   final String projectDescription;
+
   const DraggableColumn({
-    Key? key,
+    super.key,
     required this.widgetItems,
     required this.color,
     required this.status,
     required this.textColor,
     required this.onTap,
-    required this.project_id,
+    required this.projectId,
     required this.projectName,
     required this.projectDescription,
-  }) : super(key: key);
+  });
 
   @override
   _DraggableColumnState createState() => _DraggableColumnState();
@@ -43,6 +44,7 @@ class _DraggableColumnState extends State<DraggableColumn> {
   void initState() {
     super.initState();
     updateItems();
+    // items = List.from(widget.widgetItems);
   }
 
   void updateItems() {
@@ -62,7 +64,7 @@ class _DraggableColumnState extends State<DraggableColumn> {
     context.read<UpdateTaskStatusBloc>().add(
           UpdateEvent(
             task_id: taskModel.taskId,
-            project_id: widget.project_id,
+            project_id: widget.projectId,
             taskStatus: status,
             taskDescription: taskModel.taskDescription,
           ),
@@ -77,23 +79,28 @@ class _DraggableColumnState extends State<DraggableColumn> {
     return BlocConsumer<UpdateTaskStatusBloc, UpdateTaskStatusState>(
       listener: (context, state) {
         if (state is FailedUpdate) {
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text('faild')));
-          setState(() {
-            items = List.from(widget.widgetItems);
-          });
+          items = List.from(widget.widgetItems);
+
           ErrorDialog(context, screenWidth);
           Future.delayed(Duration(seconds: 3), () {
             Navigator.of(context).pop();
           });
         } else if (state is SuccessUpdate) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('success')));
-          setState(() {
-            context
-                .read<ProjectTaskBloc>()
-                .add(GetTasksByProject(widget.project_id));
-          });
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Successful update status ...',
+                style: TextStyle(color: Colors.black),
+              ),
+              backgroundColor: AppColors.cardGreenColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+
+          context
+              .read<ProjectTaskBloc>()
+              .add(GetTasksByProject(widget.projectId));
+
           // Navigator.push(
           //     context,
           //     PageTransition(
@@ -108,7 +115,7 @@ class _DraggableColumnState extends State<DraggableColumn> {
               PageTransition(
                   child: OfflinePage(
                       previousPage: ProjectDetailsPage(
-                          projectId: widget.project_id,
+                          projectId: widget.projectId,
                           projectName: widget.projectName,
                           projectDescription: widget.projectDescription)),
                   type: PageTransitionType.fade));
@@ -124,10 +131,10 @@ class _DraggableColumnState extends State<DraggableColumn> {
                   (details.data as ItemWidget).itemDescription;
               taskUpdateStatus(details.data, taskModel);
             }
-            setState(() {
-              widget.widgetItems.remove(details.data);
-              items.add(details.data);
-            });
+
+            widget.widgetItems.remove(details.data);
+            items.add(details.data);
+
             print('new status: ' + widget.status);
 
             // if (details.data is ItemWidget) {
@@ -216,6 +223,7 @@ class _DraggableColumnState extends State<DraggableColumn> {
                                                 color: widget.textColor),
                                           ),
                                           Icon(
+
                                             Icons.pest_control_outlined,
                                             color: widget.textColor,
                                           )
@@ -241,10 +249,10 @@ class _DraggableColumnState extends State<DraggableColumn> {
                             //!! maybe here we have to make a conditoin depends on the response of the update request .......
                             //! maybe if its return true so update the ui using setState bellow ,if it false do nothing
                             //! or in the onAccepteWithDetails??
-                            setState(() {
-                              //? this line in order not to add a copy of the items but to transformate
-                              items.remove(item);
-                            });
+
+                            //? this line in order not to add a copy of the items but to transformate
+                            items.remove(item);
+
                             print('privous status:' + widget.status);
                           },
                           child: Padding(

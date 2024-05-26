@@ -34,13 +34,15 @@ class CreateNewProjectPage extends StatelessWidget {
               listener: (context, state) {
                 if (state is SuccessCreateProject) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Success creating')));
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => GetProjectsPage(),
-                  //   ),
-                  // );
+                    const SnackBar(
+                      content: Text(
+                        'Successful creating new project ...',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      backgroundColor: AppColors.cardGreenColor,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
                   Navigator.push(
                       context,
                       PageTransition(
@@ -50,12 +52,13 @@ class CreateNewProjectPage extends StatelessWidget {
                           // GetProjectsPage(),
                           type: PageTransitionType.fade));
                 } else if (State is OfflineCreateProject) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      action: SnackBarAction(label: "", onPressed: () {}),
-                      content: const Text("Offline while creating"),
-                      duration: Duration(seconds: 1),
+                  const SnackBar(
+                    content: Text(
+                      'Offline,please try later...',
+                      style: TextStyle(color: Colors.black),
                     ),
+                    backgroundColor: AppColors.dropTextColor,
+                    duration: Duration(seconds: 2),
                   );
                   Navigator.push(
                       context,
@@ -63,13 +66,16 @@ class CreateNewProjectPage extends StatelessWidget {
                           child:
                               OfflinePage(previousPage: CreateNewProjectPage()),
                           type: PageTransitionType.fade));
-                } else if(state is ErrorCreateProject){
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      action: SnackBarAction(label: "", onPressed: () {}),
-                      content: const Text("Error creating"),
-                      duration: Duration(seconds: 1),
+                } else if (state is ErrorCreateProject) {
+                  const SnackBar(
+                    content: Text(
+                      'Error,please try again...',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
+                    backgroundColor: AppColors.deleteCardColor,
+                    duration: Duration(seconds: 2),
                   );
                   Navigator.push(
                       context,
@@ -238,8 +244,8 @@ class CreateNewProjectPage extends StatelessWidget {
                                 },
                               );
                             } else {
-                              return Center(
-                                child: const CircularProgressIndicator(
+                              return const Center(
+                                child: CircularProgressIndicator(
                                   color: AppColors.continerColor,
                                 ),
                               );

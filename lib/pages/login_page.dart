@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osscam/bloc/app_bloc/app_bloc.dart';
 import 'package:osscam/bloc/login_bloc/auth_bloc.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/asset.dart';
@@ -63,34 +62,62 @@ class _LogInPageState extends State<LogInPage> {
           body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is AuthSuccess) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('Done')));
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreateOrJoinPage(),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Successful authentication...',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    backgroundColor: AppColors.cardGreenColor,
+                    duration: Duration(seconds: 2),
                   ),
                 );
-                context.read<AppBloc>().add(LoggedIn());
+                Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                        child: const CreateOrJoinPage(),
+                        type: PageTransitionType.fade));
+                // context.read<AppBloc>().add(LoggedIn());
               } else if (state is AuthOffline) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Offline,please try later')));
+                  const SnackBar(
+                    content: Text(
+                      'Offline,please try later...',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    backgroundColor: AppColors.dropTextColor,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
                 Navigator.pushReplacement(
-                    context,
-                    PageTransition(
-                        child: OfflinePage(
-                          previousPage: LogInPage(),
-                        ),
-                        type: PageTransitionType.fade));
+                  context,
+                  PageTransition(
+                    child: OfflinePage(
+                      previousPage: LogInPage(),
+                    ),
+                    type: PageTransitionType.fade,
+                  ),
+                );
               } else if (state is AuthFailed) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error,please try again')));
+                  const SnackBar(
+                    content: Text(
+                      'Error,please try again...',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    backgroundColor: AppColors.deleteCardColor,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
                 Navigator.pushReplacement(
-                    context,
-                    PageTransition(
-                      child: ErrorPage(previousPage: LogInPage()),
-                      type: PageTransitionType.fade,
-                    ));
+                  context,
+                  PageTransition(
+                    child: ErrorPage(previousPage: LogInPage()),
+                    type: PageTransitionType.fade,
+                  ),
+                );
               }
             },
             child: SingleChildScrollView(
@@ -118,7 +145,7 @@ class _LogInPageState extends State<LogInPage> {
                       }
                     },
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   _buildSignUpButton(),
                 ],
               ),
@@ -144,7 +171,7 @@ class _LogInPageState extends State<LogInPage> {
           key: _formKey,
           child: Column(
             children: [
-              SizedBox(height: 90),
+              const SizedBox(height: 90),
               _buildEmailTextField(),
               _buildPasswordTextField(),
               _buildRememberMeCheckbox(),
@@ -195,7 +222,7 @@ class _LogInPageState extends State<LogInPage> {
   Widget _buildRememberMeCheckbox() {
     return Row(
       children: [
-        SizedBox(width: 20),
+        const SizedBox(width: 20),
         Checkbox(
           activeColor: AppColors.primaryColor,
           value: isChecked,

@@ -4,8 +4,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
+import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/model/get_tasks_model.dart';
 import 'package:osscam/pages/error_page.dart';
+import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/pages/offline_page.dart';
 import 'package:osscam/widgets/project_details_widgets/drawer.dart';
 import 'package:osscam/widgets/project_details_widgets/expandedCardWidget.dart';
@@ -15,9 +17,9 @@ import 'package:osscam/widgets/project_details_widgets/projectNameWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/project_details_loading_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:osscam/core/resources/color.dart';
+
 // /! this page will take an object from the privous page in order to appear only the tasks of the taped continer?
 //! //already the data of this page will apear after we tap on the continer it will take the id of the project in order to show its tasks
-
 //!! we have a problem that when removing the holle items form column its space disapeare
 // there is thing called placeholder widget ?? we have to know more about it ..!
 //in order to ensure that the space for each column remains ...
@@ -90,11 +92,39 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
       child: Builder(
         builder: (context) {
           return Scaffold(
+            floatingActionButton: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    child: const GetProjectsPage(),
+                    type: PageTransitionType.fade,
+                  ),
+                );
+              },
+              child: CircleAvatar(
+                radius: screenWidth * 0.11,
+                backgroundColor: AppColors.textFieldColor,
+                child: Center(
+                    child: Image.asset(
+                  AppImages.allProImage,
+                  fit: BoxFit.cover,
+                )),
+              ),
+            ),
             drawer: DrawerWidget(),
             backgroundColor: AppColors.primaryColor,
             body: BlocConsumer<ProjectTaskBloc, ProjectTaskState>(
               listener: (context, state) {
                 if (state is ProjectTaskOffline) {
+                  const SnackBar(
+                    content: Text(
+                      'Offline,please try later...',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    backgroundColor: AppColors.dropTextColor,
+                    duration: Duration(seconds: 2),
+                  );
                   Navigator.push(
                       context,
                       PageTransition(
@@ -106,6 +136,16 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                           )),
                           type: PageTransitionType.fade));
                 } else if (state is ProjectTaskError) {
+                  const SnackBar(
+                    content: Text(
+                      'Error,please try again...',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    backgroundColor: AppColors.deleteCardColor,
+                    duration: Duration(seconds: 2),
+                  );
                   Navigator.push(
                     context,
                     PageTransition(

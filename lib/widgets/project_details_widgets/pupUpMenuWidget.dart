@@ -59,13 +59,16 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                             BlocConsumer<DeleteProjectBloc, DeleteProjectState>(
                           listener: (context, state) {
                             if (state is SuccessDeleteProject) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text(
-                                  'success',style: TextStyle(color: Colors.black),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Successful delete ...',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  backgroundColor: AppColors.cardGreenColor,
+                                  duration: Duration(seconds: 2),
                                 ),
-                                backgroundColor: AppColors.cardGreenColor,
-                              ));
+                              );
                               Navigator.push(
                                 context,
                                 PageTransition(
@@ -73,15 +76,27 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                   type: PageTransitionType.fade,
                                 ),
                               );
-                            } else if (state is OfflineDeleteProject ||
-                                state is FailedDeleteProject) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
+                            } else if (state is FailedDeleteProject) {
+                              const SnackBar(
                                 content: Text(
-                                  'Faild',style: TextStyle(color: Colors.black)
+                                  'Error,please try again...',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
                                 ),
                                 backgroundColor: AppColors.deleteCardColor,
-                              ));
+                                duration: Duration(seconds: 2),
+                              );
+                              Navigator.pop(context);
+                            } else if (state is OfflineDeleteProject) {
+                              const SnackBar(
+                                content: Text(
+                                  'Offline,please try later...',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                backgroundColor: AppColors.dropTextColor,
+                                duration: Duration(seconds: 2),
+                              );
                               Navigator.pop(context);
                             }
                           },

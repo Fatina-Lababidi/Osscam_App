@@ -128,7 +128,7 @@ class DrawerWidget extends StatelessWidget {
             height: screenHeight * 0.03,
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.logout_rounded,
               color: AppColors.drawerDetailsColor,
             ),

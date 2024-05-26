@@ -35,14 +35,14 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return
-    // BlocBuilder<AppBloc, AppState>(
-    //   builder: (context, state) {
-    //     if (state is HeSigendUp) {
-    //       return const CreateOrJoinPage();
-    //     } else {
-    //       return
+        // BlocBuilder<AppBloc, AppState>(
+        //   builder: (context, state) {
+        //     if (state is HeSigendUp) {
+        //       return const CreateOrJoinPage();
+        //     } else {
+        //       return
 
-           BlocProvider(
+        BlocProvider(
             create: (context) => SignupBloc(),
             child: Builder(builder: (context) {
               return Scaffold(
@@ -50,17 +50,31 @@ class _SignUpPageState extends State<SignUpPage> {
                   body: BlocListener<SignupBloc, SignupState>(
                       listener: (context, state) {
                         if (state is SignUpSuccess) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text('Done')));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CreateOrJoinPage(),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Successful authentication...',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              backgroundColor: AppColors.cardGreenColor,
+                              duration: Duration(seconds: 2),
                             ),
                           );
+                          Navigator.pushReplacement(
+                            context,
+                            PageTransition(
+                                child: const CreateOrJoinPage(),
+                                type: PageTransitionType.fade),
+                          );
                         } else if (state is SignUpOffline) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Offline,please try later')));
+                          const SnackBar(
+                            content: Text(
+                              'Offline,please try later...',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            backgroundColor: AppColors.dropTextColor,
+                            duration: Duration(seconds: 2),
+                          );
                           Navigator.pushReplacement(
                             context,
                             PageTransition(
@@ -69,8 +83,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                         } else if (state is SignUpFailed) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Error,please try again')));
+                          const SnackBar(
+                            content: Text(
+                              'Error,please try again...',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+                            backgroundColor: AppColors.deleteCardColor,
+                            duration: Duration(seconds: 2),
+                          );
                           Navigator.pushReplacement(
                               context,
                               PageTransition(
@@ -188,7 +210,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                                       setState(() {
                                                         isChecked = value!;
                                                         // isChecked = !isChecked;
-                                                         config.get<SharedPreferences>().setBool('remember me', isChecked);
+                                                        config
+                                                            .get<
+                                                                SharedPreferences>()
+                                                            .setBool(
+                                                                'remember me',
+                                                                isChecked);
                                                       });
                                                     },
                                                   ),
@@ -268,9 +295,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       )));
             }));
-      //    );
+    //    );
     //    }
-  //    },
+    //    },
 // );
   }
 
