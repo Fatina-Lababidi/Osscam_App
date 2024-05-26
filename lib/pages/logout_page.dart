@@ -22,6 +22,7 @@ class LogoutPage extends StatelessWidget {
       child: Builder(builder: (context) {
         return Scaffold(
           backgroundColor: AppColors.primaryColor,
+<<<<<<< HEAD
           body: BlocListener<LogoutBloc, LogoutState>(
             listener: (context, state) {
               if (state is LogOutSuccess) {
@@ -35,6 +36,23 @@ class LogoutPage extends StatelessWidget {
                     'Error,please try again...',
                     style: TextStyle(
                       color: Colors.black,
+=======
+          body: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: screenHeight * 0.01,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.logout_outlined,
+                      color: AppColors.buttonColor,
+>>>>>>> new
                     ),
                   ),
                   backgroundColor: AppColors.deleteCardColor,

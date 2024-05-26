@@ -47,7 +47,7 @@ class CreateNewProjectPage extends StatelessWidget {
                       context,
                       PageTransition(
                           child: CreateNewTaskPage(
-                            project_id: state.project.id,
+                            id: state.project.id,
                           ),
                           // GetProjectsPage(),
                           type: PageTransitionType.fade));
