@@ -61,49 +61,15 @@ class MyApp extends StatelessWidget {
                       child:const GetProjectsPage(), type: PageTransitionType.fade));
             }
           }, //!! we have to fix this
-          child: Container(
+          // child: BlocBuilder<AppBloc, AppState>(
+          //   builder: (context, state) {
+          //     return Container();
+          //   },
+          // ),
+         child:Container(
             color: AppColors.primaryColor,
           ),
         ),
-
-        // home: BlocBuilder<AppBloc, AppState>(
-        //   builder: (context, state) {
-        //     if (state is HeSigendUp || state is HeLoggedIn) {
-        //       return GetProjectsPage();
-
-     //   home:CreateNewTaskPage(id: 2,),
-
-
-
-        // AddTaskPage(),
-        // BlocListener<AppBloc, AppState>(
-        //   listener: (context, state) {
-        //     if (state is HeJoinApp) {
-        //       Navigator.push(
-        //           context,
-        //           PageTransition(
-        //               child: CreateOrJoinPage(),
-        //               type: PageTransitionType.fade));
-        //     } else if (state is HeLoggedOut) {
-        //       Navigator.push(
-        //           context,
-        //           PageTransition(
-        //               child: LogInPage(), type: PageTransitionType.fade));
-        //     } else if (state is HisFirstTime) {
-        //       Navigator.push(
-        //           context,
-        //           PageTransition(
-        //               child: InterancePage(), type: PageTransitionType.fade));
-        //     } else if (state is UseingApp) {
-        //       Navigator.push(
-        //           context,
-        //           PageTransition(
-        //               child: GetProjectsPage(), type: PageTransitionType.fade));
-        //     }
-        //   }, //!! we have to fix this
-        //   child: Text('hello'),
-        // ),
-
       ),
     );
   }

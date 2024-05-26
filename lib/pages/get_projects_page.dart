@@ -149,14 +149,24 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                                       children: [
                                                         Container(
                                                           width: screenWidth *
-                                                              0.25, //135,
+                                                              0.35, //135,
                                                           height: screenHeight *
-                                                              0.12, //105,
-                                                          child: Image(
-                                                            fit: BoxFit.cover,
-                                                            image: const AssetImage(
-                                                                AppImages
-                                                                    .vector_image),
+                                                              0.18, //105,
+                                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                                                          child: ClipRect(
+                                                            child: Image(
+                                                              filterQuality: FilterQuality.high,
+                                                                 width: screenWidth *
+                                                                0.35, //135,
+                                                            height: screenHeight *
+                                                                0.18, //105,
+                                                              fit: BoxFit.fill,
+                                                              
+                                                              image: const AssetImage(
+                                                                  AppImages
+                                                                      .vector_image),
+                                                            ),
+                                                            // clipBehavior: Clip.hardEdge,
                                                           ),
                                                         ),
                                                         Padding(
@@ -254,13 +264,29 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                                   children: [
                                                     Stack(
                                                       children: [
-                                                         Image(
-                                                          width: screenWidth*0.37,
-                                                          height: screenHeight*0.13,
-                                                          fit: BoxFit.cover,
-                                                          image: AssetImage(
-                                                              AppImages
-                                                                  .vector_image),
+                                                      Container(
+                                                          width: screenWidth *
+                                                              0.35, //135,
+                                                          height: screenHeight *
+                                                              0.18, //105,
+                                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                                                          child: ClipRect(
+                                                            
+                                                            clipBehavior: Clip.values.first,
+                                                            child: Image(
+                                                              filterQuality: FilterQuality.high,
+                                                                 width: screenWidth *
+                                                                0.35, //135,
+                                                            height: screenHeight *
+                                                                0.18, //105,
+                                                              fit: BoxFit.fill,
+                                                              
+                                                              image: const AssetImage(
+                                                                  AppImages
+                                                                      .vector_image),
+                                                            ),
+                                                            // clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                          ),
                                                         ),
                                                         Padding(
                                                           padding:

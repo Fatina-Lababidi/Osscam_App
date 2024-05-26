@@ -114,12 +114,23 @@ class OneProjectPage extends StatelessWidget {
                               Stack(
                                 children: [
                                   Container(
-                                    width: screenWidth * 0.25, //135,
-                                    height: screenHeight * 0.12, //105,
-                                    child: Image(
-                                      fit: BoxFit.cover,
-                                      image: const AssetImage(
-                                          AppImages.vector_image),
+                                    // width: screenWidth * 0.35, //135,
+                                    // height: screenHeight * 0.18, //105,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: ClipRect(
+                                      clipBehavior: Clip.hardEdge,
+                                      child: Image(
+                                        filterQuality: FilterQuality.high,
+                                        width: screenWidth * 0.35, //135,
+                                        height: screenHeight * 0.18, //105,
+                                        fit: BoxFit.cover,
+
+                                        image: const AssetImage(
+                                            AppImages.vector_image),
+                                      ),
+                                      // clipBehavior: Clip.antiAliasWithSaveLayer,
                                     ),
                                   ),
                                   Padding(

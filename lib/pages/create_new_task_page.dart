@@ -74,18 +74,6 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                           ),
                           type: PageTransitionType.fade));
                 }
-                // if (state is AllTaskSended) {
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //       SnackBar(content: Text('Success creating')));
-
-                //   Navigator.push(
-                //       context,
-                //       PageTransition(
-                //           child: OneProjectPage(
-                //             ProjectId: widget.id,
-                //           ),
-                //           type: PageTransitionType.fade));
-                // }
                 else if (State is OfflineCreateTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -115,33 +103,35 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                       PageTransition(
                           child: ErrorPage(
                               previousPage: CreateNewTaskPage(
-                            id: 2,
+                            id: widget.id,
                           )),
                           type: PageTransitionType.fade));
                 }
               },
-              child: SingleChildScrollView(
-                  child: Form(
-                key: formCreateKey,
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: screenHeight * 0.01,
-                      ),
-                      Image(
-                        alignment: Alignment.topLeft,
-                        width: screenWidth,
-                        height: screenHeight * 0.12,
-                        image: const AssetImage(
-                          AppImages.osscamLogo,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: screenWidth * 0.09),
-                        child: Text(
+              child: Form(
+                              key: formCreateKey,
+                              child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: screenHeight * 0.01,
+                  ),
+                  Image(
+                    alignment: Alignment.topLeft,
+                    width: screenWidth,
+                    height: screenHeight * 0.12,
+                    image: const AssetImage(
+                      AppImages.osscamLogo,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: screenWidth * 0.09),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
                           'Tasks',
                           style: TextStyle(
                             fontSize: screenWidth * 0.05,
@@ -149,26 +139,33 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                             color: AppColors.textCreateColor,
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      if (!showTextField)
-                        Row(
-                          children: [
-                            Container(
-                              width: 220,
-                              height: 100,
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  if (!showTextField)
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Container(
+                            width: 234,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: AppColors.cardPurpleColor,
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: AppColors.cardPurpleColor,
+                                color: Colors.white,
                               ),
-                              child: Container(
-                                margin: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                ),
+                              child: SizedBox(
+                                width:215.28 ,
+                                height: 50,
                                 child: TextField(
                                   controller: _textController,
                                   maxLines: 1,
@@ -183,30 +180,37 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                                 ),
                               ),
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  if (_textController.text.isNotEmpty) {
-                                    addNewTask();
-                                  }
-                                },
-                                icon: Icon(
-                                  Icons.add_circle,
-                                  color: Colors.white,
-                                  size: 35,
-                                ))
-                          ],
+                          ),
                         ),
-                      ListView.builder(
+                        IconButton(
+                            onPressed: () {
+                              if (_textController.text.isNotEmpty) {
+                                addNewTask();
+                              }
+                            },
+                            icon: Icon(
+                              Icons.add_circle,
+                              color: Colors.white,
+                              size: 35,
+                            ))
+                      ],
+                    ),
+                  Center(
+                    child: SizedBox(
+                      width: 234,
+                      height: 470,
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        // physics: NeverScrollableScrollPhysics(),
                         itemCount: tasksList.length,
                         itemBuilder: (context, index) {
                           final task = tasksList[index];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              width: 220,
-                              height: 100,
+                              width: 234,
+                              height: 70,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: AppColors.cardPurpleColor,
@@ -229,316 +233,57 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                             ),
                           );
                         },
-                      )
-
-                      // ListTile(
-                      //     trailing: IconButton(
-                      //         onPressed: () {
-                      //           setState(() {
-                      //             tasksList.add(
-                      //               CreateNewTaskModel(
-                      //                 taskDescription: '',
-                      //                 taskStatus: "NEW",
-                      //                 project_id: widget.id,
-                      //               ),
-                      //             );
-                      //             // tasksList.add(oneTask);
-                      //             //  textList.add('');
-                      //             // taskDescController.clear();
-                      //             controllers.add(TextEditingController());
-                      //             print(
-                      //                 'Added empty string to the list: $tasksList');
-                      //             // print('Added empty string to the list: $textList');
-                      //           });
-                      //!
-                      // if (taskDescController.text == '' ||
-                      //     taskDescController.text == null) {
-                      //   context
-                      //       .read<AddTaskBloc>()
-                      //       .add(CreateNewTextFiel());
-                      //   taskDescController.clear();
-                      // } else {
-                      //   // textList = taskDescController.text;
-
-                      //   context.read<AddTaskBloc>().add(
-                      //         SubmitOneTask(
-                      //           oneTask: CreateNewTaskModel(
-                      //               taskDescription:
-                      //                   taskDescController.text,
-                      //               taskStatus: 'NEW',
-                      //               project_id: 2),
-                      //         ),
-                      //       );
-                      //   context
-                      //       .read<AddTaskBloc>()
-                      //       .add(CreateNewTextFiel());
-                      // }
-
-//!
-
-                      // ResutlModel result = await getProjects();
-                      // if (result is ListOf<ProjectsModel>) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      //     content: Text("Success To Fetch data"),
-                      //     backgroundColor: Colors.green,
-                      //   ));
-
-                      //   project.value = result;
-                      // } else {
-                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      //     content: Text(" not Success To Fetch data"),
-                      //     backgroundColor: Colors.red,
-                      //   ));
-                      // }
-                      //     },
-                      //     icon: Icon(
-                      //       Icons.add_circle,
-                      //       color: Colors.white,
-                      //       size: 35,
-                      //     )),
-                      // title:
-                      // BlocBuilder<AddTaskBloc, AddTaskState>(
-                      //   builder: (context, state) {
-                      //     if (state is NewTextFieldCreated) {
-                      //      return
-                      //     Center(
-                      //         child: SizedBox(
-                      //   width: 500,
-                      //   height: 100,
-                      //   child: ListView.builder(
-                      //       shrinkWrap: true,
-                      //       itemCount:
-                      //           tasksList.length, //textList.length,//
-                      //       itemBuilder: (context, index) {
-                      //         if (
-                      //             //  tasksList[index].taskDescription.isEmpty
-                      //             index == tasksList.length - 1
-                      //             //index == textList.length - 1
-                      //             ) {
-                      //           // context
-                      //           //     .read<AddTaskBloc>()
-                      //           //     .add(CreateNewTextFiel());
-                      //           // taskDescController.clear();
-                      //           return Column(
-                      //             children: [
-                      //               Row(
-                      //                 children: [
-                      //                   Padding(
-                      //                       padding:
-                      //                           const EdgeInsets.all(16),
-                      //                       child: Material(
-                      //                         borderRadius:
-                      //                             BorderRadius.circular(10),
-                      //                         child: Container(
-                      //                           width: 234,
-                      //                           //  screenWidth *
-                      //                           //     0.468, //234,
-                      //                           height: 70,
-                      //                           // screenHeight *
-                      //                           //     0.14, // 70,
-                      //                           decoration: BoxDecoration(
-                      //                             borderRadius:
-                      //                                 BorderRadius.circular(
-                      //                                     10),
-                      //                             color: AppColors
-                      //                                 .cardPurpleColor,
-                      //                           ),
-                      //                           //  elevation: 8,
-
-                      //                           child: Column(
-                      //                             mainAxisAlignment:
-                      //                                 MainAxisAlignment.end,
-                      //                             children: [
-                      //                               Row(
-                      //                                 mainAxisAlignment:
-                      //                                     MainAxisAlignment
-                      //                                         .center,
-                      //                                 children: [
-                      //                                   Container(
-                      //                                     width: 215.28,
-                      //                                     height: 50,
-                      //                                     decoration: BoxDecoration(
-                      //                                         color: Colors
-                      //                                             .white,
-                      //                                         borderRadius:
-                      //                                             BorderRadius
-                      //                                                 .circular(
-                      //                                                     10)),
-                      //                                     child:
-                      //                                         TextFormField(
-                      //                                       cursorColor:
-                      //                                           AppColors
-                      //                                               .primaryColor,
-                      //                                       maxLines: 1,
-                      //                                       // validator:(value) {
-                      //                                       //   if (value!.isNotEmpty) {
-                      //                                       //     return null;
-                      //                                       //   } else {
-                      //                                       //     return "please enter the task";
-                      //                                       //   }
-                      //                                       // },
-                      //                                       controller:
-                      //                                           controllers[
-                      //                                               index],
-
-                      //                                       onChanged:
-                      //                                           (value) {
-                      //                                         setState(() {
-                      //                                           tasksList[index]
-                      //                                                   .taskDescription =
-                      //                                               value;
-                      //                                         });
-                      //                                       },
-
-                      //                                       //     textList[ index] = value;
-
-                      //                                       decoration:
-                      //                                           const InputDecoration(
-                      //                                         hintText:
-                      //                                             'Enter Text',
-                      //                                         border: OutlineInputBorder(
-                      //                                             borderSide:
-                      //                                                 BorderSide
-                      //                                                     .none,
-                      //                                             borderRadius:
-                      //                                                 BorderRadius.all(
-                      //                                                     Radius.circular(10))),
-                      //                                       ),
-                      //                                     ),
-                      //                                   ),
-                      //                                 ],
-                      //                               ),
-                      //                             ],
-                      //                           ),
-                      //                         ),
-                      //                       )),
-                      //                   // SizedBox(width: 50),
-                      //                 ],
-                      //               ),
-                      //             ],
-                      //           );
-                      //         } else {
-                      //           return Padding(
-                      //               padding: const EdgeInsets.all(16),
-                      //               child: Material(
-                      //                 borderRadius:
-                      //                     BorderRadius.circular(10),
-                      //                 child: Container(
-                      //                   width: 234,
-                      //                   //  screenWidth *
-                      //                   //     0.468, //234,
-                      //                   height: 70,
-                      //                   // screenHeight *
-                      //                   //     0.14, // 70,
-                      //                   decoration: BoxDecoration(
-                      //                     borderRadius:
-                      //                         BorderRadius.circular(10),
-                      //                     color: AppColors.cardPurpleColor,
-                      //                   ),
-                      //                   //  elevation: 8,
-
-                      //                   child: Column(
-                      //                     mainAxisAlignment:
-                      //                         MainAxisAlignment.end,
-                      //                     children: [
-                      //                       Row(
-                      //                         mainAxisAlignment:
-                      //                             MainAxisAlignment.center,
-                      //                         children: [
-                      //                           Container(
-                      //                               width: 215.28,
-                      //                               height: 50,
-                      //                               decoration: BoxDecoration(
-                      //                                   color: Colors.white,
-                      //                                   borderRadius:
-                      //                                       BorderRadius
-                      //                                           .circular(
-                      //                                               10)),
-                      //                               child: Card(
-                      //                                 child: ListTile(
-                      //                                   title: Text(
-                      //                                       tasksList[index]
-                      //                                           .taskDescription
-                      //                                       //textList[index]
-                      //                                       ),
-                      //                                 ),
-                      //                               )),
-                      //                         ],
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ));
-                      //           //  Card(
-                      //           //   child:
-                      //           //    ListTile(
-                      //           //     title: Text(textList[index]),
-                      //           //   ),
-                      //           // );
-                      //         }
-                      //       }),
-                      // ))
-                      // //     }else{
-                      // //       return Container();
-                      // //     }
-                      // //   },
-                      // // ),
-                      // ),
-                      // Row(
-                      //   children: [
-
-                      //   ],
-                      // ),
-                      ,
-                      SizedBox(
-                        height: 300,
                       ),
-                      BlocBuilder<AddTaskBloc, AddTaskState>(
-                        builder: (context, state) {
-                          if (state is AddTaskInitial) {
-                            return ButtonApp(
-                              textColor: AppColors.primaryColor,
-                              color: AppColors.buttonColor,
-                              text: 'Create',
-                              onTap: () {
-                                if (formCreateKey.currentState!.validate()) {
-                                  // List<String> filteredList = textList
-                                  //     .where((element) => element.isNotEmpty)
-                                  //     .toList();
-                                  List<CreateNewTaskModel> filteredList =
-                                      tasksList
-                                          .where((e) =>
-                                              e.taskDescription.isNotEmpty)
-                                          .toList();
-
-                                  print('Filtered list: $filteredList');
-                                  context
-                                      .read<AddTaskBloc>()
-                                      .add(SendAllTask(tasks: filteredList));
-
-                                  // context.read<AddTaskBloc>().add(
-                                  //     SubmitOneTask(
-                                  //         oneTask: CreateNewTaskModel(
-                                  //             taskDescription:
-                                  //                 taskDescController.text,
-                                  //             taskStatus: "NEW",
-                                  //             project_id: 2)));
-                                }
-                              },
-                            );
-                          } else {
-                            return Center(
-                              child: const CircularProgressIndicator(
-                                color: AppColors.continerColor,
+                    ),
+                  ) ,
+                  
+              SizedBox(height: 4,),
+                  BlocBuilder<AddTaskBloc, AddTaskState>(
+                    builder: (context, state) {
+                      if (state is AddTaskInitial) {
+                        return ButtonApp(
+                          textColor: AppColors.primaryColor,
+                          color: AppColors.buttonColor,
+                          text: 'Create',
+                          onTap: () {
+                            if (formCreateKey.currentState!.validate()) {
+                              // List<String> filteredList = textList
+                              //     .where((element) => element.isNotEmpty)
+                              //     .toList();
+                              List<CreateNewTaskModel> filteredList =
+                                  tasksList
+                                      .where((e) =>
+                                          e.taskDescription.isNotEmpty)
+                                      .toList();
+              
+                              print('Filtered list: $filteredList');
+                              context
+                                  .read<AddTaskBloc>()
+                                  .add(SendAllTask(tasks: filteredList));
+              
+                              // context.read<AddTaskBloc>().add(
+                              //     SubmitOneTask(
+                              //         oneTask: CreateNewTaskModel(
+                              //             taskDescription:
+                              //                 taskDescController.text,
+                              //             taskStatus: "NEW",
+                              //             project_id: 2)));
+                            }
+                          },
+                        );
+                      } else {
+                        return Center(
+                          child: const CircularProgressIndicator(
+                            color: AppColors.continerColor,
+                          ),
+                        );
+                      }
+                    },
+                  )
+                ],
+              ),
                               ),
-                            );
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              )),
+                            ),
             ));
       }),
     );
