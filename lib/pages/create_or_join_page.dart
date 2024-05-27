@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/join_project_bloc/join_project_bloc.dart';
@@ -303,9 +304,15 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'please enter the id';
+                                } else if (int.tryParse(value) == null) {
+                                  return 'Please enter a valid integer ID';
                                 } else {
                                   return null;
                                 }

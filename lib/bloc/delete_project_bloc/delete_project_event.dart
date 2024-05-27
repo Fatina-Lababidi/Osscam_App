@@ -11,3 +11,5 @@ class DeleteProject extends DeleteProjectEvent {
     required this.projectId,
   });
 }
+
+class RefreshProjects extends DeleteProjectEvent {}

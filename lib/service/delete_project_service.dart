@@ -3,12 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
 
-Future deleteProjectService(int projectId) async {
+Future<bool> deleteProjectService(int projectId) async {
   Dio dio = Dio();
   String deleteUrl = AppUrl.deleteProjectUrl(projectId);
   try {
-    Response response = await dio.delete(deleteUrl,options: getHeader(true));
+    Response response = await dio.delete(deleteUrl, options: getHeader(true));
     if (response.statusCode == 200) {
+      print(response.data);
       return true;
     } else {
       return false;
@@ -19,7 +20,7 @@ Future deleteProjectService(int projectId) async {
     } else if (e.response != null) {
       print('Error response: ${e.response!.data} // ${e.response!.statusCode}');
       if (e.response!.statusCode == 403) {
-        print('Forbidden:');
+        print('Forbidden:${e.message}');
       }
     } else {
       print('Dio error: ${e.message}');

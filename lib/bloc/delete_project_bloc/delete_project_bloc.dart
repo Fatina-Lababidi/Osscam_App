@@ -27,5 +27,9 @@ class DeleteProjectBloc extends Bloc<DeleteProjectEvent, DeleteProjectState> {
         }
       }
     });
+
+    on<RefreshProjects>((event, emit) {
+      emit(DeleteProjectInitial());
+    });
   }
 }

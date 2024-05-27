@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
 import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
@@ -87,6 +88,9 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                 ProjectTaskBloc()..add(GetTasksByProject(widget.projectId))),
         BlocProvider<UpdateTaskStatusBloc>(
           create: (context) => UpdateTaskStatusBloc(),
+        ),
+          BlocProvider<DeleteProjectBloc>(
+          create: (context) => DeleteProjectBloc(),
         ),
       ],
       child: Builder(

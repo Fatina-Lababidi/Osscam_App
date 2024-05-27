@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
@@ -77,8 +78,10 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                   type: PageTransitionType.fade,
                                 ),
                               );
+                                context.read<DeleteProjectBloc>().add(RefreshProjects());
                             } else if (state is FailedDeleteProject) {
-                              const SnackBar(
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
                                 content: Text(
                                   'Error,please try again...',
                                   style: TextStyle(
@@ -87,18 +90,23 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                 ),
                                 backgroundColor: AppColors.deleteCardColor,
                                 duration: Duration(seconds: 2),
-                              );
+                              ));
+
                               Navigator.pop(context);
+                                context.read<DeleteProjectBloc>().add(RefreshProjects());
                             } else if (state is OfflineDeleteProject) {
-                              const SnackBar(
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
                                 content: Text(
                                   'Offline,please try later...',
                                   style: TextStyle(color: Colors.black),
                                 ),
                                 backgroundColor: AppColors.dropTextColor,
                                 duration: Duration(seconds: 2),
-                              );
+                              ));
+
                               Navigator.pop(context);
+                                context.read<DeleteProjectBloc>().add(RefreshProjects());
                             }
                           },
                           builder: (context, state) {
@@ -169,11 +177,60 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                     ],
                                   ),
                                 );
-                              } else  {
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.deleteCardColor,
-                                  ),
+                              } else if (state is FailedDeleteProject ||
+                                  state is FailedDeleteProject) {
+                                return Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text(
+                                          'Something went wrong ....',
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: AppColors.deleteCardColor),
+                                        ),
+                                        const Text(
+                                          'try again',
+                                          style: TextStyle(fontSize: 17),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'Cancel',
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              )),
+                                        )
+                                      ],
+                                    ));
+                              } else {
+                                return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(height: 5,),
+                                    CircularProgressIndicator(
+                                      color: AppColors.deleteCardColor,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            'Cancel',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          )),
+                                    )
+                                  ],
                                 );
                               }
                             });

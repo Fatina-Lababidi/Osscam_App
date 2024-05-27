@@ -17,7 +17,7 @@ class AppUrl {
   }
 
   static String deleteProjectUrl(int ProjectId) {
-    return '${BaseService().baseUrl}projects/$ProjectId';
+    return '${BaseService().baseUrl}projects/${ProjectId}';
   }
 
   static String joinUserToProjectUrl(int projectId) {
