@@ -9,7 +9,6 @@ import 'package:osscam/pages/create_or_join_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/pages/interance_page.dart';
 import 'package:osscam/pages/login_page.dart';
-import 'package:osscam/pages/create_new_task_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
               Navigator.push(
                   context,
                   PageTransition(
-                      child:const CreateOrJoinPage(),
+                      child: const CreateOrJoinPage(),
                       type: PageTransitionType.fade));
             } else if (state is HeLoggedOut) {
               Navigator.push(
@@ -53,12 +52,14 @@ class MyApp extends StatelessWidget {
               Navigator.push(
                   context,
                   PageTransition(
-                      child:const InterancePage(), type: PageTransitionType.fade));
+                      child: const InterancePage(),
+                      type: PageTransitionType.fade));
             } else if (state is UseingApp) {
               Navigator.push(
                   context,
                   PageTransition(
-                      child:const GetProjectsPage(), type: PageTransitionType.fade));
+                      child: const GetProjectsPage(),
+                      type: PageTransitionType.fade));
             }
           }, //!! we have to fix this
           // child: BlocBuilder<AppBloc, AppState>(
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
           //     return Container();
           //   },
           // ),
-         child:Container(
+          child: Container(
             color: AppColors.primaryColor,
           ),
         ),
@@ -74,7 +75,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 class HomeScreen extends StatelessWidget {
   Future<void> _clearToken() async {
@@ -102,13 +102,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-
-
-
 //! get all projects media query
 
-
 //! make the details page dialogs un tapped in order not to pop twice
-
 
 //sanata@gmail.com

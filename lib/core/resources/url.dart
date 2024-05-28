@@ -7,7 +7,7 @@ class AppUrl {
   static String get_projects_url = "${BaseService().baseUrl}projects";
   static String post_new_project_url = '${BaseService().baseUrl}projects';
   static String post_new_task_url = "${BaseService().baseUrl}tasks";
-
+  static String addNewBugsUrl = "${BaseService().baseUrl}bugs";
   static String getTaskByProjectUrl(int projectId) {
     return '${BaseService().baseUrl}tasks/tasks-by-project/$projectId';
   }
@@ -26,5 +26,9 @@ class AppUrl {
 
   static String getOneProjectUrl(int projectId) {
     return '${BaseService().baseUrl}projects/$projectId';
+  }
+
+  static String getBugsByTaskIdUrl(int taskId) {
+    return '${BaseService().baseUrl}bugs/bugs-by-task/$taskId';
   }
 }

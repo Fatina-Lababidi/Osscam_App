@@ -68,6 +68,8 @@ class ExpandedCard extends StatelessWidget {
                             alignment: Alignment.bottomLeft,
                             child: GestureDetector(
                               onTap: () {
+
+                  //! context.read<GetBugs>....
                                 //navigate to bug page
                                 Navigator.push(
                                   context,
@@ -94,12 +96,13 @@ class ExpandedCard extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       vertical: screenHeight * 0.001,
                                       horizontal: screenWidth * 0.01),
-                                  child: const Row(
+                                  child:  Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "Add Bugs",
+                                      task.hasBugs?
+                                        "Show Bugs":"Add Bugs",
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w300,

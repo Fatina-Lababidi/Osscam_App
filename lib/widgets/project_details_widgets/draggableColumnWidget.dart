@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
@@ -12,7 +11,8 @@ import 'package:osscam/widgets/project_details_widgets/itemWidget.dart';
 import 'package:page_transition/page_transition.dart';
 
 class DraggableColumn extends StatefulWidget {
-  final List<Widget> widgetItems;
+  //final List<Widget> widgetItems;
+  final List<GetAllTasks> tasks;
   final Color color;
   final String status;
   final Color textColor;
@@ -23,7 +23,8 @@ class DraggableColumn extends StatefulWidget {
 
   const DraggableColumn({
     super.key,
-    required this.widgetItems,
+    // required this.widgetItems,
+    required this.tasks,
     required this.color,
     required this.status,
     required this.textColor,
@@ -38,7 +39,8 @@ class DraggableColumn extends StatefulWidget {
 }
 
 class _DraggableColumnState extends State<DraggableColumn> {
-  List<Widget> items = [];
+  // List<Widget> items = [];
+  List<GetAllTasks> items = [];
   bool isSnackBarShown = false;
   @override
   void initState() {
@@ -48,11 +50,12 @@ class _DraggableColumnState extends State<DraggableColumn> {
   }
 
   void updateItems() {
-    items = List.from(widget.widgetItems);
+    items = List.from(widget.tasks);
+    //  items = List.from(widget.widgetItems);
     //?to create a new copy list from the widgetItem list , to avoid the directly modifiying to the origial list
   }
 
-  void taskUpdateStatus(Widget item, GetAllTasks taskModel) {
+  void taskUpdateStatus(GetAllTasks taskModel) {
     String status;
     if (widget.status == "Done") {
       status = "COMPLETED";
@@ -79,8 +82,8 @@ class _DraggableColumnState extends State<DraggableColumn> {
     return BlocConsumer<UpdateTaskStatusBloc, UpdateTaskStatusState>(
       listener: (context, state) {
         if (state is FailedUpdate) {
-          items = List.from(widget.widgetItems);
-
+          //   items = List.from(widget.widgetItems);
+          items = List.from(widget.tasks);
           ErrorDialog(context, screenWidth);
           Future.delayed(Duration(seconds: 3), () {
             Navigator.of(context).pop();
@@ -96,10 +99,10 @@ class _DraggableColumnState extends State<DraggableColumn> {
               duration: Duration(seconds: 2),
             ),
           );
-
-          context
-              .read<ProjectTaskBloc>()
-              .add(GetTasksByProject(widget.projectId));
+          //context.read<ProjectTaskBloc>().add(AfterUpdate(projectId: widget.projectId));
+          // context
+          //     .read<ProjectTaskBloc>()
+          //     .add(GetTasksByProject(widget.projectId));
 
           // Navigator.push(
           //     context,
@@ -122,19 +125,20 @@ class _DraggableColumnState extends State<DraggableColumn> {
         }
       },
       builder: (context, state) {
-        return DragTarget<Widget>(
+        return DragTarget<GetAllTasks>(
           //! // !!so here we take the status to update it ?
           onAcceptWithDetails: (details) {
             //! for update
-            if (details.data is ItemWidget) {
-              GetAllTasks taskModel =
-                  (details.data as ItemWidget).itemDescription;
-              taskUpdateStatus(details.data, taskModel);
-            }
+            // if (details.data is ItemWidget) {
+            // GetAllTasks taskModel =
+            //  (details.data as ItemWidget).itemDescription;
+            taskUpdateStatus(details.data);
+            // }
 
-            widget.widgetItems.remove(details.data);
+            //    widget.widgetItems.remove(details.data);
+            //  items.add(details.data);
+            widget.tasks.remove(details.data);
             items.add(details.data);
-
             print('new status: ' + widget.status);
 
             // if (details.data is ItemWidget) {
@@ -195,8 +199,8 @@ class _DraggableColumnState extends State<DraggableColumn> {
                     ]
                   : items
                       .map(
-                        (item) => Draggable<Widget>(
-                          data: item,
+                        (task) => Draggable<GetAllTasks>(
+                          data: task, // item,
                           feedback: Padding(
                               padding: const EdgeInsets.only(
                                   left: 4, right: 4, bottom: 15),
@@ -223,13 +227,20 @@ class _DraggableColumnState extends State<DraggableColumn> {
                                                 color: widget.textColor),
                                           ),
                                           Icon(
-
-                                            Icons.pest_control_outlined,
+                                            task.hasBugs
+                                                ? Icons.pest_control
+                                                : Icons.pest_control_outlined,
                                             color: widget.textColor,
                                           )
                                         ],
                                       ),
-                                      item,
+                                      ItemWidget(
+                                        task,
+                                        widget.onTap,
+                                        widget.color,
+                                        widget.textColor,
+                                        widget.status,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -251,8 +262,8 @@ class _DraggableColumnState extends State<DraggableColumn> {
                             //! or in the onAccepteWithDetails??
 
                             //? this line in order not to add a copy of the items but to transformate
-                            items.remove(item);
-
+                            // items.remove(item);
+                            items.remove(task);
                             print('privous status:' + widget.status);
                           },
                           child: Padding(
@@ -281,12 +292,20 @@ class _DraggableColumnState extends State<DraggableColumn> {
                                         width: 10,
                                       ),
                                       Icon(
-                                        Icons.pest_control_outlined,
+                                        task.hasBugs
+                                            ? Icons.pest_control
+                                            : Icons.pest_control_outlined,
                                         color: widget.textColor,
                                       ),
                                     ],
                                   ),
-                                  item,
+                                  ItemWidget(
+                                    task,
+                                    widget.onTap,
+                                    widget.color,
+                                    widget.textColor,
+                                    widget.status,
+                                  ),
                                 ],
                               ),
                             ),

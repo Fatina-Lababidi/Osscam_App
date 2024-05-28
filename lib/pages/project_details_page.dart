@@ -89,7 +89,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         BlocProvider<UpdateTaskStatusBloc>(
           create: (context) => UpdateTaskStatusBloc(),
         ),
-          BlocProvider<DeleteProjectBloc>(
+        BlocProvider<DeleteProjectBloc>(
           create: (context) => DeleteProjectBloc(),
         ),
       ],
@@ -121,14 +121,14 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
             body: BlocConsumer<ProjectTaskBloc, ProjectTaskState>(
               listener: (context, state) {
                 if (state is ProjectTaskOffline) {
-                  const SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                       'Offline,please try later...',
                       style: TextStyle(color: Colors.black),
                     ),
                     backgroundColor: AppColors.dropTextColor,
                     duration: Duration(seconds: 2),
-                  );
+                  ));
                   Navigator.push(
                       context,
                       PageTransition(
@@ -140,7 +140,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                           )),
                           type: PageTransitionType.fade));
                 } else if (state is ProjectTaskError) {
-                  const SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                       'Error,please try again...',
                       style: TextStyle(
@@ -149,7 +149,8 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                     ),
                     backgroundColor: AppColors.deleteCardColor,
                     duration: Duration(seconds: 2),
-                  );
+                  ));
+
                   Navigator.push(
                     context,
                     PageTransition(

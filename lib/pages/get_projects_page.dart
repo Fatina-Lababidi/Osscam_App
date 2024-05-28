@@ -54,7 +54,7 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
           body: BlocConsumer<ProjectsBloc, ProjectsState>(
             listener: (context, state) {
               if (state is ErrorGetProjects) {
-                const SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text(
                     'Error,please try again...',
                     style: TextStyle(
@@ -63,7 +63,7 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                   ),
                   backgroundColor: AppColors.deleteCardColor,
                   duration: Duration(seconds: 2),
-                );
+                ));
                 Navigator.push(
                   context,
                   PageTransition(
@@ -74,14 +74,16 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                   ),
                 );
               } else if (state is OfflineOnGetProjects) {
-                const SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  // padding: EdgeInsets.all(10),
+
                   content: Text(
                     'Offline,please try later...',
                     style: TextStyle(color: Colors.black),
                   ),
                   backgroundColor: AppColors.dropTextColor,
                   duration: Duration(seconds: 2),
-                );
+                ));
                 Navigator.push(
                   context,
                   PageTransition(
@@ -152,16 +154,23 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                                               0.35, //135,
                                                           height: screenHeight *
                                                               0.18, //105,
-                                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
                                                           child: ClipRect(
                                                             child: Image(
-                                                              filterQuality: FilterQuality.high,
-                                                                 width: screenWidth *
-                                                                0.35, //135,
-                                                            height: screenHeight *
-                                                                0.18, //105,
+                                                              filterQuality:
+                                                                  FilterQuality
+                                                                      .high,
+                                                              width: screenWidth *
+                                                                  0.35, //135,
+                                                              height:
+                                                                  screenHeight *
+                                                                      0.18, //105,
                                                               fit: BoxFit.fill,
-                                                              
+
                                                               image: const AssetImage(
                                                                   AppImages
                                                                       .vector_image),
@@ -264,23 +273,30 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                                                   children: [
                                                     Stack(
                                                       children: [
-                                                      Container(
+                                                        Container(
                                                           width: screenWidth *
                                                               0.35, //135,
                                                           height: screenHeight *
                                                               0.18, //105,
-                                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
                                                           child: ClipRect(
-                                                            
-                                                            clipBehavior: Clip.values.first,
+                                                            clipBehavior: Clip
+                                                                .values.first,
                                                             child: Image(
-                                                              filterQuality: FilterQuality.high,
-                                                                 width: screenWidth *
-                                                                0.35, //135,
-                                                            height: screenHeight *
-                                                                0.18, //105,
+                                                              filterQuality:
+                                                                  FilterQuality
+                                                                      .high,
+                                                              width: screenWidth *
+                                                                  0.35, //135,
+                                                              height:
+                                                                  screenHeight *
+                                                                      0.18, //105,
                                                               fit: BoxFit.fill,
-                                                              
+
                                                               image: const AssetImage(
                                                                   AppImages
                                                                       .vector_image),

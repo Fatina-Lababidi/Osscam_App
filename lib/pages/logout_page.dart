@@ -30,7 +30,7 @@ class LogoutPage extends StatelessWidget {
                     PageTransition(
                         child: const MyApp(), type: PageTransitionType.fade));
               } else if (state is LogOutFailed) {
-                const SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text(
                     'Error,please try again...',
                     style: TextStyle(
@@ -39,7 +39,7 @@ class LogoutPage extends StatelessWidget {
                   ),
                   backgroundColor: AppColors.deleteCardColor,
                   duration: Duration(seconds: 2),
-                );
+                ));
                 Navigator.push(
                   context,
                   PageTransition(
@@ -50,6 +50,7 @@ class LogoutPage extends StatelessWidget {
                   ),
                 );
               } else if (state is LogOutOffline) {
+                 ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text(
                     'Offline,please try later...',
@@ -57,12 +58,12 @@ class LogoutPage extends StatelessWidget {
                   ),
                   backgroundColor: AppColors.dropTextColor,
                   duration: Duration(seconds: 2),
-                );
+                  ));
 
                 Navigator.push(
                     context,
                     PageTransition(
-                        child:const OfflinePage(
+                        child: const OfflinePage(
                           previousPage: LogoutPage(),
                         ),
                         type: PageTransitionType.fade));

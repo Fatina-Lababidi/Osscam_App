@@ -30,5 +30,13 @@ class ProjectTaskBloc extends Bloc<ProjectTaskEvent, ProjectTaskState> {
         }
       }
     });
+    // on<AfterUpdate>(
+    //   (event, emit)async {
+    //     final temp = await fetchTasksByProjectId(event.projectId);
+    //       List<GetAllTasks> tasks = List.generate(
+    //           temp.length, (index) => GetAllTasks.fromMap(temp[index]));
+    //     emit(ProjectTaskInitial());
+    //   },
+    // );
   }
 }

@@ -52,14 +52,14 @@ class CreateNewProjectPage extends StatelessWidget {
                           // GetProjectsPage(),
                           type: PageTransitionType.fade));
                 } else if (State is OfflineCreateProject) {
-                  const SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                       'Offline,please try later...',
                       style: TextStyle(color: Colors.black),
                     ),
                     backgroundColor: AppColors.dropTextColor,
                     duration: Duration(seconds: 2),
-                  );
+                  ));
                   Navigator.push(
                       context,
                       PageTransition(
@@ -67,7 +67,7 @@ class CreateNewProjectPage extends StatelessWidget {
                               OfflinePage(previousPage: CreateNewProjectPage()),
                           type: PageTransitionType.fade));
                 } else if (state is ErrorCreateProject) {
-                  const SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text(
                       'Error,please try again...',
                       style: TextStyle(
@@ -76,7 +76,7 @@ class CreateNewProjectPage extends StatelessWidget {
                     ),
                     backgroundColor: AppColors.deleteCardColor,
                     duration: Duration(seconds: 2),
-                  );
+                  ));
                   Navigator.push(
                       context,
                       PageTransition(
@@ -146,6 +146,10 @@ class CreateNewProjectPage extends StatelessWidget {
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 16),
                                 border: InputBorder.none,
+                                hintText: 'Enter the project name ...',
+                                hintStyle: const TextStyle(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 12),
                               ),
                             ),
                           ),
@@ -193,6 +197,9 @@ class CreateNewProjectPage extends StatelessWidget {
                               },
                               controller: _projectDescriptionController,
                               decoration: const InputDecoration(
+                                 hintText: "Enter the project script ...",
+              hintStyle:
+                  const TextStyle(color: AppColors.primaryColor, fontSize: 12),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 16),
                                 border: InputBorder.none,

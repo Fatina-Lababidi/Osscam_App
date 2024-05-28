@@ -67,14 +67,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                 type: PageTransitionType.fade),
                           );
                         } else if (state is SignUpOffline) {
-                          const SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(
                               'Offline,please try later...',
                               style: TextStyle(color: Colors.black),
                             ),
                             backgroundColor: AppColors.dropTextColor,
                             duration: Duration(seconds: 2),
-                          );
+                          ));
+
                           Navigator.pushReplacement(
                             context,
                             PageTransition(
@@ -83,7 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                         } else if (state is SignUpFailed) {
-                          const SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(
                               'Error,please try again...',
                               style: TextStyle(
@@ -92,7 +93,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             backgroundColor: AppColors.deleteCardColor,
                             duration: Duration(seconds: 2),
-                          );
+                          ));
+
                           Navigator.pushReplacement(
                               context,
                               PageTransition(

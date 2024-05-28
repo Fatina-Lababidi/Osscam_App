@@ -1,21 +1,21 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
+import 'package:osscam/model/add_bugs_model.dart';
 
-Future deleteProjectService(int projectId) async {
+Future addNewBugs(AddingBugsModel addingBugsModel) async {
   Dio dio = Dio();
-  String deleteUrl = AppUrl.deleteProjectUrl(projectId);
-  final options = getHeader(true);
-  print('Delete URL: $deleteUrl');
-  print('Headers: ${options.headers}');
+  final String addBugsUrl = AppUrl.addNewBugsUrl;
   try {
-    Response response = await dio.delete(deleteUrl, options: options);
+    Response response = await dio.post(addBugsUrl,
+        data: addingBugsModel.toJson(), options: getHeader(true));
     if (response.statusCode == 200) {
-      print(response.data);
-      return true;
+      print('done adding bug');
+      return true; //response.data;
     } else {
-      print('Unexpected status code ((delete)): ${response.statusCode}');
+      print('error when adding bug');
       return false;
     }
   } on DioException catch (e) {

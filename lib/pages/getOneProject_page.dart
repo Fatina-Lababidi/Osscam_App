@@ -34,6 +34,7 @@ class OneProjectPage extends StatelessWidget {
         body: BlocConsumer<OneProjectBloc, OneProjectState>(
           listener: (context, state) {
             if (state is ErrorOneProject) {
+               ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text(
                   'Error,please try again...',
@@ -43,7 +44,7 @@ class OneProjectPage extends StatelessWidget {
                 ),
                 backgroundColor: AppColors.deleteCardColor,
                 duration: Duration(seconds: 2),
-              );
+               ));
               Navigator.push(
                 context,
                 PageTransition(
@@ -56,6 +57,7 @@ class OneProjectPage extends StatelessWidget {
                 ),
               );
             } else if (state is OfflineOneProject) {
+               ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text(
                   'Offline,please try later...',
@@ -63,7 +65,7 @@ class OneProjectPage extends StatelessWidget {
                 ),
                 backgroundColor: AppColors.dropTextColor,
                 duration: Duration(seconds: 2),
-              );
+               ));
               Navigator.push(
                 context,
                 PageTransition(

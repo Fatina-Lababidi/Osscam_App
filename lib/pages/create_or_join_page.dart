@@ -59,6 +59,7 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                 ),
               );
             } else if (state is OfflineJoinProject) {
+               ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text(
                   'Offline,please try later...',
@@ -66,7 +67,7 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                 ),
                 backgroundColor: AppColors.dropTextColor,
                 duration: Duration(seconds: 2),
-              );
+                ) );
               Navigator.push(
                 context,
                 PageTransition(
@@ -77,6 +78,7 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                 ),
               );
             } else if (state is ErrorJoinProject) {
+               ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text(
                   'Error,please try again...',
@@ -86,7 +88,7 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                 ),
                 backgroundColor: AppColors.deleteCardColor,
                 duration: Duration(seconds: 2),
-              );
+               ));
               Navigator.push(
                 context,
                 PageTransition(

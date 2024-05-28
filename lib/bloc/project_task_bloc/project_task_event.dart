@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'project_task_bloc.dart';
 
 @immutable
@@ -9,4 +10,9 @@ class GetTasksByProject extends ProjectTaskEvent {
   GetTasksByProject(this.projectId);
 }
 
-// class AfterUpdate extends ProjectTaskEvent{}
+// class AfterUpdate extends ProjectTaskEvent {
+//   final int projectId;
+//   AfterUpdate({
+//     required this.projectId,
+//   });
+// }

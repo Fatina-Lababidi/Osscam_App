@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/get_tasks_model.dart';
 import 'package:osscam/widgets/project_details_widgets/draggableColumnWidget.dart';
-import 'package:osscam/widgets/project_details_widgets/itemWidget.dart';
 
 class MyWidget extends StatefulWidget {
   final List<GetAllTasks> tasks;
@@ -11,14 +10,14 @@ class MyWidget extends StatefulWidget {
   final int projectId;
   final String projectName;
   final String projectDescription;
-  const MyWidget({
-    Key? key,
-    required this.showCardFouced,
-    required this.tasks,
-    required this.projectId,
-    required this.projectName,
-    required this.projectDescription
-  }) : super(key: key);
+  const MyWidget(
+      {Key? key,
+      required this.showCardFouced,
+      required this.tasks,
+      required this.projectId,
+      required this.projectName,
+      required this.projectDescription})
+      : super(key: key);
 
   @override
   _MyWidgetState createState() => _MyWidgetState();
@@ -80,7 +79,7 @@ class _MyWidgetState extends State<MyWidget> {
     // List<CreateNewTaskModelWithColor> newColoredTask = List.generate(
     //     newTasks.length,
     //     (index) => CreateNewTaskModelWithColor(
-            // taskName: newTasks[index].taskName,
+    // taskName: newTasks[index].taskName,
     //         taskDescription: newTasks[index].taskDescription,
     //         taskStatus: newTasks[index].taskStatus,
     //         project_id: newTasks[index].project_id,
@@ -97,21 +96,15 @@ class _MyWidgetState extends State<MyWidget> {
           projectDescription: widget.projectDescription,
           projectName: widget.projectName,
           projectId: widget.projectId,
-
           key: UniqueKey(),
-          // items: [
-          //   ItemWidget('Item 1'),
-          //   ItemWidget('Item 2'),
-          //   ItemWidget('Item 3'),
-          // ],
-          widgetItems: newTasks
-              .map((task) => ItemWidget(
-                  task,
-                  widget.showCardFouced,
-                  AppColors.cardPurpleColor,
-                  AppColors.backingTextColor,
-                  "Backing"))
-              .toList(),
+          tasks: newTasks,
+              // .map((task) => ItemWidget(
+              //     task,
+              //     widget.showCardFouced,
+              //     AppColors.cardPurpleColor,
+              //     AppColors.backingTextColor,
+              //     "Backing"))
+              // .toList(),
           status: "Backing",
           textColor: AppColors.backingTextColor,
           color: AppColors.cardPurpleColor,
@@ -127,14 +120,14 @@ class _MyWidgetState extends State<MyWidget> {
           //   ItemWidget('Item 5'),
           //   ItemWidget('Item 6'),
           // ],
-          widgetItems: onProgressTasks
-              .map((e) => ItemWidget(
-                  e,
-                  widget.showCardFouced,
-                  AppColors.cardApricotColor,
-                  AppColors.progressTextColor,
-                  "on progress"))
-              .toList(),
+          tasks: onProgressTasks,
+              // .map((e) => ItemWidget(
+              //     e,
+              //     widget.showCardFouced,
+              //     AppColors.cardApricotColor,
+              //     AppColors.progressTextColor,
+              //     "on progress"))
+              // .toList(),
           status: "on progress",
           textColor: AppColors.progressTextColor,
           color: AppColors.cardApricotColor,
@@ -146,10 +139,10 @@ class _MyWidgetState extends State<MyWidget> {
           projectId: widget.projectId,
           key: UniqueKey(),
           //   items: [ItemWidget('item 7'), ItemWidget('item 8')],
-          widgetItems: doneTasks
-              .map((e) => ItemWidget(e, widget.showCardFouced,
-                  AppColors.cardGreenColor, AppColors.doneTextColor, "Done"))
-              .toList(),
+          tasks: doneTasks,
+              // .map((e) => ItemWidget(e, widget.showCardFouced,
+              //     AppColors.cardGreenColor, AppColors.doneTextColor, "Done"))
+              // .toList(),
           status: "Done",
           textColor: AppColors.doneTextColor,
           color: AppColors.cardGreenColor,

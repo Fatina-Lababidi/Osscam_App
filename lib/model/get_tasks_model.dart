@@ -74,7 +74,10 @@ class GetAllTasks {
 
   @override
   int get hashCode {
-    return taskId.hashCode ^ taskDescription.hashCode ^ taskStatus.hashCode^ hasBugs.hashCode;
+    return taskId.hashCode ^
+        taskDescription.hashCode ^
+        taskStatus.hashCode ^
+        hasBugs.hashCode;
     // project_id.hashCode;
   }
 }
