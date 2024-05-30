@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/model/get_bugs_model.dart';
-import 'package:osscam/service/get_bugs_service.dart';
+import 'package:osscam/model/bugs_model/get_bugs_model.dart';
+import 'package:osscam/service/bugs_service/get_bugs_service.dart';
 
 part 'get_bugs_by_task_event.dart';
 part 'get_bugs_by_task_state.dart';

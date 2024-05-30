@@ -1,8 +1,8 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/model/get_tasks_model.dart';
-import 'package:osscam/pages/bugs_page.dart';
+import 'package:osscam/model/tasks_model/get_tasks_model.dart';
+import 'package:osscam/pages/tasks_pages/bugs_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ExpandedCard extends StatelessWidget {
@@ -68,13 +68,15 @@ class ExpandedCard extends StatelessWidget {
                             alignment: Alignment.bottomLeft,
                             child: GestureDetector(
                               onTap: () {
-
-                  //! context.read<GetBugs>....
+                                //! context.read<GetBugs>....
                                 //navigate to bug page
                                 Navigator.push(
                                   context,
                                   PageTransition(
-                                    child: BugsPage(),
+                                    child: BugsPage(
+                                      bugId: 2,
+                                      hasBugs: (task.hasBugs) ? true : false,
+                                    ),
                                     type: PageTransitionType.fade,
                                   ),
                                 );
@@ -96,13 +98,12 @@ class ExpandedCard extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       vertical: screenHeight * 0.001,
                                       horizontal: screenWidth * 0.01),
-                                  child:  Row(
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                      task.hasBugs?
-                                        "Show Bugs":"Add Bugs",
+                                        task.hasBugs ? "Show Bugs" : "Add Bugs",
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w300,

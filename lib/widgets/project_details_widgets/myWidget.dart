@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/model/get_tasks_model.dart';
+import 'package:osscam/model/tasks_model/get_tasks_model.dart';
 import 'package:osscam/widgets/project_details_widgets/draggableColumnWidget.dart';
 
 class MyWidget extends StatefulWidget {

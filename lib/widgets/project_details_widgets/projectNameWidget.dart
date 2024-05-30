@@ -46,7 +46,7 @@ class projectNameWidget extends StatelessWidget {
             // "project name",
             style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: screenWidth * 0.05, //screenHeight * 0.03, //25,
+                fontSize: screenWidth * 0.07, //screenHeight * 0.03, //25,
                 color: Colors.white),
           ),
           const Spacer(),

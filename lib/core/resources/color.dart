@@ -23,5 +23,8 @@ class AppColors {
   static const Color bugsButtonColor = Color(0xff35A3A3);
   static const Color deleteCardColor = Color(0xffFF7B7B);
   static const Color sureButtonColor = Color(0xff999999);
+  static const Color blackContainerColor = Color(0xff262626);
+  static const Color blackTextFieldColor = Color(0xff515151);
+  static const Color sendIconColor = Color(0xff5AB8B8);
 // to use in main : AppColors.primaryColor
 }

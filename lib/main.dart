@@ -5,15 +5,14 @@ import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
 import 'package:osscam/core/config/bloc_observe.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/pages/create_or_join_page.dart';
-import 'package:osscam/pages/get_projects_page.dart';
-import 'package:osscam/pages/interance_page.dart';
-import 'package:osscam/pages/login_page.dart';
+import 'package:osscam/pages/projects_pages/create_or_join_page.dart';
+import 'package:osscam/pages/projects_pages/get_projects_page.dart';
+import 'package:osscam/pages/start_pages/interance_page.dart';
+import 'package:osscam/pages/auth_pages/login_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  // A a = A(name: 'name', App: APP.COMPLETED.name);
   Bloc.observer = MyBlocObserver();
   init();
   runApp(const MyApp());

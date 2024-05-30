@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/model/register_model.dart';
-import 'package:osscam/service/register_service.dart';
+import 'package:osscam/model/auth_model/register_model.dart';
+import 'package:osscam/service/auth_service/register_service.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';

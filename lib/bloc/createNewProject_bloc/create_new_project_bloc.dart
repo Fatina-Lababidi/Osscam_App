@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/model/create_new_project_model.dart';
-import 'package:osscam/model/get_projects_model.dart';
-import 'package:osscam/service/create_new_project_service.dart';
+import 'package:osscam/model/projects_model/create_new_project_model.dart';
+import 'package:osscam/model/projects_model/get_projects_model.dart';
+import 'package:osscam/service/projects_service/create_new_project_service.dart';
 
 part 'create_new_project_event.dart';
 part 'create_new_project_state.dart';

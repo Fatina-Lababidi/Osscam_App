@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/service/joinToProject_service.dart';
+import 'package:osscam/service/projects_service/joinToProject_service.dart';
 
 part 'join_project_event.dart';
 part 'join_project_state.dart';

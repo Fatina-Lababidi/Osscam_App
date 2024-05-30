@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/model/create_new_task.dart';
-import 'package:osscam/service/create_new_task.dart';
+import 'package:osscam/model/tasks_model/create_new_task.dart';
+import 'package:osscam/service/tasks_service/create_new_task.dart';
 
 part 'add_task_event.dart';
 part 'add_task_state.dart';

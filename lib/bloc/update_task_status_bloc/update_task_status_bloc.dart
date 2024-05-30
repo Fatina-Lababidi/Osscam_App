@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/service/update_task_status_service.dart';
+import 'package:osscam/service/tasks_service/update_task_status_service.dart';
 
 part 'update_task_status_event.dart';
 part 'update_task_status_state.dart';
