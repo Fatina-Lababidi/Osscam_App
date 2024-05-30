@@ -10,14 +10,15 @@ class MyWidget extends StatefulWidget {
   final int projectId;
   final String projectName;
   final String projectDescription;
-  const MyWidget(
-      {Key? key,
-      required this.showCardFouced,
-      required this.tasks,
-      required this.projectId,
-      required this.projectName,
-      required this.projectDescription})
-      : super(key: key);
+
+  const MyWidget({
+    Key? key,
+    required this.showCardFouced,
+    required this.tasks,
+    required this.projectId,
+    required this.projectName,
+    required this.projectDescription,
+  }) : super(key: key);
 
   @override
   _MyWidgetState createState() => _MyWidgetState();
@@ -66,7 +67,20 @@ class _MyWidgetState extends State<MyWidget> {
   void initState() {
     super.initState();
     allTasks = widget.tasks;
+    // if (isUpdate == true) {
+    //   setState(() {
+    //     allTasks = widget.tasks;
+    //   });
+    // isUpdate = false;
+    // }
   }
+
+//! here i have to but a fucntion to update the date ..
+  // void afterUpdateStatus() {
+  //   setState(() {
+  //     allTasks = widget.tasks;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +112,13 @@ class _MyWidgetState extends State<MyWidget> {
           projectId: widget.projectId,
           key: UniqueKey(),
           tasks: newTasks,
-              // .map((task) => ItemWidget(
-              //     task,
-              //     widget.showCardFouced,
-              //     AppColors.cardPurpleColor,
-              //     AppColors.backingTextColor,
-              //     "Backing"))
-              // .toList(),
+          // .map((task) => ItemWidget(
+          //     task,
+          //     widget.showCardFouced,
+          //     AppColors.cardPurpleColor,
+          //     AppColors.backingTextColor,
+          //     "Backing"))
+          // .toList(),
           status: "Backing",
           textColor: AppColors.backingTextColor,
           color: AppColors.cardPurpleColor,
@@ -121,13 +135,13 @@ class _MyWidgetState extends State<MyWidget> {
           //   ItemWidget('Item 6'),
           // ],
           tasks: onProgressTasks,
-              // .map((e) => ItemWidget(
-              //     e,
-              //     widget.showCardFouced,
-              //     AppColors.cardApricotColor,
-              //     AppColors.progressTextColor,
-              //     "on progress"))
-              // .toList(),
+          // .map((e) => ItemWidget(
+          //     e,
+          //     widget.showCardFouced,
+          //     AppColors.cardApricotColor,
+          //     AppColors.progressTextColor,
+          //     "on progress"))
+          // .toList(),
           status: "on progress",
           textColor: AppColors.progressTextColor,
           color: AppColors.cardApricotColor,
@@ -140,9 +154,9 @@ class _MyWidgetState extends State<MyWidget> {
           key: UniqueKey(),
           //   items: [ItemWidget('item 7'), ItemWidget('item 8')],
           tasks: doneTasks,
-              // .map((e) => ItemWidget(e, widget.showCardFouced,
-              //     AppColors.cardGreenColor, AppColors.doneTextColor, "Done"))
-              // .toList(),
+          // .map((e) => ItemWidget(e, widget.showCardFouced,
+          //     AppColors.cardGreenColor, AppColors.doneTextColor, "Done"))
+          // .toList(),
           status: "Done",
           textColor: AppColors.doneTextColor,
           color: AppColors.cardGreenColor,

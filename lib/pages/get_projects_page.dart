@@ -55,6 +55,10 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
             listener: (context, state) {
               if (state is ErrorGetProjects) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10))),
                   content: Text(
                     'Error,please try again...',
                     style: TextStyle(
@@ -74,15 +78,20 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                   ),
                 );
               } else if (state is OfflineOnGetProjects) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   // padding: EdgeInsets.all(10),
-
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10))),
+                  // margin: EdgeInsets.all(10),
+                  // behavior: SnackBarBehavior.floating,
                   content: Text(
                     'Offline,please try later...',
                     style: TextStyle(color: Colors.black),
                   ),
                   backgroundColor: AppColors.dropTextColor,
-                  duration: Duration(seconds: 2),
+                  duration: const Duration(seconds: 2),
                 ));
                 Navigator.push(
                   context,
@@ -91,6 +100,21 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                       previousPage: GetProjectsPage(),
                     ),
                     type: PageTransitionType.fade,
+                  ),
+                );
+              } else if (state is SuccessGetProjects) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                 const SnackBar(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
+                    content: Text(
+                      'Successful get projects...',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    backgroundColor: AppColors.cardGreenColor,
+                    duration: Duration(seconds: 2),
                   ),
                 );
               }

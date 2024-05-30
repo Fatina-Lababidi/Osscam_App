@@ -64,6 +64,10 @@ class _LogInPageState extends State<LogInPage> {
               if (state is AuthSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
+                    shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                     content: Text(
                       'Successful authentication...',
                       style: TextStyle(color: Colors.black),
@@ -81,6 +85,10 @@ class _LogInPageState extends State<LogInPage> {
               } else if (state is AuthOffline) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
+                    shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                     content: Text(
                       'Offline,please try later...',
                       style: TextStyle(color: Colors.black),
@@ -101,6 +109,10 @@ class _LogInPageState extends State<LogInPage> {
               } else if (state is AuthFailed) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
+                    shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                     content: Text(
                       'Error,please try again...',
                       style: TextStyle(

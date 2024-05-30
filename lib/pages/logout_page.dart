@@ -31,6 +31,10 @@ class LogoutPage extends StatelessWidget {
                         child: const MyApp(), type: PageTransitionType.fade));
               } else if (state is LogOutFailed) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                   content: Text(
                     'Error,please try again...',
                     style: TextStyle(
@@ -52,6 +56,10 @@ class LogoutPage extends StatelessWidget {
               } else if (state is LogOutOffline) {
                  ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
+                  shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                   content: Text(
                     'Offline,please try later...',
                     style: TextStyle(color: Colors.black),

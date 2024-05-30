@@ -9,7 +9,6 @@ import 'package:osscam/pages/create_or_join_page.dart';
 import 'package:osscam/pages/get_projects_page.dart';
 import 'package:osscam/pages/interance_page.dart';
 import 'package:osscam/pages/login_page.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -18,6 +17,8 @@ void main() {
   init();
   runApp(const MyApp());
 }
+
+//bool isUpdate = false;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -33,45 +34,39 @@ class MyApp extends StatelessWidget {
           create: (context) => DeleteProjectBloc(),
         ),
       ],
-      child: MaterialApp(
+      child:const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: BlocListener<AppBloc, AppState>(
-          listener: (context, state) {
-            if (state is HeJoinApp) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: const CreateOrJoinPage(),
-                      type: PageTransitionType.fade));
-            } else if (state is HeLoggedOut) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: LogInPage(), type: PageTransitionType.fade));
-            } else if (state is HisFirstTime) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: const InterancePage(),
-                      type: PageTransitionType.fade));
-            } else if (state is UseingApp) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: const GetProjectsPage(),
-                      type: PageTransitionType.fade));
-            }
-          }, //!! we have to fix this
-          // child: BlocBuilder<AppBloc, AppState>(
-          //   builder: (context, state) {
-          //     return Container();
-          //   },
-          // ),
-          child: Container(
-            color: AppColors.primaryColor,
-          ),
-        ),
+        home: AppNavigator(),
       ),
+    );
+  }
+}
+
+class AppNavigator extends StatelessWidget {
+  const AppNavigator({super.key});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppBloc, AppState>(
+      builder: (context, state) {
+        if (state is HeJoinApp) {
+          return const CreateOrJoinPage();
+        } else if (state is HeLoggedOut) {
+          return LogInPage();
+        } else if (state is HisFirstTime) {
+          return const InterancePage();
+        } else if (state is UseingApp) {
+          return const GetProjectsPage();
+        } else {
+          return const Scaffold(
+            backgroundColor: AppColors.primaryColor,
+            body: Center(
+              child: CircularProgressIndicator(color: AppColors.continerColor,),
+            ),
+          );
+        }
+      },
     );
   }
 }
@@ -102,8 +97,5 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-//! get all projects media query
-
-//! make the details page dialogs un tapped in order not to pop twice
 
 //sanata@gmail.com

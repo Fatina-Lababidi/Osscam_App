@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';

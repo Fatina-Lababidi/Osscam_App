@@ -86,9 +86,13 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         BlocProvider<ProjectTaskBloc>(
             create: (context) =>
                 ProjectTaskBloc()..add(GetTasksByProject(widget.projectId))),
+        // BlocProvider<ProjectTaskBloc>(
+        //     create: (context) => ProjectTaskBloc()
+        //       ..add(AfterUpdate(projectId: widget.projectId))),
         BlocProvider<UpdateTaskStatusBloc>(
-          create: (context) => UpdateTaskStatusBloc(),
-        ),
+            create: (context) => UpdateTaskStatusBloc(
+                //context.read<ProjectTaskBloc>()
+                )),
         BlocProvider<DeleteProjectBloc>(
           create: (context) => DeleteProjectBloc(),
         ),
@@ -96,6 +100,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
       child: Builder(
         builder: (context) {
           return Scaffold(
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             floatingActionButton: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -122,6 +127,10 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
               listener: (context, state) {
                 if (state is ProjectTaskOffline) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
                     content: Text(
                       'Offline,please try later...',
                       style: TextStyle(color: Colors.black),
@@ -141,6 +150,10 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                           type: PageTransitionType.fade));
                 } else if (state is ProjectTaskError) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
                     content: Text(
                       'Error,please try again...',
                       style: TextStyle(

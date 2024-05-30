@@ -52,6 +52,10 @@ class _SignUpPageState extends State<SignUpPage> {
                         if (state is SignUpSuccess) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                               content: Text(
                                 'Successful authentication...',
                                 style: TextStyle(color: Colors.black),
@@ -67,7 +71,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 type: PageTransitionType.fade),
                           );
                         } else if (state is SignUpOffline) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10))),
                             content: Text(
                               'Offline,please try later...',
                               style: TextStyle(color: Colors.black),
@@ -84,7 +93,12 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                         } else if (state is SignUpFailed) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10))),
                             content: Text(
                               'Error,please try again...',
                               style: TextStyle(

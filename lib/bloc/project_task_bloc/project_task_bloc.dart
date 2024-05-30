@@ -31,11 +31,29 @@ class ProjectTaskBloc extends Bloc<ProjectTaskEvent, ProjectTaskState> {
       }
     });
     // on<AfterUpdate>(
-    //   (event, emit)async {
-    //     final temp = await fetchTasksByProjectId(event.projectId);
-    //       List<GetAllTasks> tasks = List.generate(
-    //           temp.length, (index) => GetAllTasks.fromMap(temp[index]));
-    //     emit(ProjectTaskInitial());
+    //   (event, emit) async {
+    //     try {
+    //       emit(ProjectTaskSilentLoading());
+
+    //   //     if (state is ProjectTaskSuccess) {
+    //   //   final currentTasks = (state as ProjectTaskSuccess).tasks;
+    //   //   emit(ProjectTaskSuccess(currentTasks));  // Emit the same state to refresh UI
+    //   // }
+    //       final temp = await fetchTasksByProjectId(event.projectId);
+    //       if (temp is String) {
+    //         emit(ProjectTaskError());
+    //       } else {
+    //         List<GetAllTasks> tasks = List.generate(
+    //             temp.length, (index) => GetAllTasks.fromMap(temp[index]));
+    //         emit(ProjectTaskSuccess(tasks));
+    //       }
+    //     } on DioException catch (e) {
+    //       if (e.error is SocketException) {
+    //         emit(ProjectTaskOffline());
+    //       } else {
+    //         emit(ProjectTaskError());
+    //       }
+    //     }
     //   },
     // );
   }

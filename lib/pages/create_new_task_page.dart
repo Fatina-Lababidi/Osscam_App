@@ -78,7 +78,19 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
               listener: (context, state) {
                 if (state is SuccessSendingAllTask) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Success creating')));
+                    const SnackBar(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10))),
+                      content: Text(
+                        'Successful creating new tasks ...',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      backgroundColor: AppColors.cardGreenColor,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
                   Navigator.push(
                       context,
                       PageTransition(
@@ -87,13 +99,18 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                           ),
                           type: PageTransitionType.fade));
                 } else if (State is OfflineCreateTask) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      action: SnackBarAction(label: "", onPressed: () {}),
-                      content: const Text("Offline while creating"),
-                      duration: Duration(seconds: 1),
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
+                    content: Text(
+                      'Offline,please try later...',
+                      style: TextStyle(color: Colors.black),
                     ),
-                  );
+                    backgroundColor: AppColors.dropTextColor,
+                    duration: Duration(seconds: 2),
+                  ));
                   Navigator.push(
                       context,
                       PageTransition(
@@ -103,13 +120,20 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                           )),
                           type: PageTransitionType.fade));
                 } else if (state is ErrorCreateTask) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      action: SnackBarAction(label: "", onPressed: () {}),
-                      content: const Text("Error creating"),
-                      duration: Duration(seconds: 1),
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
+                    content: Text(
+                      'Error,please try again...',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
-                  );
+                    backgroundColor: AppColors.deleteCardColor,
+                    duration: Duration(seconds: 2),
+                  ));
                   Navigator.push(
                       context,
                       PageTransition(
@@ -231,7 +255,7 @@ class _CreateNewTaskPageState extends State<CreateNewTaskPage> {
                                   deleteTask(index);
                                 },
                                 background: Container(
-                                 margin: EdgeInsets.only(
+                                  margin: EdgeInsets.only(
                                     right: screenWidth * 0.2,
                                     left: screenWidth * 0.07,
                                     top: screenHeight * 0.01,

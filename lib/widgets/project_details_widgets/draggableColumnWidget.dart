@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
@@ -20,7 +21,6 @@ class DraggableColumn extends StatefulWidget {
   final int projectId;
   final String projectName;
   final String projectDescription;
-
   const DraggableColumn({
     super.key,
     // required this.widgetItems,
@@ -85,12 +85,18 @@ class _DraggableColumnState extends State<DraggableColumn> {
           //   items = List.from(widget.widgetItems);
           items = List.from(widget.tasks);
           ErrorDialog(context, screenWidth);
-          Future.delayed(Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 3), () {
             Navigator.of(context).pop();
           });
         } else if (state is SuccessUpdate) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
+              //   behavior: SnackBarBehavior.floating,
+              // margin: EdgeInsets.symmetric(horizontal: 20,),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
               content: Text(
                 'Successful update status ...',
                 style: TextStyle(color: Colors.black),
@@ -99,10 +105,17 @@ class _DraggableColumnState extends State<DraggableColumn> {
               duration: Duration(seconds: 2),
             ),
           );
-          //context.read<ProjectTaskBloc>().add(AfterUpdate(projectId: widget.projectId));
+          //!!
+          // setState(() {
+          //   isUpdate = true;
+          // });
+          //  print('isUpdate in the update draggable ');
           // context
           //     .read<ProjectTaskBloc>()
-          //     .add(GetTasksByProject(widget.projectId));
+          //     .add(AfterUpdate(projectId: widget.projectId));
+          context
+              .read<ProjectTaskBloc>()
+              .add(GetTasksByProject(widget.projectId));
 
           // Navigator.push(
           //     context,
@@ -240,7 +253,8 @@ class _DraggableColumnState extends State<DraggableColumn> {
                                         widget.color,
                                         widget.textColor,
                                         widget.status,
-                                      ),
+
+                                     ),
                                     ],
                                   ),
                                 ),

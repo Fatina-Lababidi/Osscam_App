@@ -36,6 +36,10 @@ class OneProjectPage extends StatelessWidget {
             if (state is ErrorOneProject) {
                ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
+                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                 content: Text(
                   'Error,please try again...',
                   style: TextStyle(
@@ -59,6 +63,10 @@ class OneProjectPage extends StatelessWidget {
             } else if (state is OfflineOneProject) {
                ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
+                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                 content: Text(
                   'Offline,please try later...',
                   style: TextStyle(color: Colors.black),
