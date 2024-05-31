@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
+import 'package:osscam/bloc/get_bugs_by_tasks.dart/get_bugs_by_task_bloc.dart';
 import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
@@ -58,6 +59,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
             color: color,
             textAndIconColor: textColor,
             status: status,
+taskId: task.taskId
           ),
           type: PageTransitionType.fade,
         )
@@ -83,6 +85,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider<GetBugsByTaskBloc>(create:(context) => GetBugsByTaskBloc(),),
         BlocProvider<ProjectTaskBloc>(
             create: (context) =>
                 ProjectTaskBloc()..add(GetTasksByProject(widget.projectId))),

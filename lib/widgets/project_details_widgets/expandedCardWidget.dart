@@ -2,6 +2,7 @@ import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/tasks_model/get_tasks_model.dart';
+import 'package:osscam/pages/tasks_pages/addBugsPage.dart';
 import 'package:osscam/pages/tasks_pages/bugs_page.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -10,12 +11,13 @@ class ExpandedCard extends StatelessWidget {
   final Color color;
   final String status;
   final Color textAndIconColor;
+  final int taskId;
   const ExpandedCard(
       {Key? key,
       required this.task,
       required this.color,
       required this.status,
-      required this.textAndIconColor});
+      required this.textAndIconColor, required this.taskId});
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +70,24 @@ class ExpandedCard extends StatelessWidget {
                             alignment: Alignment.bottomLeft,
                             child: GestureDetector(
                               onTap: () {
-                                //! context.read<GetBugs>....
+                                //  context.read<GetBugsByTaskBloc>.
                                 //navigate to bug page
+                                task.hasBugs?
                                 Navigator.push(
                                   context,
                                   PageTransition(
                                     child: BugsPage(
+                                      taskId: taskId,
+                                      bugId: 2,
+                                      hasBugs: (task.hasBugs) ? true : false,
+                                    ),
+                                    type: PageTransitionType.fade,
+                                  ),
+                                ): Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: AddBugsPage(
+                                      taskId: taskId,
                                       bugId: 2,
                                       hasBugs: (task.hasBugs) ? true : false,
                                     ),
