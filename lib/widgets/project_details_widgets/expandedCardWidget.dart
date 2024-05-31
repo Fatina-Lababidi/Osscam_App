@@ -79,7 +79,7 @@ class ExpandedCard extends StatelessWidget {
                                     child: BugsPage(
                                       taskId: taskId,
                                       bugId: 2,
-                                      hasBugs: (task.hasBugs) ? true : false,
+                                      hasBugs: task.hasBugs,
                                     ),
                                     type: PageTransitionType.fade,
                                   ),

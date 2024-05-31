@@ -19,9 +19,9 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
           if (temp is String) {
             emit(ErrorPostComment());
           } else {
-            List<PostCommentsModel> comment = List.generate(
-                temp.length, (index) => PostCommentsModel.fromMap(temp[index]));
-            // PostCommentsModel comment = PostCommentsModel.fromMap(temp);
+            // PostCommentsModel comment = List.generate(
+            //     temp.length, (index) => PostCommentsModel.fromMap(temp[index]));
+            PostCommentsModel comment = PostCommentsModel.fromMap(temp);
             emit(SuccessSendingComment(comment: comment));
           }
         } on DioException catch (e) {

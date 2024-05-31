@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:osscam/bloc/comments_bloc/comments_bloc.dart';
 import 'package:osscam/bloc/get_bugs_by_tasks.dart/get_bugs_by_task_bloc.dart';
+import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/comment_model/post_comment_model.dart';
+import 'package:osscam/service/comments_service/post_comments_service.dart';
 // import 'package:osscam/pages/projects_pages/getOneProject_page.dart';
 // import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:osscam/widgets/bugs_widget.dart';
@@ -32,6 +35,27 @@ class _BugsPageState extends State<BugsPage> {
     });
   }
 
+  @override
+  void dispose() {
+    bugs.dispose();
+    super.dispose();
+  }
+
+  // List<PostCommentsModel> commentsList = [];
+  // void SendComment() {
+  //   setState(() {
+  //     commentsList.insert(0, PostCommentsModel(
+  //       comment: comments.text,
+  //       bugId: widget.bugId,
+  //     ));
+
+  //     commentsList
+  //         .add(PostCommentsModel(comment: comments.text, bugId: widget.bugId));
+  //         context.read<CommentsBloc>().add(SendComment);
+  //     bugs.clear();
+  //   });
+  // }
+
   TextEditingController bugs = TextEditingController();
   TextEditingController comments = TextEditingController();
 
@@ -40,9 +64,16 @@ class _BugsPageState extends State<BugsPage> {
     final double screenWidth = MediaQuery.sizeOf(context).width;
     final double screenHeight = MediaQuery.sizeOf(context).height;
 
-    return BlocProvider<GetBugsByTaskBloc>(
-      create: (context) =>
-          GetBugsByTaskBloc()..add(GetBugs(taskId: widget.taskId)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<GetBugsByTaskBloc>(
+          create: (context) =>
+              GetBugsByTaskBloc()..add(GetBugs(taskId: widget.taskId)),
+        ),
+        BlocProvider(
+          create: (context) => CommentsBloc(),
+        ),
+      ],
       child: Scaffold(
         body: BlocBuilder<GetBugsByTaskBloc, GetBugsByTaskState>(
           builder: (context, state) {
@@ -118,7 +149,37 @@ class _BugsPageState extends State<BugsPage> {
                               color: AppColors.buttonColor,
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: Text(state.bugs[1].description)),
+                            child:
+                                // (widget.hasBugs)
+                                //     ?
+                                Padding(
+                              padding: const EdgeInsets.only(top: 16, left: 16),
+                              child: Text(state.bugs[1].description),
+                            )
+                            //     :
+                            // TextFormField(
+                            //     obscureText: false,
+                            //     cursorColor: AppColors.sendIconColor,
+                            //     // style: TextStyle(color: AppColors.inputTextColor),
+                            //     // cursorColor: AppColors.primaryColor,
+                            //     maxLines: 12,
+                            //     validator: (value) {
+                            //       if (value!.isNotEmpty) {
+                            //         return null;
+                            //       } else {
+                            //         return "please enter bug";
+                            //       }
+                            //     },
+                            //     controller: bugs,
+                            //     decoration: const InputDecoration(
+                            //       hintText: "enter bug...",
+                            //       hintStyle: const TextStyle(fontSize: 20),
+                            //       contentPadding: EdgeInsets.symmetric(
+                            //           horizontal: 16, vertical: 16),
+                            //       border: InputBorder.none,
+                            //     ),
+                            //   ),
+                            ),
                       ),
                       SizedBox(
                         height: screenHeight * 0.03,
@@ -135,29 +196,42 @@ class _BugsPageState extends State<BugsPage> {
                           child: Padding(
                             padding: const EdgeInsets.only(top: 0.1),
                             child: Center(
-                              child:
-                                    Icon(
-                                    isVisible?  Icons.arrow_drop_up:
-                                      Icons.arrow_drop_down,
-                                      color: AppColors.continerColor,
-                                      size: 17,
-                                    )
-
-                            ),
+                                child: Icon(
+                              isVisible
+                                  ? Icons.arrow_drop_up
+                                  : Icons.arrow_drop_down,
+                              color: AppColors.continerColor,
+                              size: 17,
+                            )),
                           ),
                         ),
                       ),
                       Divider(
                         color: AppColors.continerColor,
                       ),
-                     // Spacer(),
+                      // Spacer(),
                       if (isVisible)
                         Expanded(
                           child: ListView.builder(
+                            scrollDirection: Axis.vertical,
                             itemCount: state.bugs[1].comments.length,
                             itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(state.bugs[1].comments[index].comment),
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: screenWidth * 0.6,
+                                  // height:screenHeight*0.3 ,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.blackTextFieldColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      state.bugs[1].comments[index].comment,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
                               );
                             },
                           ),
@@ -200,33 +274,92 @@ class _BugsPageState extends State<BugsPage> {
                       //   ),
                       // ),
                     ]),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 50,
-                        color: Colors.black,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.all(10),
-                              color: Colors.grey,
-                              height: 35,
-                              width: 200,
-                              child: Text(
-                                'hello ',
-                                style: TextStyle(color: Colors.white),
+                    if (isVisible)
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: screenHeight * 0.1,
+                          color: AppColors.blackContainerColor,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: AppColors.blackTextFieldColor,
+                                    borderRadius: BorderRadius.circular(50)),
+                                // height: screenHeight * 0.05,
+                                width: screenWidth * 0.8,
+                                child: TextFormField(
+                                  obscureText: false,
+                                  cursorColor: AppColors.sendIconColor,
+                                  // style: TextStyle(color: AppColors.inputTextColor),
+                                  // cursorColor: AppColors.primaryColor,
+                                  maxLines: 2,
+                                  // validator: (value) {
+                                  //   if (value!.isNotEmpty) {
+                                  //     return null;
+                                  //   } else {
+                                  //     return "please enter comment";
+                                  //   }
+                                  // },
+                                  controller: comments,
+                                  decoration: const InputDecoration(
+                                    // hintText: "enter bug...",
+                                    // hintStyle: const TextStyle(fontSize: 20),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 16),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                                // Text(
+                                //   'hello ',
+                                //   style: TextStyle(color: Colors.white),
+                                // ),
                               ),
-                            ),
-                            IconButton(onPressed:(){
-                              //post the comments
-                            }, icon:Icon(Icons.arrow_forward_ios,color: Colors.green,))
-                          ],
+                              SizedBox(
+                                height: screenHeight * 0.07,
+                                // width: screenWidth*0.16,
+                                child: IconButton(
+                                    onPressed: () {
+                                      if (comments.text.isNotEmpty) {
+                                        // SendComment();
+                                        //post the comments
+                                        List<PostCommentsModel> commentsList =
+                                            [];
+                                        setState(() {
+                                          commentsList.insert(
+                                              0,
+                                              PostCommentsModel(
+                                                comment: comments.text,
+                                                bugId: widget.bugId,
+                                              ));
+
+                                          commentsList.add(PostCommentsModel(
+                                              comment: comments.text,
+                                              bugId: widget.bugId));
+                                          context
+                                              .read<CommentsBloc>()
+                                              .add(SendComment(
+                                                  comment: PostCommentsModel(
+                                                comment: comments.text,
+                                                bugId: widget.bugId,
+                                              )));
+                                          bugs.clear();
+                                        });
+                                      }
+                                    },
+                                    icon: Icon(
+                                      Icons.send_outlined,
+                                      color: AppColors.sendIconColor,
+                                    )),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               );

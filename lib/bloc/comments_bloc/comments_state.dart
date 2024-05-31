@@ -6,7 +6,7 @@ sealed class CommentsState {}
 final class CommentsInitial extends CommentsState {}
 
 class SuccessSendingComment extends CommentsState{
-  List<PostCommentsModel> comment;
+  PostCommentsModel comment;
   SuccessSendingComment({
     required this.comment,
   });

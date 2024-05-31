@@ -4,7 +4,7 @@ part of 'comments_bloc.dart';
 sealed class CommentsEvent {}
 
 class SendComment extends CommentsEvent {
-  List<PostCommentsModel> comment;
+  PostCommentsModel comment;
   SendComment({
     required this.comment,
   });

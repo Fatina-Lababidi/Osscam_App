@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/get_bugs_by_tasks.dart/get_bugs_by_task_bloc.dart';
@@ -112,28 +113,53 @@ class _AddBugsPageState extends State<AddBugsPage> {
                   color: AppColors.buttonColor,
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: TextFormField(
-                  obscureText: false,
-                  cursorColor: AppColors.sendIconColor,
-                  // style: TextStyle(color: AppColors.inputTextColor),
-                  // cursorColor: AppColors.primaryColor,
-                  maxLines: 12,
-                  validator: (value) {
-                    if (value!.isNotEmpty) {
-                      return null;
-                    } else {
-                      return "please enter bug";
-                    }
-                  },
-                  controller: bugs,
-                  decoration: const InputDecoration(
-                    hintText: "enter bug...",
-                    hintStyle: const TextStyle(fontSize: 20),
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 16),
-                    border: InputBorder.none,
-                  ),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      obscureText: false,
+                      cursorColor: AppColors.sendIconColor,
+                      // style: TextStyle(color: AppColors.inputTextColor),
+                      // cursorColor: AppColors.primaryColor,
+                      maxLines: 6,
+                      validator: (value) {
+                        if (value!.isNotEmpty) {
+                          return null;
+                        } else {
+                          return "please enter bug";
+                        }
+                      },
+                      controller: bugs,
+                      decoration: const InputDecoration(
+                        hintText: "enter bug...",
+                        hintStyle: const TextStyle(fontSize: 20),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right:8.0),
+                        child: SizedBox(
+                                    height: screenHeight * 0.07,
+                                    // width: screenWidth*0.16,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          if (comments.text.isNotEmpty) {
+                                            //post the comments
+                                          }
+                                        },
+                                        icon: Icon(
+                                          Icons.send_outlined,
+                                          color: AppColors.sendIconColor,
+                                        )),
+                                  ),
+                      ),
+                    )
+                  ],
                 ), //widget.comment
+                
               ),
             ),
             SizedBox(
@@ -207,6 +233,69 @@ class _AddBugsPageState extends State<AddBugsPage> {
             //     ],
             //   ),
             // ),
+            if (isVisible)
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: screenHeight * 0.1,
+                          color: AppColors.blackContainerColor,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: AppColors.blackTextFieldColor,
+                                    borderRadius: BorderRadius.circular(50)),
+                                // height: screenHeight * 0.05,
+                                width: screenWidth * 0.8,
+                                child: TextFormField(
+                                  obscureText: false,
+                                  cursorColor: AppColors.sendIconColor,
+                                  // style: TextStyle(color: AppColors.inputTextColor),
+                                  // cursorColor: AppColors.primaryColor,
+                                  maxLines: 2,
+                                  // validator: (value) {
+                                  //   if (value!.isNotEmpty) {
+                                  //     return null;
+                                  //   } else {
+                                  //     return "please enter comment";
+                                  //   }
+                                  // },
+                                  controller: comments,
+                                  decoration: const InputDecoration(
+                                    // hintText: "enter bug...",
+                                    // hintStyle: const TextStyle(fontSize: 20),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 16),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                                // Text(
+                                //   'hello ',
+                                //   style: TextStyle(color: Colors.white),
+                                // ),
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.07,
+                                // width: screenWidth*0.16,
+                                child: IconButton(
+                                    onPressed: () {
+                                      if (comments.text.isNotEmpty) {
+                                        //post the comments
+                                      }
+                                    },
+                                    icon: Icon(
+                                      Icons.send_outlined,
+                                      color: AppColors.sendIconColor,
+                                    )),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
           ]),
         ),
       ),
