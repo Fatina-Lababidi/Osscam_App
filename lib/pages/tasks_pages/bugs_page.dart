@@ -135,17 +135,14 @@ class _BugsPageState extends State<BugsPage> {
                           child: Padding(
                             padding: const EdgeInsets.only(top: 0.1),
                             child: Center(
-                              child: (isVisible)
-                                  ? const Icon(
+                              child:
+                                    Icon(
+                                    isVisible?  Icons.arrow_drop_up:
                                       Icons.arrow_drop_down,
                                       color: AppColors.continerColor,
                                       size: 17,
                                     )
-                                  : const Icon(
-                                      Icons.arrow_drop_up,
-                                      color: AppColors.continerColor,
-                                      size: 17,
-                                    ),
+
                             ),
                           ),
                         ),
@@ -153,7 +150,7 @@ class _BugsPageState extends State<BugsPage> {
                       Divider(
                         color: AppColors.continerColor,
                       ),
-                      Spacer(),
+                     // Spacer(),
                       if (isVisible)
                         Expanded(
                           child: ListView.builder(
@@ -209,12 +206,24 @@ class _BugsPageState extends State<BugsPage> {
                       right: 0,
                       child: Container(
                         height: 50,
-                        color: Colors.amber,
-                        child: Center(
-                          child: Text(
-                            'hello ',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                        color: Colors.black,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(10),
+                              color: Colors.grey,
+                              height: 35,
+                              width: 200,
+                              child: Text(
+                                'hello ',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            IconButton(onPressed:(){
+                              //post the comments
+                            }, icon:Icon(Icons.arrow_forward_ios,color: Colors.green,))
+                          ],
                         ),
                       ),
                     ),
