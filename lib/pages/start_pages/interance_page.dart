@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/pages/Change_Language_page.dart';
+import 'package:osscam/pages/start_pages/change_language_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class InterancePage extends StatefulWidget {

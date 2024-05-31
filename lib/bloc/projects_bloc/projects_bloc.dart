@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/model/get_projects_model.dart';
-import 'package:osscam/service/get_project.dart';
+import 'package:osscam/model/projects_model/get_projects_model.dart';
+import 'package:osscam/service/projects_service/get_project.dart';
 
 part 'projects_event.dart';
 part 'projects_state.dart';

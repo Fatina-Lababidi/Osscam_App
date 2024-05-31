@@ -8,10 +8,10 @@ import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/pages/create_new_project_page.dart';
-import 'package:osscam/pages/error_page.dart';
-import 'package:osscam/pages/getOneProject_page.dart';
-import 'package:osscam/pages/offline_page.dart';
+import 'package:osscam/pages/projects_pages/create_new_project_page.dart';
+import 'package:osscam/pages/handle_exception_pages/error_page.dart';
+import 'package:osscam/pages/projects_pages/getOneProject_page.dart';
+import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,7 +37,6 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
         return BlocListener<JoinProjectBloc, JoinProjectState>(
           listener: (context, state) {
             if (state is SuccessJoinProject) {
-//! i need to make it go to the page that he join to
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   shape: RoundedRectangleBorder(

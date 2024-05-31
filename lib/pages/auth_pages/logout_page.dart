@@ -5,8 +5,8 @@ import 'package:osscam/bloc/logout_bloc/logout_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/main.dart';
-import 'package:osscam/pages/error_page.dart';
-import 'package:osscam/pages/offline_page.dart';
+import 'package:osscam/pages/handle_exception_pages/error_page.dart';
+import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 

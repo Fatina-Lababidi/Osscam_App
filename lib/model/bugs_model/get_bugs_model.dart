@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:osscam/model/get_comment_model.dart';
+import 'package:osscam/model/comment_model/get_comment_model.dart';
 
 class GetBugsModel {
   int id;

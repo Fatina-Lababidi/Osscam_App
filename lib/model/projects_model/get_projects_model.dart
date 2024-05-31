@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:osscam/service/base_service.dart';
 
-class ProjectsModel extends ResutlModel{
+class ProjectsModel{
   int id;
   String name;
   String description;

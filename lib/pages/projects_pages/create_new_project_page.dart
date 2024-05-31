@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/createNewProject_bloc/create_new_project_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/model/create_new_project_model.dart';
-import 'package:osscam/pages/create_new_task_page.dart';
-import 'package:osscam/pages/error_page.dart';
-import 'package:osscam/pages/offline_page.dart';
+import 'package:osscam/model/projects_model/create_new_project_model.dart';
+import 'package:osscam/pages/tasks_pages/create_new_task_page.dart';
+import 'package:osscam/pages/handle_exception_pages/error_page.dart';
+import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/service/delete_project_service.dart';
+import 'package:osscam/service/projects_service/delete_project_service.dart';
 
 part 'delete_project_event.dart';
 part 'delete_project_state.dart';

@@ -5,14 +5,13 @@ import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/model/get_tasks_model.dart';
-import 'package:osscam/pages/offline_page.dart';
-import 'package:osscam/pages/project_details_page.dart';
+import 'package:osscam/model/tasks_model/get_tasks_model.dart';
+import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
+import 'package:osscam/pages/tasks_pages/project_details_page.dart';
 import 'package:osscam/widgets/project_details_widgets/itemWidget.dart';
 import 'package:page_transition/page_transition.dart';
 
 class DraggableColumn extends StatefulWidget {
-  //final List<Widget> widgetItems;
   final List<GetAllTasks> tasks;
   final Color color;
   final String status;
@@ -23,7 +22,6 @@ class DraggableColumn extends StatefulWidget {
   final String projectDescription;
   const DraggableColumn({
     super.key,
-    // required this.widgetItems,
     required this.tasks,
     required this.color,
     required this.status,
@@ -39,19 +37,17 @@ class DraggableColumn extends StatefulWidget {
 }
 
 class _DraggableColumnState extends State<DraggableColumn> {
-  // List<Widget> items = [];
   List<GetAllTasks> items = [];
   bool isSnackBarShown = false;
+  UniqueKey snackBarKey = UniqueKey();
   @override
   void initState() {
     super.initState();
     updateItems();
-    // items = List.from(widget.widgetItems);
   }
 
   void updateItems() {
     items = List.from(widget.tasks);
-    //  items = List.from(widget.widgetItems);
     //?to create a new copy list from the widgetItem list , to avoid the directly modifiying to the origial list
   }
 
@@ -82,49 +78,41 @@ class _DraggableColumnState extends State<DraggableColumn> {
     return BlocConsumer<UpdateTaskStatusBloc, UpdateTaskStatusState>(
       listener: (context, state) {
         if (state is FailedUpdate) {
-          //   items = List.from(widget.widgetItems);
           items = List.from(widget.tasks);
-          ErrorDialog(context, screenWidth);
+          errorDialog(context, screenWidth);
           Future.delayed(const Duration(seconds: 3), () {
-            Navigator.of(context).pop();
+            if (mounted) {
+              Navigator.of(context).pop();
+            }
           });
-        } else if (state is SuccessUpdate) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              //   behavior: SnackBarBehavior.floating,
-              // margin: EdgeInsets.symmetric(horizontal: 20,),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10))),
-              content: Text(
-                'Successful update status ...',
-                style: TextStyle(color: Colors.black),
-              ),
-              backgroundColor: AppColors.cardGreenColor,
-              duration: Duration(seconds: 2),
-            ),
-          );
-          //!!
-          // setState(() {
-          //   isUpdate = true;
+        } else if (state is SuccessUpdate ) {
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(
+          //       SnackBar(
+          //         key: snackBarKey,
+          //         shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.only(
+          //                 topLeft: Radius.circular(10),
+          //                 topRight: Radius.circular(10))),
+          //         content: Text(
+          //           'Successful update status ...',
+          //           style: TextStyle(color: Colors.black),
+          //         ),
+          //         backgroundColor: AppColors.cardGreenColor,
+          //         duration: Duration(seconds: 2),
+          //         // onVisible: () {
+          //         //   isSnackBarShown = false;
+          //         // },
+          //       ),
+          //     )
+          //     .closed
+          //     .then((_) {
+          //   isSnackBarShown = false;
           // });
-          //  print('isUpdate in the update draggable ');
-          // context
-          //     .read<ProjectTaskBloc>()
-          //     .add(AfterUpdate(projectId: widget.projectId));
+
           context
               .read<ProjectTaskBloc>()
               .add(GetTasksByProject(widget.projectId));
-
-          // Navigator.push(
-          //     context,
-          //     PageTransition(
-          //         child: ProjectDetailsPage(
-          //             projectId: widget.project_id,
-          //             projectName: widget.projectName,
-          //             projectDescription: widget.projectDescription),
-          //         type: PageTransitionType.fade));
         } else if (state is OfflineUpdate) {
           Navigator.push(
               context,
@@ -142,55 +130,11 @@ class _DraggableColumnState extends State<DraggableColumn> {
           //! // !!so here we take the status to update it ?
           onAcceptWithDetails: (details) {
             //! for update
-            // if (details.data is ItemWidget) {
-            // GetAllTasks taskModel =
-            //  (details.data as ItemWidget).itemDescription;
             taskUpdateStatus(details.data);
-            // }
-
-            //    widget.widgetItems.remove(details.data);
-            //  items.add(details.data);
             widget.tasks.remove(details.data);
             items.add(details.data);
             print('new status: ' + widget.status);
-
-            // if (details.data is ItemWidget) {
-            //   CreateNewTaskModel? taskModel = (details.data as ItemWidget).itemDescription;
-            //   if (taskModel != null && taskModel.taskDescription == 'Description 5') {
-            //     ScaffoldMessenger.of(context).showSnackBar(
-            //       SnackBar(content: Text('Incorrect, please try again!')),
-            //     );
-            //   }
-            // }
           },
-          // onLeave: (data) {
-          //   debugPrint('missed');
-          //   if (!isSnackBarShown && data != null && data is ItemWidget) {
-          //     CreateNewTaskModel? taskModel = (data as ItemWidget).itemDescription;
-          //     if (taskModel != null && taskModel.taskDescription == 'Description 5') {
-          //       ScaffoldMessenger.of(context).showSnackBar(
-          //         SnackBar(content: Text('Incorrect, please try again!')),
-          //       );
-          //       isSnackBarShown = true;
-          //     }
-          //   }
-          // },
-          // !!so here we take the status to update it ?
-          //!!!! why it happeans more than one time ???
-          // onWillAccept: (data) {
-          //   debugPrint('checking');
-          //   if (data != null && data is ItemWidget) {
-          //     GetAllTasks? taskModel = (data as ItemWidget).itemDescription;
-          //     if (taskModel.taskDescription == 'Description 5') {
-          //       // ScaffoldMessenger.of(context).showSnackBar(
-          //       //   SnackBar(content: Text('Incorrect, please try again!')),
-          //       // );
-          //       return false;
-          //     }
-          //   }
-          //   return true;
-          // },
-
           builder: (context, candidateData, rejectedData) {
             return Column(
               //! we have to test the items if its empty or not in order to add placeholder widge
@@ -203,10 +147,6 @@ class _DraggableColumnState extends State<DraggableColumn> {
                         child: SizedBox(
                           width: screenWidth * 0.3, //150,
                           height: screenHieght * 0.125, // 100,
-                          // child:const Center(
-                          //   child: Text('drop '),
-                          // ),
-                          //elevation: 4
                         ),
                       ),
                     ]
@@ -253,8 +193,7 @@ class _DraggableColumnState extends State<DraggableColumn> {
                                         widget.color,
                                         widget.textColor,
                                         widget.status,
-
-                                     ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -334,7 +273,7 @@ class _DraggableColumnState extends State<DraggableColumn> {
     );
   }
 
-  Future<dynamic> ErrorDialog(BuildContext context, double screenWidth) {
+  Future<dynamic> errorDialog(BuildContext context, double screenWidth) {
     return showDialog(
       barrierDismissible: false,
       barrierColor: AppColors.primaryColor.withOpacity(0.3),

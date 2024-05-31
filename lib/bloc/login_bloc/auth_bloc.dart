@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/model/login_user_model.dart';
-import 'package:osscam/service/login_service.dart';
+import 'package:osscam/model/auth_model/login_user_model.dart';
+import 'package:osscam/service/auth_service/login_service.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -25,7 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else {
           emit(AuthFailed());
         }
-      } 
+      }
     });
   }
 }

@@ -6,10 +6,10 @@ import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/model/get_projects_model.dart';
-import 'package:osscam/pages/error_page.dart';
-import 'package:osscam/pages/offline_page.dart';
-import 'package:osscam/pages/project_details_page.dart';
+import 'package:osscam/model/projects_model/get_projects_model.dart';
+import 'package:osscam/pages/handle_exception_pages/error_page.dart';
+import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
+import 'package:osscam/pages/tasks_pages/project_details_page.dart';
 import 'package:osscam/widgets/project_loading_widget.dart';
 import 'package:osscam/widgets/search_textField.dart';
 import 'package:page_transition/page_transition.dart';
@@ -91,7 +91,7 @@ class _GetProjectsPageState extends State<GetProjectsPage> {
                     style: TextStyle(color: Colors.black),
                   ),
                   backgroundColor: AppColors.dropTextColor,
-                  duration: const Duration(seconds: 2),
+                  duration: Duration(seconds: 2),
                 ));
                 Navigator.push(
                   context,

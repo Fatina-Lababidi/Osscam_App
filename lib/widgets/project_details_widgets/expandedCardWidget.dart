@@ -1,8 +1,8 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/model/get_tasks_model.dart';
-import 'package:osscam/pages/bugs_page.dart';
+import 'package:osscam/model/tasks_model/get_tasks_model.dart';
+import 'package:osscam/pages/tasks_pages/bugs_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ExpandedCard extends StatelessWidget {

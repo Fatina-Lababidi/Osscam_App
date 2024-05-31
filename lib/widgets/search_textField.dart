@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/projects_bloc/projects_bloc.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/model/get_projects_model.dart';
-import 'package:osscam/pages/get_projects_page.dart';
+import 'package:osscam/model/projects_model/get_projects_model.dart';
+import 'package:osscam/pages/projects_pages/get_projects_page.dart';
 
 
 // ignore: must_be_immutable

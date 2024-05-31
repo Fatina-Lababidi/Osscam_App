@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/model/add_bugs_model.dart';
-import 'package:osscam/service/add_bugs_service.dart';
+import 'package:osscam/model/bugs_model/add_bugs_model.dart';
+import 'package:osscam/service/bugs_service/add_bugs_service.dart';
 
 part 'add_bugs_event.dart';
 part 'add_bugs_state.dart';

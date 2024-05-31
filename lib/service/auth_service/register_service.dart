@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
-import 'package:osscam/model/register_model.dart';
+import 'package:osscam/model/auth_model/register_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future SignUpService(SignupUserModel userModel) async {

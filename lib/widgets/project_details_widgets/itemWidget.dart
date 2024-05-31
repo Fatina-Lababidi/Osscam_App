@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:osscam/model/get_tasks_model.dart';
+import 'package:osscam/model/tasks_model/get_tasks_model.dart';
 
 class ItemWidget extends StatelessWidget {
   final GetAllTasks itemDescription;

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:osscam/model/get_tasks_model.dart';
-import 'package:osscam/service/get_task_by_project_id.dart';
+import 'package:osscam/model/tasks_model/get_tasks_model.dart';
+import 'package:osscam/service/tasks_service/get_task_by_project_id.dart';
 
 part 'project_task_event.dart';
 part 'project_task_state.dart';
@@ -18,9 +18,9 @@ class ProjectTaskBloc extends Bloc<ProjectTaskEvent, ProjectTaskState> {
         if (temp is String) {
           emit(ProjectTaskError());
         } else {
-          List<GetAllTasks> tasks = List.generate(
-              temp.length, (index) => GetAllTasks.fromMap(temp[index]));
-          emit(ProjectTaskSuccess(tasks));
+          // List<GetAllTasks> tasks = List.generate(
+          //     temp.length, (index) => GetAllTasks.fromMap(temp[index]));
+          emit(ProjectTaskSuccess(temp));
         }
       } on DioException catch (e) {
         if (e.error is SocketException) {

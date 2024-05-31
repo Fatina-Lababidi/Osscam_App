@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
-import 'package:osscam/model/add_bugs_model.dart';
+import 'package:osscam/model/bugs_model/add_bugs_model.dart';
 
 Future addNewBugs(AddingBugsModel addingBugsModel) async {
   Dio dio = Dio();
