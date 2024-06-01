@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
-import 'package:osscam/model/bugs_model/add_bugs_model.dart';
 import 'package:osscam/model/comment_model/post_comment_model.dart';
 
 Future postComments(PostCommentsModel postCommentsModel) async {

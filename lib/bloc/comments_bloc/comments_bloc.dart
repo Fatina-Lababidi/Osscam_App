@@ -16,13 +16,14 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
         try {
           emit(LoadingPostComment());
           var temp = await postComments(event.comment);
-          if (temp is String) {
-            emit(ErrorPostComment());
+          if (temp) {
+                PostCommentsModel comment = PostCommentsModel.fromMap(temp);
+            emit(SuccessSendingComment(comment: comment));
+
           } else {
             // PostCommentsModel comment = List.generate(
             //     temp.length, (index) => PostCommentsModel.fromMap(temp[index]));
-            PostCommentsModel comment = PostCommentsModel.fromMap(temp);
-            emit(SuccessSendingComment(comment: comment));
+          emit(ErrorPostComment());
           }
         } on DioException catch (e) {
           if (e.error is SocketException) {
