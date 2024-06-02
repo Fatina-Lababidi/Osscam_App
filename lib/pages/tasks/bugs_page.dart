@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/comments_bloc/comments_bloc.dart';
 import 'package:osscam/bloc/get_bugs_by_tasks.dart/get_bugs_by_task_bloc.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/comment_model/post_comment_model.dart';
-import 'package:osscam/pages/handle_exception_pages/error_page.dart';
-import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
-import 'package:osscam/pages/tasks_pages/project_details_page.dart';
+import 'package:osscam/pages/handle_exception/error_page.dart';
+import 'package:osscam/pages/handle_exception/offline_page.dart';
+import 'package:osscam/pages/tasks/project_details_page.dart';
 // import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:osscam/widgets/bugs_widget.dart';
 import 'package:page_transition/page_transition.dart';
@@ -160,11 +161,11 @@ class _BugsPageState extends State<BugsPage> {
                                 child: IconButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                        //               Navigator.push(
-                        // context,
-                        // PageTransition(
-                        //     child: ProjectDetailsPage(projectDescription: widget., projectId: null, projectName: '',),
-                        //     type: PageTransitionType.fade)); 
+                                    //               Navigator.push(
+                                    // context,
+                                    // PageTransition(
+                                    //     child: ProjectDetailsPage(projectDescription: widget., projectId: null, projectName: '',),
+                                    //     type: PageTransitionType.fade));
                                   },
                                   icon: const Icon(
                                     Icons.arrow_back,
@@ -265,8 +266,8 @@ class _BugsPageState extends State<BugsPage> {
                                       scrollDirection: Axis.vertical,
                                       itemCount: bugs.comments.length,
                                       itemBuilder: (context, index) {
-                                        final comment = bugs.comments[index];
-                                        
+                                        final comment = bugs.comments[index].comment;
+
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Container(
@@ -281,7 +282,7 @@ class _BugsPageState extends State<BugsPage> {
                                               padding:
                                                   const EdgeInsets.all(8.0),
                                               child: Text(
-                                                comment.comment,
+                                                comment,
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
@@ -310,26 +311,42 @@ class _BugsPageState extends State<BugsPage> {
 
                               // },
                               // itemCount: 5,)
-                              // SizedBox(height:screenHeight*0.0001 ,),
-                              // Container(
-                              //   height: screenHeight*0.2,
-                              //   decoration: BoxDecoration(
-                              //     color: AppColors.blackContainerColor
-                              //   ),
-                              //   child: Row(
-                              //     children: [
-                              //       Container(
-                              //         decoration: BoxDecoration(
-                              //         color: AppColors.blackTextFieldColor,
-                              //         borderRadius: BorderRadius.circular(50)
-                              //         ),
-                              //         child: TextField(
-
-                              //         ),
-                              //       )
-                              //     ],
-                              //   ),
-                              // ),
+                              SizedBox(
+                                height: screenHeight * 0.0001,
+                              ),
+                              if(isVisible)
+                              Container(
+                                height: 800,
+                                // decoration: BoxDecoration(
+                                //     color: Colors.red),
+                                child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemBuilder: (context, index) {
+                                    print("---------------------------");
+                                    print(bugs.comments.length);
+                                    print(widget.bugId);
+                                  return   Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      // width: 200,
+                                      // height: 100,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.blackTextFieldColor,
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                              child: Center(
+                                                child: Text(
+                                                 bugs.comments[index].comment,
+                                                 style: TextStyle(color: Colors.white),
+                                                ),
+                                              ),
+                                    ),
+                                  );
+                                  },
+                                  itemCount: bugs.comments.length,
+                                  
+                                ),
+                              ),
                             ]),
                             if (isVisible)
                               Positioned(
@@ -381,39 +398,106 @@ class _BugsPageState extends State<BugsPage> {
                                         //   style: TextStyle(color: Colors.white),
                                         // ),
                                       ),
-                                      BlocBuilder<CommentsBloc, CommentsState>(
-                                        builder: (context, state) {
-                                          if (state is CommentsInitial) {
-                                            return SizedBox(
-                                              height: screenHeight * 0.07,
-                                              // width: screenWidth*0.16,
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    if (bugsController
-                                                        .text.isNotEmpty) {
-                                                      //post the comments
-                                                      context
-                                                          .read<CommentsBloc>()
-                                                          .add(SendComment(
-                                                              comment: PostCommentsModel(
+                                      // BlocBuilder<CommentsBloc, CommentsState>(
+                                      //   builder: (context, state) {
+                                      //     if (state is CommentsInitial) {
+                                      SizedBox(
+                                        height: screenHeight * 0.07,
+                                        // width: screenWidth*0.16,
+                                        child: BlocListener<CommentsBloc,
+                                            CommentsState>(
+                                          listener: (context, state) {
+                                            if (state
+                                                is SuccessSendingComment) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                          'Success creating')));
+                                            } else if (state
+                                                is ErrorPostComment) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  action: SnackBarAction(
+                                                      label: "",
+                                                      onPressed: () {}),
+                                                  content: const Text(
+                                                      "Error creating"),
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                ),
+                                              );
+                                              Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                      child: ErrorPage(
+                                                        previousPage: BugsPage(
+                                                            bugId: widget.bugId,
+                                                            hasBugs:
+                                                                widget.hasBugs,
+                                                            taskId:
+                                                                widget.taskId),
+                                                      ),
+                                                      type: PageTransitionType
+                                                          .fade));
+                                            } else if (state
+                                                is OfflinePostComment) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  action: SnackBarAction(
+                                                      label: "",
+                                                      onPressed: () {}),
+                                                  content: const Text(
+                                                      "Offline while creating"),
+                                                  duration:
+                                                      Duration(seconds: 1),
+                                                ),
+                                              );
+                                              Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                      child: OfflinePage(
+                                                        previousPage: BugsPage(
+                                                            bugId: widget.bugId,
+                                                            hasBugs:
+                                                                widget.hasBugs,
+                                                            taskId:
+                                                                widget.taskId),
+                                                      ),
+                                                      type: PageTransitionType
+                                                          .fade));
+                                            }
+                                          },
+                                          child: IconButton(
+                                              onPressed: () {
+                                                if (commentsController
+                                                    .text.isNotEmpty) {
+                                                  //post the comments
+                                                  print("object");
+                                                  print(widget.bugId);
+                                                  context
+                                                      .read<CommentsBloc>()
+                                                      .add(SendComment(
+                                                          comment:
+                                                              PostCommentsModel(
                                                                   comment:
                                                                       commentsController
                                                                           .text,
-                                                                  bugId: widget
-                                                                      .bugId)));
-                                                    }
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.send_outlined,
-                                                    color:
-                                                        AppColors.sendIconColor,
-                                                  )),
-                                            );
-                                          } else {
-                                            return const CircularProgressIndicator();
-                                          }
-                                        },
-                                      ),
+                                                                  bugId: bugs.id)));
+                                                }
+                                              },
+                                              icon: const Icon(
+                                                Icons.send_outlined,
+                                                color: AppColors.sendIconColor,
+                                              )),
+                                        ),
+                                      )
+                                      //     } else {
+                                      //       return const CircularProgressIndicator();
+                                      //     }
+                                      //   },
+                                      // ),
                                     ],
                                   ),
                                 ),

@@ -7,10 +7,7 @@ final class CommentsInitial extends CommentsState {}
 
 // ignore: must_be_immutable
 class SuccessSendingComment extends CommentsState{
-  PostCommentsModel comment;
-  SuccessSendingComment({
-    required this.comment,
-  });
+  
 }
 
 class ErrorPostComment extends CommentsState {}

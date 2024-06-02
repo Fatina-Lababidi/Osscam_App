@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/pages/auth_pages/sign_up_page.dart';
+import 'package:osscam/pages/auth/sign_up_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ChangeLanguagePage extends StatelessWidget {

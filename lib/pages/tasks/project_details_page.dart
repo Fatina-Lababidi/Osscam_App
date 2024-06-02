@@ -8,9 +8,9 @@ import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/model/tasks_model/get_tasks_model.dart';
-import 'package:osscam/pages/handle_exception_pages/error_page.dart';
-import 'package:osscam/pages/projects_pages/get_projects_page.dart';
-import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
+import 'package:osscam/pages/handle_exception/error_page.dart';
+import 'package:osscam/pages/projects/get_projects_page.dart';
+import 'package:osscam/pages/handle_exception/offline_page.dart';
 import 'package:osscam/widgets/project_details_widgets/drawer.dart';
 import 'package:osscam/widgets/project_details_widgets/expandedCardWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/myWidget.dart';
@@ -173,52 +173,57 @@ taskId: task.taskId
                     builder: (context, state) {
                   if (state is ProjectTaskSuccess) {
                     List<GetAllTasks> tasks = state.tasks;
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: screenHeight * 0.03,
-                          ),
-                          projectNameWidget(
-                            name: widget.projectName,
-                            projectId: widget.projectId,
-                          )
-                              .animate()
-                              .fade(duration: .3.seconds, delay: .2.seconds),
-                          ProjectDescriptionWidget(
-                            text: text,
-                            lessText: lessText,
-                            isExpanded: _isExpanded,
-                            changeContainerExpanded: _changeContainerExpanded,
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.05,
-                          ),
-                          SizedBox(
-                            width: screenWidth,
-                            height: 6000,
-                            // Expanded(
-                            //!! i have to fix this ...if i remove it there is no space to add new stuff
-                            child: MyWidget(
-                              projectDescription: widget.projectDescription,
-                              projectName: widget.projectName,
-                              projectId: widget.projectId,
-                              tasks: tasks,
-                              showCardFouced:
-                                  //!! we can make it as function  before the build ?
-                                  (BuildContext context,
-                                      GetAllTasks task,
-                                      Color color,
-                                      Color textColor,
-                                      String status) {
-                                _showCardExpanded(
-                                    context, task, color, textColor, status);
-                              },
+                    return RefreshIndicator(
+                      onRefresh: ()async {
+                        context.read<ProjectTaskBloc>().add(GetTasksByProject(widget.projectId));
+                      },
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: screenHeight * 0.03,
                             ),
-                          )
-                              .animate()
-                              .fade(duration: .7.seconds, delay: .6.seconds),
-                        ],
+                            projectNameWidget(
+                              name: widget.projectName,
+                              projectId: widget.projectId,
+                            )
+                                .animate()
+                                .fade(duration: .3.seconds, delay: .2.seconds),
+                            ProjectDescriptionWidget(
+                              text: text,
+                              lessText: lessText,
+                              isExpanded: _isExpanded,
+                              changeContainerExpanded: _changeContainerExpanded,
+                            ),
+                            SizedBox(
+                              height: screenHeight * 0.05,
+                            ),
+                            SizedBox(
+                              width: screenWidth,
+                              height: 6000,
+                              // Expanded(
+                              //!! i have to fix this ...if i remove it there is no space to add new stuff
+                              child: MyWidget(
+                                projectDescription: widget.projectDescription,
+                                projectName: widget.projectName,
+                                projectId: widget.projectId,
+                                tasks: tasks,
+                                showCardFouced:
+                                    //!! we can make it as function  before the build ?
+                                    (BuildContext context,
+                                        GetAllTasks task,
+                                        Color color,
+                                        Color textColor,
+                                        String status) {
+                                  _showCardExpanded(
+                                      context, task, color, textColor, status);
+                                },
+                              ),
+                            )
+                                .animate()
+                                .fade(duration: .7.seconds, delay: .6.seconds),
+                          ],
+                        ),
                       ),
                     );
                   } else {

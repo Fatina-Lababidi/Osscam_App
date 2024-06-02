@@ -5,12 +5,12 @@ import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
 import 'package:osscam/model/comment_model/post_comment_model.dart';
 
-Future postComments(PostCommentsModel postCommentsModel) async {
+Future<bool> postComments(PostCommentsModel postCommentsModel) async {
   Dio dio = Dio();
   final String postCommentsUrl = AppUrl.post_new_comment_url;
   try {
     Response response = await dio.post(postCommentsUrl,
-        data: postCommentsModel.toJson(), options: getHeader(true));
+        data: postCommentsModel.toMap(), options: getHeader(true));
     if (response.statusCode == 200) {
       print('success post comment');
       return true; //response.data;

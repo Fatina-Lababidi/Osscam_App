@@ -3,13 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/adding_bugs_bloc/add_bugs_bloc.dart';
+import 'package:osscam/bloc/comments_bloc/comments_bloc.dart';
 // import 'package:osscam/bloc/get_bugs_by_tasks.dart/get_bugs_by_task_bloc.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/bugs_model/add_bugs_model.dart';
 import 'package:osscam/model/comment_model/post_comment_model.dart';
-import 'package:osscam/pages/handle_exception_pages/error_page.dart';
-import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
-import 'package:osscam/pages/tasks_pages/bugs_page.dart';
+import 'package:osscam/pages/handle_exception/error_page.dart';
+import 'package:osscam/pages/handle_exception/offline_page.dart';
+import 'package:osscam/pages/tasks/bugs_page.dart';
 // import 'package:osscam/pages/projects_pages/getOneProject_page.dart';
 // import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:osscam/widgets/bugs_widget.dart';
@@ -47,8 +48,15 @@ class _AddBugsPageState extends State<AddBugsPage> {
     final double screenWidth = MediaQuery.sizeOf(context).width;
     final double screenHeight = MediaQuery.sizeOf(context).height;
 
-    return BlocProvider<AddBugsBloc>(
-      create: (context) => AddBugsBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AddBugsBloc>(
+          create: (context) => AddBugsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CommentsBloc(),
+        ),
+      ],
       child: BlocListener<AddBugsBloc, AddBugsState>(
         listener: (context, state) {
           if (state is SuccessAddBug) {
@@ -305,70 +313,123 @@ class _AddBugsPageState extends State<AddBugsPage> {
               //     ],
               //   ),
               // ),
-              // if (isVisible)
-              //   Positioned(
-              //     bottom: 0,
-              //     left: 0,
-              //     right: 0,
-              //     child: Container(
-              //       height: screenHeight * 0.1,
-              //       color: AppColors.blackContainerColor,
-              //       child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [
-              //           Container(
-              //             margin: EdgeInsets.all(10),
-              //             decoration: BoxDecoration(
-              //                 color: AppColors.blackTextFieldColor,
-              //                 borderRadius: BorderRadius.circular(50)),
-              //             // height: screenHeight * 0.05,
-              //             width: screenWidth * 0.8,
-              //             child: TextFormField(
-              //               obscureText: false,
-              //               cursorColor: AppColors.sendIconColor,
-              //               // style: TextStyle(color: AppColors.inputTextColor),
-              //               // cursorColor: AppColors.primaryColor,
-              //               maxLines: 2,
-              //               // validator: (value) {
-              //               //   if (value!.isNotEmpty) {
-              //               //     return null;
-              //               //   } else {
-              //               //     return "please enter comment";
-              //               //   }
-              //               // },
-              //               controller: commentsController,
-              //               decoration: const InputDecoration(
-              //                 // hintText: "enter bug...",
-              //                 // hintStyle: const TextStyle(fontSize: 20),
-              //                 contentPadding: EdgeInsets.symmetric(
-              //                     horizontal: 16, vertical: 16),
-              //                 border: InputBorder.none,
-              //               ),
-              //             ),
-              //             // Text(
-              //             //   'hello ',
-              //             //   style: TextStyle(color: Colors.white),
-              //             // ),
-              //           ),
-              //           SizedBox(
-              //             height: screenHeight * 0.07,
-              //             // width: screenWidth*0.16,
-              //             child: IconButton(
-              //                 onPressed: () {
-              //                   if (commentsController.text.isNotEmpty) {
-              //                     //post the comments
-
-              //                   }
-              //                 },
-              //                 icon: Icon(
-              //                   Icons.send_outlined,
-              //                   color: AppColors.sendIconColor,
-              //                 )),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //   ),
+              if (isVisible)
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: screenHeight * 0.1,
+                    color: AppColors.blackContainerColor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: AppColors.blackTextFieldColor,
+                              borderRadius: BorderRadius.circular(50)),
+                          // height: screenHeight * 0.05,
+                          width: screenWidth * 0.8,
+                          child: TextFormField(
+                            obscureText: false,
+                            cursorColor: AppColors.sendIconColor,
+                            // style: TextStyle(color: AppColors.inputTextColor),
+                            // cursorColor: AppColors.primaryColor,
+                            maxLines: 2,
+                            // validator: (value) {
+                            //   if (value!.isNotEmpty) {
+                            //     return null;
+                            //   } else {
+                            //     return "please enter comment";
+                            //   }
+                            // },
+                            controller: commentsController,
+                            decoration: const InputDecoration(
+                              // hintText: "enter bug...",
+                              // hintStyle: const TextStyle(fontSize: 20),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 16),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                          // Text(
+                          //   'hello ',
+                          //   style: TextStyle(color: Colors.white),
+                          // ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.07,
+                          // width: screenWidth*0.16,
+                          child: BlocListener<CommentsBloc, CommentsState>(
+                            listener: (context, state) {
+                              if (state is SuccessSendingComment) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Success creating')));
+                              } else if (state is ErrorPostComment) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    action: SnackBarAction(
+                                        label: "", onPressed: () {}),
+                                    content: const Text("Error creating"),
+                                    duration: Duration(seconds: 1),
+                                  ),
+                                );
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: ErrorPage(
+                                          previousPage: AddBugsPage(
+                                              bugId: widget.bugId,
+                                              hasBugs: widget.hasBugs,
+                                              taskId: widget.taskId),
+                                        ),
+                                        type: PageTransitionType.fade));
+                              } else if (state is OfflinePostComment) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    action: SnackBarAction(
+                                        label: "", onPressed: () {}),
+                                    content:
+                                        const Text("Offline while creating"),
+                                    duration: Duration(seconds: 1),
+                                  ),
+                                );
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: OfflinePage(
+                                          previousPage: AddBugsPage(
+                                              bugId: widget.bugId,
+                                              hasBugs: widget.hasBugs,
+                                              taskId: widget.taskId),
+                                        ),
+                                        type: PageTransitionType.fade));
+                              }
+                            },
+                            child: IconButton(
+                                onPressed: () {
+                                  if (commentsController.text.isNotEmpty) {
+                                    //post the comments
+                                    context.read<CommentsBloc>().add(
+                                        SendComment(
+                                            comment: PostCommentsModel(
+                                                comment:
+                                                    commentsController.text,
+                                                bugId: widget.bugId)));
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.send_outlined,
+                                  color: AppColors.sendIconColor,
+                                )),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
             ]),
           ),
         ),

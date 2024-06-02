@@ -4,9 +4,9 @@ import 'package:osscam/bloc/add_task/add_task_bloc.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/tasks_model/create_new_task.dart';
-import 'package:osscam/pages/handle_exception_pages/error_page.dart';
-import 'package:osscam/pages/projects_pages/getOneProject_page.dart';
-import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
+import 'package:osscam/pages/handle_exception/error_page.dart';
+import 'package:osscam/pages/projects/getOneProject_page.dart';
+import 'package:osscam/pages/handle_exception/offline_page.dart';
 import 'package:osscam/widgets/app_button.dart';
 import 'package:page_transition/page_transition.dart';
 

@@ -6,8 +6,8 @@ import 'package:osscam/bloc/update_task_status_bloc/update_task_status_bloc.dart
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/tasks_model/get_tasks_model.dart';
-import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
-import 'package:osscam/pages/tasks_pages/project_details_page.dart';
+import 'package:osscam/pages/handle_exception/offline_page.dart';
+import 'package:osscam/pages/tasks/project_details_page.dart';
 import 'package:osscam/widgets/project_details_widgets/itemWidget.dart';
 import 'package:page_transition/page_transition.dart';
 

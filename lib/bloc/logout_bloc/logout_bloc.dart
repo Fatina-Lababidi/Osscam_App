@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:osscam/core/config/dependency_injection.dart';
-import 'package:osscam/service/auth_service/logout_service.dart';
+import 'package:osscam/service/auth/logout_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'logout_event.dart';

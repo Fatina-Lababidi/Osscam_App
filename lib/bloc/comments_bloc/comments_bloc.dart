@@ -11,14 +11,14 @@ part 'comments_state.dart';
 
 class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
   CommentsBloc() : super(CommentsInitial()) {
-    on<SendComment>((event, emit) {
-      (event, emit) async {
+    on<SendComment>((event, emit) async{
+
         try {
           emit(LoadingPostComment());
           var temp = await postComments(event.comment);
           if (temp) {
-                PostCommentsModel comment = PostCommentsModel.fromMap(temp);
-            emit(SuccessSendingComment(comment: comment));
+                // PostCommentsModel comment = PostCommentsModel.fromMap(temp);
+            emit(SuccessSendingComment());
 
           } else {
             // PostCommentsModel comment = List.generate(
@@ -32,7 +32,7 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
             emit(ErrorPostComment());
           }
         }
-      };
+    
     });
   }
 }

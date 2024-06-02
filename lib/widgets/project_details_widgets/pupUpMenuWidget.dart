@@ -4,7 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/delete_project_bloc/delete_project_bloc.dart';
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/pages/projects_pages/get_projects_page.dart';
+import 'package:osscam/pages/projects/get_projects_page.dart';
+import 'package:osscam/pages/tasks/create_new_task_page.dart';
 import 'package:page_transition/page_transition.dart';
 
 class PopUpMenuWidget extends StatefulWidget {
@@ -252,6 +253,8 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
               );
               break;
             case 2:
+            Navigator.push(context,PageTransition(child: CreateNewTaskPage(id: widget.projectId,), type: PageTransitionType.fade) );
+
               // Edit: Navigate to the edit page or perform edit action
               break;
             case 3:
