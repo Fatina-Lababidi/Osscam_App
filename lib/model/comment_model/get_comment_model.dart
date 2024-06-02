@@ -4,38 +4,22 @@ import 'dart:convert';
 class GetCommentModel {
   int id;
   String comment;
-  // String author;
-  // String createDate;
-  // String lastModified;
-  // int createdBy;
-  // int lastModifiedBy;
+  String author;
   GetCommentModel({
     required this.id,
     required this.comment,
-    // required this.author,
-    // required this.createDate,
-    // required this.lastModified,
-    // required this.createdBy,
-    // required this.lastModifiedBy,
+    required this.author,
   });
 
   GetCommentModel copyWith({
     int? id,
     String? comment,
     String? author,
-    String? createDate,
-    String? lastModified,
-    int? createdBy,
-    int? lastModifiedBy,
   }) {
     return GetCommentModel(
       id: id ?? this.id,
       comment: comment ?? this.comment,
-      // author: author ?? this.author,
-      // createDate: createDate ?? this.createDate,
-      // lastModified: lastModified ?? this.lastModified,
-      // createdBy: createdBy ?? this.createdBy,
-      // lastModifiedBy: lastModifiedBy ?? this.lastModifiedBy,
+      author: author ?? this.author,
     );
   }
 
@@ -43,11 +27,7 @@ class GetCommentModel {
     return <String, dynamic>{
       'id': id,
       'comment': comment,
-      // 'author': author,
-      // 'createDate': createDate,
-      // 'lastModified': lastModified,
-      // 'createdBy': createdBy,
-      // 'lastModifiedBy': lastModifiedBy,
+      'author': author,
     };
   }
 
@@ -55,44 +35,27 @@ class GetCommentModel {
     return GetCommentModel(
       id: map['id'] as int,
       comment: map['comment'] as String,
-      // author: map['author'] as String,
-      // createDate: map['createDate'] as String,
-      // lastModified: map['lastModified'] as String,
-      // createdBy: map['createdBy'] as int,
-      // lastModifiedBy: map['lastModifiedBy'] as int,
+      author: map['author'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory GetCommentModel.fromJson(String source) =>
-      GetCommentModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory GetCommentModel.fromJson(String source) => GetCommentModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() {
-    return 'GetCommentModel(id: $id, comment: $comment)';
-    //  author: $author, createDate: $createDate, lastModified: $lastModified, createdBy: $createdBy, lastModifiedBy: $lastModifiedBy)';
-  }
+  String toString() => 'GetCommentModel(id: $id, comment: $comment, author: $author)';
 
   @override
   bool operator ==(covariant GetCommentModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.comment == comment;
-    // other.author == author &&
-    // other.createDate == createDate &&
-    // other.lastModified == lastModified &&
-    // other.createdBy == createdBy &&
-    // other.lastModifiedBy == lastModifiedBy;
+    return
+      other.id == id &&
+      other.comment == comment &&
+      other.author == author;
   }
 
   @override
-  int get hashCode {
-    return id.hashCode ^ comment.hashCode;
-    // author.hashCode ^
-    // createDate.hashCode ^
-    // lastModified.hashCode ^
-    // createdBy.hashCode ^
-    // lastModifiedBy.hashCode;
-  }
+  int get hashCode => id.hashCode ^ comment.hashCode ^ author.hashCode;
 }

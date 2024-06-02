@@ -6,6 +6,7 @@ sealed class CreateNewProjectState {}
 
 final class CreateNewProjectInitial extends CreateNewProjectState {}
 
+// ignore: must_be_immutable
 class SuccessCreateProject extends CreateNewProjectState {
   ProjectsModel project;
   SuccessCreateProject({

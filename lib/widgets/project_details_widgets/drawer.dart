@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:osscam/core/resources/asset.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/pages/projects_pages/create_or_join_page.dart';
-import 'package:osscam/pages/projects_pages/get_projects_page.dart';
+// import 'package:osscam/pages/projects_pages/get_projects_page.dart';
 import 'package:osscam/pages/auth_pages/logout_page.dart';
 import 'package:page_transition/page_transition.dart';
 

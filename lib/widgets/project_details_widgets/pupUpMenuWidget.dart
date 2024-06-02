@@ -21,19 +21,27 @@ class PopUpMenuWidget extends StatefulWidget {
 class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
   bool _isSnackBarVisible = false;
 
-  void _showSnackBar(BuildContext context, String message, Color backgroundColor) {
+  void _showSnackBar(
+      BuildContext context, String message, Color backgroundColor) {
     if (!_isSnackBarVisible) {
       _isSnackBarVisible = true;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            message,
-            style: TextStyle(color: Colors.black),
-          ),
-          backgroundColor: backgroundColor,
-          duration: Duration(seconds: 2),
-        ),
-      ).closed.then((_) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+            SnackBar(
+              shape:const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              content: Text(
+                message,
+                style: TextStyle(color: Colors.black),
+              ),
+              backgroundColor: backgroundColor,
+              duration: Duration(seconds: 2),
+            ),
+          )
+          .closed
+          .then((_) {
         _isSnackBarVisible = false;
       });
     }
@@ -73,10 +81,14 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                             borderRadius: BorderRadius.circular(5),
                             color: Colors.white,
                           ),
-                          child: BlocConsumer<DeleteProjectBloc, DeleteProjectState>(
+                          child: BlocConsumer<DeleteProjectBloc,
+                              DeleteProjectState>(
                             listener: (context, state) {
                               if (state is SuccessDeleteProject) {
-                                _showSnackBar(context, 'Successfully deleted...', AppColors.cardGreenColor);
+                                _showSnackBar(
+                                    context,
+                                    'Successfully deleted...',
+                                    AppColors.cardGreenColor);
                                 Navigator.push(
                                   context,
                                   PageTransition(
@@ -84,13 +96,25 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                     type: PageTransitionType.fade,
                                   ),
                                 );
-                                context.read<DeleteProjectBloc>().add(RefreshProjects());
+                                context
+                                    .read<DeleteProjectBloc>()
+                                    .add(RefreshProjects());
                               } else if (state is FailedDeleteProject) {
-                                _showSnackBar(context, 'Error, please try again...', AppColors.deleteCardColor);
-                                context.read<DeleteProjectBloc>().add(RefreshProjects());
+                                _showSnackBar(
+                                    context,
+                                    'Error, please try again...',
+                                    AppColors.deleteCardColor);
+                                context
+                                    .read<DeleteProjectBloc>()
+                                    .add(RefreshProjects());
                               } else if (state is OfflineDeleteProject) {
-                                _showSnackBar(context, 'Offline, please try later...', AppColors.dropTextColor);
-                                context.read<DeleteProjectBloc>().add(RefreshProjects());
+                                _showSnackBar(
+                                    context,
+                                    'Offline, please try later...',
+                                    AppColors.dropTextColor);
+                                context
+                                    .read<DeleteProjectBloc>()
+                                    .add(RefreshProjects());
                               }
                             },
                             builder: (context, state) {
@@ -98,7 +122,8 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                 return Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
                                         'Are you sure you want to ',
@@ -109,28 +134,35 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                         style: TextStyle(fontSize: 17),
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              context.read<DeleteProjectBloc>().add(DeleteProject(
+                                              context
+                                                  .read<DeleteProjectBloc>()
+                                                  .add(DeleteProject(
                                                     projectId: widget.projectId,
                                                   ));
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(5),
-                                                color: AppColors.sureButtonColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color:
+                                                    AppColors.sureButtonColor,
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsets.symmetric(
                                                   vertical: screenHeight * 0.01,
-                                                  horizontal: screenWidth * 0.01,
+                                                  horizontal:
+                                                      screenWidth * 0.01,
                                                 ),
                                                 child: const Center(
                                                   child: Text(
                                                     'Yes, I am sure',
-                                                    style: TextStyle(color: Colors.white),
+                                                    style: TextStyle(
+                                                        color: Colors.white),
                                                   ),
                                                 ),
                                               ),
@@ -142,7 +174,8 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                             },
                                             child: const Text(
                                               'Cancel',
-                                              style: TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ),
                                         ],
@@ -150,11 +183,13 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                     ],
                                   ),
                                 );
-                              } else if (state is FailedDeleteProject || state is OfflineDeleteProject) {
+                              } else if (state is FailedDeleteProject ||
+                                  state is OfflineDeleteProject) {
                                 return Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       const Text(
                                         'Something went wrong...',
@@ -175,7 +210,8 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                           },
                                           child: const Text(
                                             'Cancel',
-                                            style: TextStyle(color: Colors.black),
+                                            style:
+                                                TextStyle(color: Colors.black),
                                           ),
                                         ),
                                       ),
@@ -184,7 +220,8 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                                 );
                               } else {
                                 return Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     const SizedBox(height: 5),
                                     const CircularProgressIndicator(
@@ -219,11 +256,12 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
               break;
             case 3:
               // Copy ID
-              Clipboard.setData(ClipboardData(text: widget.projectId.toString()));
+              Clipboard.setData(
+                  ClipboardData(text: widget.projectId.toString()));
               showDialog(
                 barrierDismissible: false,
                 context: context,
-                barrierColor: AppColors.primaryColor.withOpacity(0.3),
+                barrierColor: AppColors.primaryColor.withOpacity(0.4),
                 builder: (context) {
                   return const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -268,7 +306,8 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                     ),
                     Text(
                       "Delete",
-                      style: TextStyle(fontSize: 10, color: AppColors.dropTextColor),
+                      style: TextStyle(
+                          fontSize: 10, color: AppColors.dropTextColor),
                     ),
                   ],
                 ),
@@ -288,7 +327,8 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                     ),
                     Text(
                       "Edit",
-                      style: TextStyle(fontSize: 10, color: AppColors.dropTextColor),
+                      style: TextStyle(
+                          fontSize: 10, color: AppColors.dropTextColor),
                     ),
                   ],
                 ),
@@ -306,7 +346,8 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
                 ),
                 Text(
                   "Copy ID",
-                  style: TextStyle(fontSize: 10, color: AppColors.dropTextColor),
+                  style:
+                      TextStyle(fontSize: 10, color: AppColors.dropTextColor),
                 ),
               ],
             ),
@@ -340,7 +381,8 @@ class AnimatedPrompt extends StatefulWidget {
   State<AnimatedPrompt> createState() => _AnimatedPromptState();
 }
 
-class _AnimatedPromptState extends State<AnimatedPrompt> with SingleTickerProviderStateMixin {
+class _AnimatedPromptState extends State<AnimatedPrompt>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _iconScaleAnimation;
   late Animation<double> _containerScaleAnimation;
@@ -349,7 +391,8 @@ class _AnimatedPromptState extends State<AnimatedPrompt> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _yAnimation = Tween<Offset>(
       begin: const Offset(0, 0),
       end: const Offset(0, -0.23),
@@ -375,7 +418,7 @@ class _AnimatedPromptState extends State<AnimatedPrompt> with SingleTickerProvid
       borderRadius: BorderRadius.circular(20),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.textFieldColor.withOpacity(0.3),
+          color: AppColors.textFieldColor.withOpacity(0.6),
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(

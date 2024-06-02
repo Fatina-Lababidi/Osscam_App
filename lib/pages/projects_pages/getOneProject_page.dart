@@ -9,7 +9,6 @@ import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
 import 'package:osscam/pages/tasks_pages/project_details_page.dart';
 import 'package:osscam/widgets/bugs_widget.dart';
 import 'package:osscam/widgets/oneProjectLoading_widget.dart';
-// import 'package:osscam/widgets/project_details_widgets/projectNameWidget.dart';
 import 'package:page_transition/page_transition.dart';
 
 class OneProjectPage extends StatelessWidget {
@@ -37,6 +36,10 @@ class OneProjectPage extends StatelessWidget {
             if (state is ErrorOneProject) {
                ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
+                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                 content: Text(
                   'Error,please try again...',
                   style: TextStyle(
@@ -60,6 +63,10 @@ class OneProjectPage extends StatelessWidget {
             } else if (state is OfflineOneProject) {
                ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
+                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
                 content: Text(
                   'Offline,please try later...',
                   style: TextStyle(color: Colors.black),

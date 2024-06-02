@@ -4,13 +4,15 @@ import 'package:dio/dio.dart';
 import 'package:osscam/core/resources/headers.dart';
 import 'package:osscam/core/resources/url.dart';
 
-Future joinProjectService(int projectId) async {
+Future<bool> joinProjectService(int projectId) async {
   Dio dio = Dio();
   String joinUrl = AppUrl.joinUserToProjectUrl(projectId);
   try {
     Response response = await dio.post(joinUrl, options: getHeader(true));
     if (response.statusCode == 200) {
-      return response.data;
+      print('success join pro');
+      print("response : "+response.data);
+      return true;
     } else {
       return false;
     }

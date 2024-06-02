@@ -7,7 +7,7 @@ import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/comment_model/post_comment_model.dart';
 import 'package:osscam/pages/handle_exception_pages/error_page.dart';
 import 'package:osscam/pages/handle_exception_pages/offline_page.dart';
-// import 'package:osscam/pages/projects_pages/getOneProject_page.dart';
+import 'package:osscam/pages/tasks_pages/project_details_page.dart';
 // import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:osscam/widgets/bugs_widget.dart';
 import 'package:page_transition/page_transition.dart';
@@ -19,11 +19,13 @@ class BugsPage extends StatefulWidget {
       required this.bugId,
       required this.hasBugs,
       this.post,
+      // this.details,
       required this.taskId});
   final int bugId;
   final bool hasBugs;
   final int taskId;
   final PostCommentsModel? post;
+  // final ProjectDetailsPage? details;
   @override
   State<BugsPage> createState() => _BugsPageState();
 }
@@ -158,6 +160,11 @@ class _BugsPageState extends State<BugsPage> {
                                 child: IconButton(
                                   onPressed: () {
                                     Navigator.pop(context);
+                        //               Navigator.push(
+                        // context,
+                        // PageTransition(
+                        //     child: ProjectDetailsPage(projectDescription: widget., projectId: null, projectName: '',),
+                        //     type: PageTransitionType.fade)); 
                                   },
                                   icon: const Icon(
                                     Icons.arrow_back,
@@ -259,7 +266,7 @@ class _BugsPageState extends State<BugsPage> {
                                       itemCount: bugs.comments.length,
                                       itemBuilder: (context, index) {
                                         final comment = bugs.comments[index];
-                                        ;
+                                        
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Container(

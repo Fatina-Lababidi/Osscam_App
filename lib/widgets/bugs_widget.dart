@@ -4,8 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:osscam/core/resources/color.dart';
-import 'package:osscam/widgets/project_details_widgets/pupUpMenuWidget.dart';
+// import 'package:osscam/widgets/project_details_widgets/pupUpMenuWidget.dart';
 
+// ignore: must_be_immutable
 class BugsNameWidget extends StatelessWidget {
   final String name;
    IconData? icon;

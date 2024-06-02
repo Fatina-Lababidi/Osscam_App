@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/adding_bugs_bloc/add_bugs_bloc.dart';
-import 'package:osscam/bloc/get_bugs_by_tasks.dart/get_bugs_by_task_bloc.dart';
+// import 'package:osscam/bloc/get_bugs_by_tasks.dart/get_bugs_by_task_bloc.dart';
 import 'package:osscam/core/resources/color.dart';
 import 'package:osscam/model/bugs_model/add_bugs_model.dart';
 import 'package:osscam/model/comment_model/post_comment_model.dart';

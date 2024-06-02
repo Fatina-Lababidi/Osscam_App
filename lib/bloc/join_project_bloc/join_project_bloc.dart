@@ -13,8 +13,8 @@ class JoinProjectBloc extends Bloc<JoinProjectEvent, JoinProjectState> {
     on<Join>((event, emit) async {
       emit(LoadingJoinProject());
       try {
-        var temp = await joinProjectService(event.projectId);
-        if (temp is String) {
+        bool temp = await joinProjectService(event.projectId);
+        if (temp) {
           emit(SuccessJoinProject());
         } else {
           emit(ErrorJoinProject());

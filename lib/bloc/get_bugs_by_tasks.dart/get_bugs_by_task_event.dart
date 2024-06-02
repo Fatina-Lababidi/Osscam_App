@@ -4,6 +4,7 @@ part of 'get_bugs_by_task_bloc.dart';
 @immutable
 sealed class GetBugsByTaskEvent {}
 
+// ignore: must_be_immutable
 class GetBugs extends GetBugsByTaskEvent {
   int taskId;
   GetBugs({

@@ -36,6 +36,10 @@ class CreateNewProjectPage extends StatelessWidget {
                 if (state is SuccessCreateProject) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10))),
                       content: Text(
                         'Successful creating new project ...',
                         style: TextStyle(color: Colors.black),
@@ -54,6 +58,10 @@ class CreateNewProjectPage extends StatelessWidget {
                           type: PageTransitionType.fade));
                 } else if (State is OfflineCreateProject) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
                     content: Text(
                       'Offline,please try later...',
                       style: TextStyle(color: Colors.black),
@@ -69,6 +77,10 @@ class CreateNewProjectPage extends StatelessWidget {
                           type: PageTransitionType.fade));
                 } else if (state is ErrorCreateProject) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10))),
                     content: Text(
                       'Error,please try again...',
                       style: TextStyle(
@@ -198,9 +210,10 @@ class CreateNewProjectPage extends StatelessWidget {
                               },
                               controller: _projectDescriptionController,
                               decoration: const InputDecoration(
-                                 hintText: "Enter the project script ...",
-              hintStyle:
-                  const TextStyle(color: AppColors.primaryColor, fontSize: 12),
+                                hintText: "Enter the project script ...",
+                                hintStyle: const TextStyle(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 12),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 16),
                                 border: InputBorder.none,

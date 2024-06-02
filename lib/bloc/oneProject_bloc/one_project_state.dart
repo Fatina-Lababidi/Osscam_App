@@ -6,6 +6,7 @@ sealed class OneProjectState {}
 
 final class OneProjectInitial extends OneProjectState {}
 
+// ignore: must_be_immutable
 class SuccessOneProject extends OneProjectState {
   ProjectsModel projectsModel;
   SuccessOneProject({

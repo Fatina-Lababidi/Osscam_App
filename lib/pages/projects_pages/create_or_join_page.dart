@@ -37,9 +37,12 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
         return BlocListener<JoinProjectBloc, JoinProjectState>(
           listener: (context, state) {
             if (state is SuccessJoinProject) {
-//! i need to make it go to the page that he join to
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10))),
                   content: Text(
                     'Successful Join project ...',
                     style: TextStyle(color: Colors.black),
@@ -59,15 +62,18 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                 ),
               );
             } else if (state is OfflineJoinProject) {
-               ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
                 content: Text(
                   'Offline,please try later...',
                   style: TextStyle(color: Colors.black),
                 ),
                 backgroundColor: AppColors.dropTextColor,
                 duration: Duration(seconds: 2),
-                ) );
+              ));
               Navigator.push(
                 context,
                 PageTransition(
@@ -78,8 +84,11 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                 ),
               );
             } else if (state is ErrorJoinProject) {
-               ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
                 content: Text(
                   'Error,please try again...',
                   style: TextStyle(
@@ -88,7 +97,7 @@ class _CreateOrJoinPageState extends State<CreateOrJoinPage> {
                 ),
                 backgroundColor: AppColors.deleteCardColor,
                 duration: Duration(seconds: 2),
-               ));
+              ));
               Navigator.push(
                 context,
                 PageTransition(

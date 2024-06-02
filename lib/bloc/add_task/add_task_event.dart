@@ -6,6 +6,7 @@ sealed class AddTaskEvent {}
 
 // class CreateNewTextFiel extends AddTaskEvent {}
 
+// ignore: must_be_immutable
 class SendAllTask extends AddTaskEvent {
   List<CreateNewTaskModel> tasks;
   SendAllTask({

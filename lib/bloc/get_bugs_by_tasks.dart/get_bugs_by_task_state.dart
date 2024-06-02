@@ -6,6 +6,7 @@ sealed class GetBugsByTaskState {}
 
 final class GetBugsByTaskInitial extends GetBugsByTaskState {}
 
+// ignore: must_be_immutable
 class SuccessGetBugs extends GetBugsByTaskState {
   List<GetBugsModel> bugs;
   SuccessGetBugs({

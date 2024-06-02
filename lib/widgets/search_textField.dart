@@ -11,8 +11,8 @@ class SearchTextField extends StatefulWidget {
   //final String hintText;
   List<ProjectsModel> data;
    SearchTextField({
-    Key? key, required this.data
-  }) : super(key: key);
+    super.key, required this.data
+  });
 
   @override
   _SearchTextFieldState createState() => _SearchTextFieldState();

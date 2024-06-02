@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
+// import 'package:osscam/bloc/project_task_bloc/project_task_bloc.dart';
 import 'package:osscam/service/tasks_service/update_task_status_service.dart';
 
 part 'update_task_status_event.dart';
@@ -10,7 +11,11 @@ part 'update_task_status_state.dart';
 
 class UpdateTaskStatusBloc
     extends Bloc<UpdateTaskStatusEvent, UpdateTaskStatusState> {
-  UpdateTaskStatusBloc() : super(UpdateTaskStatusInitial()) {
+ // final ProjectTaskBloc projectTaskBloc;
+  UpdateTaskStatusBloc(
+  //  this.projectTaskBloc
+    )
+      : super(UpdateTaskStatusInitial()) {
     on<UpdateEvent>((event, emit) async {
       try {
         emit(LoadingUpdate());
@@ -19,6 +24,7 @@ class UpdateTaskStatusBloc
         print(temp);
         if (temp) {
           emit(SuccessUpdate());
+       //   projectTaskBloc.add(AfterUpdate(projectId: event.project_id));
         } else {
           emit(FailedUpdate());
         }

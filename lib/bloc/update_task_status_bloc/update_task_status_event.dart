@@ -6,6 +6,7 @@ sealed class UpdateTaskStatusEvent {}
 
 //! we can make a model from this data and use them rather this ..
 
+// ignore: must_be_immutable
 class UpdateEvent extends UpdateTaskStatusEvent {
   int project_id;
   int task_id;
