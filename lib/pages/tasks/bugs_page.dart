@@ -9,10 +9,8 @@ import 'package:osscam/model/comment_model/post_comment_model.dart';
 import 'package:osscam/pages/handle_exception/error_page.dart';
 import 'package:osscam/pages/handle_exception/offline_page.dart';
 import 'package:osscam/pages/tasks/project_details_page.dart';
-// import 'package:osscam/widgets/app_textfield_login.dart';
 import 'package:osscam/widgets/bugs_widget.dart';
 import 'package:page_transition/page_transition.dart';
-// import 'package:osscam/widgets/project_details_widgets/projectNameWidget.dart';
 
 class BugsPage extends StatefulWidget {
   BugsPage(
@@ -21,10 +19,16 @@ class BugsPage extends StatefulWidget {
       required this.hasBugs,
       this.post,
       // this.details,
-      required this.taskId});
+      required this.taskId,
+      required this.projectId,
+      required this.projectName,
+      required this.projectDescription});
   final int bugId;
   final bool hasBugs;
   final int taskId;
+  final int projectId;
+  final String projectName;
+  final String projectDescription;
   final PostCommentsModel? post;
   // final ProjectDetailsPage? details;
   @override
@@ -45,21 +49,6 @@ class _BugsPageState extends State<BugsPage> {
     commentsController.dispose();
     super.dispose();
   }
-
-  // List<PostCommentsModel> commentsList = [];
-  // void SendComment() {
-  //   setState(() {
-  //     commentsList.insert(0, PostCommentsModel(
-  //       comment: comments.text,
-  //       bugId: widget.bugId,
-  //     ));
-
-  //     commentsList
-  //         .add(PostCommentsModel(comment: comments.text, bugId: widget.bugId));
-  //         context.read<CommentsBloc>().add(SendComment);
-  //     bugs.clear();
-  //   });
-  // }
 
   TextEditingController bugsController = TextEditingController();
   TextEditingController commentsController = TextEditingController();
@@ -89,6 +78,9 @@ class _BugsPageState extends State<BugsPage> {
                   context,
                   PageTransition(
                       child: BugsPage(
+                        projectId: widget.projectId,
+                        projectDescription: widget.projectDescription,
+                        projectName: widget.projectName,
                         bugId: widget.bugId,
                         hasBugs: widget.hasBugs,
                         post: widget.post,
@@ -108,6 +100,9 @@ class _BugsPageState extends State<BugsPage> {
                   PageTransition(
                       child: OfflinePage(
                           previousPage: BugsPage(
+                        projectId: widget.projectId,
+                        projectDescription: widget.projectDescription,
+                        projectName: widget.projectName,
                         bugId: widget.bugId,
                         hasBugs: widget.hasBugs,
                         post: widget.post,
@@ -127,6 +122,9 @@ class _BugsPageState extends State<BugsPage> {
                   PageTransition(
                       child: ErrorPage(
                         previousPage: BugsPage(
+                          projectId: widget.projectId,
+                          projectDescription: widget.projectDescription,
+                          projectName: widget.projectName,
                           bugId: widget.bugId,
                           hasBugs: widget.hasBugs,
                           post: widget.post,
@@ -160,12 +158,17 @@ class _BugsPageState extends State<BugsPage> {
                                 alignment: Alignment.topLeft,
                                 child: IconButton(
                                   onPressed: () {
-                                    Navigator.pop(context);
-                                    //               Navigator.push(
-                                    // context,
-                                    // PageTransition(
-                                    //     child: ProjectDetailsPage(projectDescription: widget., projectId: null, projectName: '',),
-                                    //     type: PageTransitionType.fade));
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            child: ProjectDetailsPage(
+                                              projectId: widget.projectId,
+                                              projectDescription:
+                                                  widget.projectDescription,
+                                              projectName: widget.projectName,
+                                            ),
+                                            type: PageTransitionType.fade));
+                                    // Navigator.pop(context);
                                   },
                                   icon: const Icon(
                                     Icons.arrow_back,
@@ -181,7 +184,7 @@ class _BugsPageState extends State<BugsPage> {
                               const Divider(
                                 color: AppColors.continerColor,
                               ),
-                              Container(
+                              SizedBox(
                                 height: screenHeight * 0.07,
                                 child: const Center(
                                   child: ListTile(
@@ -266,7 +269,8 @@ class _BugsPageState extends State<BugsPage> {
                                       scrollDirection: Axis.vertical,
                                       itemCount: bugs.comments.length,
                                       itemBuilder: (context, index) {
-                                        final comment = bugs.comments[index].comment;
+                                        final comment =
+                                            bugs.comments[index].comment;
 
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -314,39 +318,40 @@ class _BugsPageState extends State<BugsPage> {
                               SizedBox(
                                 height: screenHeight * 0.0001,
                               ),
-                              if(isVisible)
-                              Container(
-                                height: 800,
-                                // decoration: BoxDecoration(
-                                //     color: Colors.red),
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemBuilder: (context, index) {
-                                    print("---------------------------");
-                                    print(bugs.comments.length);
-                                    print(widget.bugId);
-                                  return   Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      // width: 200,
-                                      // height: 100,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.blackTextFieldColor,
-                                          borderRadius:
-                                              BorderRadius.circular(50)),
-                                              child: Center(
-                                                child: Text(
-                                                 bugs.comments[index].comment,
-                                                 style: TextStyle(color: Colors.white),
-                                                ),
-                                              ),
-                                    ),
-                                  );
-                                  },
-                                  itemCount: bugs.comments.length,
-                                  
+                              if (isVisible)
+                                Container(
+                                  height: 800,
+                                  // decoration: BoxDecoration(
+                                  //     color: Colors.red),
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemBuilder: (context, index) {
+                                      print("---------------------------");
+                                      print(bugs.comments.length);
+                                      print(widget.bugId);
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          // width: 200,
+                                          // height: 100,
+                                          decoration: BoxDecoration(
+                                              color:
+                                                  AppColors.blackTextFieldColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
+                                          child: Center(
+                                            child: Text(
+                                              bugs.comments[index].comment,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    itemCount: bugs.comments.length,
+                                  ),
                                 ),
-                              ),
                             ]),
                             if (isVisible)
                               Positioned(
@@ -432,6 +437,13 @@ class _BugsPageState extends State<BugsPage> {
                                                   PageTransition(
                                                       child: ErrorPage(
                                                         previousPage: BugsPage(
+                                                            projectId: widget
+                                                                .projectId,
+                                                            projectDescription:
+                                                                widget
+                                                                    .projectDescription,
+                                                            projectName: widget
+                                                                .projectName,
                                                             bugId: widget.bugId,
                                                             hasBugs:
                                                                 widget.hasBugs,
@@ -459,6 +471,13 @@ class _BugsPageState extends State<BugsPage> {
                                                   PageTransition(
                                                       child: OfflinePage(
                                                         previousPage: BugsPage(
+                                                            projectId: widget
+                                                                .projectId,
+                                                            projectDescription:
+                                                                widget
+                                                                    .projectDescription,
+                                                            projectName: widget
+                                                                .projectName,
                                                             bugId: widget.bugId,
                                                             hasBugs:
                                                                 widget.hasBugs,
@@ -484,7 +503,8 @@ class _BugsPageState extends State<BugsPage> {
                                                                   comment:
                                                                       commentsController
                                                                           .text,
-                                                                  bugId: bugs.id)));
+                                                                  bugId: bugs
+                                                                      .id)));
                                                 }
                                               },
                                               icon: const Icon(

@@ -12,12 +12,15 @@ class ExpandedCard extends StatelessWidget {
   final String status;
   final Color textAndIconColor;
   final int taskId;
+  final int projectId;
+  final String projectDescription;
+  final String projectName;
   const ExpandedCard(
       {Key? key,
       required this.task,
       required this.color,
       required this.status,
-      required this.textAndIconColor, required this.taskId});
+      required this.textAndIconColor, required this.taskId, required this.projectId, required this.projectDescription, required this.projectName});
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +80,9 @@ class ExpandedCard extends StatelessWidget {
                                   context,
                                   PageTransition(
                                     child: BugsPage(
+                                      projectId:projectId ,
+                                      projectName:projectName ,
+                                      projectDescription:projectDescription ,
                                       taskId: taskId,
                                       bugId: 2,
                                       hasBugs: task.hasBugs,
@@ -87,6 +93,9 @@ class ExpandedCard extends StatelessWidget {
                                   context,
                                   PageTransition(
                                     child: AddBugsPage(
+                                       projectId: projectId,
+                        projectDescription: projectDescription,
+                        projectName: projectName,
                                       taskId: taskId,
                                       bugId: 2,
                                       hasBugs: (task.hasBugs) ? true : false,

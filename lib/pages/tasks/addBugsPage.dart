@@ -23,10 +23,16 @@ class AddBugsPage extends StatefulWidget {
       required this.bugId,
       required this.hasBugs,
       this.post,
-      required this.taskId});
+      required this.taskId,
+      required this.projectId,
+      required this.projectName,
+      required this.projectDescription});
   final int bugId;
   final bool hasBugs;
   final int taskId;
+  final int projectId;
+  final String projectName;
+  final String projectDescription;
   final PostCommentsModel? post;
   @override
   State<AddBugsPage> createState() => _AddBugsPageState();
@@ -66,6 +72,9 @@ class _AddBugsPageState extends State<AddBugsPage> {
                 context,
                 PageTransition(
                     child: BugsPage(
+                        projectId: widget.projectId,
+                        projectDescription: widget.projectDescription,
+                        projectName: widget.projectName,
                         bugId: widget.bugId,
                         hasBugs: !(widget.hasBugs),
                         taskId: widget.taskId),
@@ -83,6 +92,9 @@ class _AddBugsPageState extends State<AddBugsPage> {
                 PageTransition(
                     child: ErrorPage(
                       previousPage: AddBugsPage(
+                          projectId: widget.projectId,
+                          projectDescription: widget.projectDescription,
+                          projectName: widget.projectName,
                           bugId: widget.bugId,
                           hasBugs: widget.hasBugs,
                           taskId: widget.taskId),
@@ -101,6 +113,9 @@ class _AddBugsPageState extends State<AddBugsPage> {
                 PageTransition(
                     child: OfflinePage(
                       previousPage: AddBugsPage(
+                          projectId: widget.projectId,
+                          projectDescription: widget.projectDescription,
+                          projectName: widget.projectName,
                           bugId: widget.bugId,
                           hasBugs: widget.hasBugs,
                           taskId: widget.taskId),
@@ -381,6 +396,10 @@ class _AddBugsPageState extends State<AddBugsPage> {
                                     PageTransition(
                                         child: ErrorPage(
                                           previousPage: AddBugsPage(
+                                              projectId: widget.projectId,
+                                              projectDescription:
+                                                  widget.projectDescription,
+                                              projectName: widget.projectName,
                                               bugId: widget.bugId,
                                               hasBugs: widget.hasBugs,
                                               taskId: widget.taskId),
@@ -401,6 +420,10 @@ class _AddBugsPageState extends State<AddBugsPage> {
                                     PageTransition(
                                         child: OfflinePage(
                                           previousPage: AddBugsPage(
+                                              projectId: widget.projectId,
+                                              projectDescription:
+                                                  widget.projectDescription,
+                                              projectName: widget.projectName,
                                               bugId: widget.bugId,
                                               hasBugs: widget.hasBugs,
                                               taskId: widget.taskId),

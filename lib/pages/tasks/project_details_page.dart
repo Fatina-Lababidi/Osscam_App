@@ -11,6 +11,8 @@ import 'package:osscam/model/tasks_model/get_tasks_model.dart';
 import 'package:osscam/pages/handle_exception/error_page.dart';
 import 'package:osscam/pages/projects/get_projects_page.dart';
 import 'package:osscam/pages/handle_exception/offline_page.dart';
+import 'package:osscam/service/tasks_service/get_task_by_project_id.dart';
+import 'package:osscam/widgets/project_details_widgets/cards_loading.dart';
 import 'package:osscam/widgets/project_details_widgets/drawer.dart';
 import 'package:osscam/widgets/project_details_widgets/expandedCardWidget.dart';
 import 'package:osscam/widgets/project_details_widgets/myWidget.dart';
@@ -54,13 +56,15 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         context,
         PageTransition(
           child: ExpandedCard(
-            //!! i need to add the color and chape to this widget
-            task: task,
-            color: color,
-            textAndIconColor: textColor,
-            status: status,
-taskId: task.taskId
-          ),
+              //!! i need to add the color and chape to this widget
+             projectId: widget.projectId,
+             projectDescription: widget.projectDescription,
+             projectName: widget.projectName,
+              task: task,
+              color: color,
+              textAndIconColor: textColor,
+              status: status,
+              taskId: task.taskId),
           type: PageTransitionType.fade,
         )
         //? this appear a black material ><
@@ -85,7 +89,9 @@ taskId: task.taskId
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider<GetBugsByTaskBloc>(create:(context) => GetBugsByTaskBloc(),),
+        BlocProvider<GetBugsByTaskBloc>(
+          create: (context) => GetBugsByTaskBloc(),
+        ),
         BlocProvider<ProjectTaskBloc>(
             create: (context) =>
                 ProjectTaskBloc()..add(GetTasksByProject(widget.projectId))),
@@ -121,7 +127,8 @@ taskId: task.taskId
             ),
             drawer: DrawerWidget(),
             backgroundColor: AppColors.primaryColor,
-            body: BlocConsumer<ProjectTaskBloc, ProjectTaskState>(
+            //?? bloc listnere :
+            body: BlocListener<ProjectTaskBloc, ProjectTaskState>(
               listener: (context, state) {
                 if (state is ProjectTaskOffline) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -153,7 +160,6 @@ taskId: task.taskId
                     backgroundColor: AppColors.deleteCardColor,
                     duration: Duration(seconds: 2),
                   ));
-
                   Navigator.push(
                     context,
                     PageTransition(
@@ -168,14 +174,17 @@ taskId: task.taskId
                   );
                 }
               },
-              builder: (context, state) {
-                return BlocBuilder<ProjectTaskBloc, ProjectTaskState>(
-                    builder: (context, state) {
-                  if (state is ProjectTaskSuccess) {
-                    List<GetAllTasks> tasks = state.tasks;
+              child: FutureBuilder(
+                future: fetchTasksByProjectId(widget.projectId),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
                     return RefreshIndicator(
-                      onRefresh: ()async {
-                        context.read<ProjectTaskBloc>().add(GetTasksByProject(widget.projectId));
+                      color: AppColors.primaryColor,
+                      backgroundColor: AppColors.buttonColor,
+                      onRefresh: () async {
+                        context
+                            .read<ProjectTaskBloc>()
+                            .add(GetTasksByProject(widget.projectId));
                       },
                       child: SingleChildScrollView(
                         child: Column(
@@ -201,22 +210,35 @@ taskId: task.taskId
                             SizedBox(
                               width: screenWidth,
                               height: 6000,
-                              // Expanded(
                               //!! i have to fix this ...if i remove it there is no space to add new stuff
-                              child: MyWidget(
-                                projectDescription: widget.projectDescription,
-                                projectName: widget.projectName,
-                                projectId: widget.projectId,
-                                tasks: tasks,
-                                showCardFouced:
-                                    //!! we can make it as function  before the build ?
-                                    (BuildContext context,
-                                        GetAllTasks task,
-                                        Color color,
-                                        Color textColor,
-                                        String status) {
-                                  _showCardExpanded(
-                                      context, task, color, textColor, status);
+                              child: BlocBuilder<ProjectTaskBloc,
+                                  ProjectTaskState>(
+                                builder: (context, state) {
+                                  if (state is ProjectTaskSuccess) {
+                                    List<GetAllTasks> tasks = state.tasks;
+                                    return MyWidget(
+                                      projectDescription:
+                                          widget.projectDescription,
+                                      projectName: widget.projectName,
+                                      projectId: widget.projectId,
+                                      tasks: tasks,
+                                      showCardFouced:
+                                          //!! we can make it as function  before the build ?
+                                          (BuildContext context,
+                                              GetAllTasks task,
+                                              Color color,
+                                              Color textColor,
+                                              String status) {
+                                        _showCardExpanded(context, task, color,
+                                            textColor, status);
+                                      },
+                                    );
+                                  } else {
+                                    return ShimmerWidget(
+                                      screenHeight: screenHeight,
+                                      screenWidth: screenWidth,
+                                    );
+                                  }
                                 },
                               ),
                             )
@@ -227,11 +249,10 @@ taskId: task.taskId
                       ),
                     );
                   } else {
-                    //loading card
                     return const ProjectDetailsLoadingWidget();
                   }
-                });
-              },
+                },
+              ),
             ),
           );
         },
