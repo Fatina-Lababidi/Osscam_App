@@ -66,8 +66,20 @@ class _AddBugsPageState extends State<AddBugsPage> {
       child: BlocListener<AddBugsBloc, AddBugsState>(
         listener: (context, state) {
           if (state is SuccessAddBug) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text('Success creating')));
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                content: Text(
+                  'Successful creating new bugs...',
+                  style: TextStyle(color: Colors.black),
+                ),
+                backgroundColor: AppColors.cardGreenColor,
+                duration: Duration(seconds: 2),
+              ),
+            );
             Navigator.push(
                 context,
                 PageTransition(
@@ -80,13 +92,20 @@ class _AddBugsPageState extends State<AddBugsPage> {
                         taskId: widget.taskId),
                     type: PageTransitionType.fade));
           } else if (state is ErrorAddBug) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                action: SnackBarAction(label: "", onPressed: () {}),
-                content: const Text("Error creating"),
-                duration: Duration(seconds: 1),
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              content: Text(
+                'Error,please try again...',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
               ),
-            );
+              backgroundColor: AppColors.deleteCardColor,
+              duration: Duration(seconds: 2),
+            ));
             Navigator.push(
                 context,
                 PageTransition(
@@ -101,13 +120,18 @@ class _AddBugsPageState extends State<AddBugsPage> {
                     ),
                     type: PageTransitionType.fade));
           } else if (state is OfflineAddBug) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                action: SnackBarAction(label: "", onPressed: () {}),
-                content: const Text("Offline while creating"),
-                duration: Duration(seconds: 1),
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
+              content: Text(
+                'Offline,please try later...',
+                style: TextStyle(color: Colors.black),
               ),
-            );
+              backgroundColor: AppColors.dropTextColor,
+              duration: Duration(seconds: 2),
+            ));
             Navigator.push(
                 context,
                 PageTransition(
@@ -148,12 +172,18 @@ class _AddBugsPageState extends State<AddBugsPage> {
               //   height: screenHeight * 0.03,
               // ),
               BugsNameWidget(
+                bugsId: widget.bugId,
+                projectDescription: widget.projectDescription,
+                projectId: widget.projectId,
+                taskId: widget.taskId,
+                hasBugs: widget.hasBugs,
+                projectName: widget.projectName,
                 name: "Bugs",
                 icon: Icons.pest_control,
-              ).animate().fade(duration: .3.seconds, delay: .2.seconds),
+              ).animate().fade(duration: .3.seconds, delay: .3.seconds),
               const Divider(
                 color: AppColors.continerColor,
-              ),
+              ).animate().fade(duration: .35.seconds, delay: .35.seconds),
               SizedBox(
                 height: screenHeight * 0.07,
                 child: const Center(
@@ -177,10 +207,10 @@ class _AddBugsPageState extends State<AddBugsPage> {
                     ),
                   ),
                 ),
-              ),
+              ).animate().fade(duration: .4.seconds, delay: .4.seconds),
               const Divider(
                 color: AppColors.continerColor,
-              ),
+              ).animate().fade(duration: .45.seconds, delay: .45.seconds),
               SizedBox(
                 height: screenHeight * 0.01,
               ),
@@ -255,204 +285,152 @@ class _AddBugsPageState extends State<AddBugsPage> {
                       )
                     ],
                   ), //widget.comment
-                ),
+                ).animate().fade(duration: .5.seconds, delay: .5.seconds),
               ),
               SizedBox(
                 height: screenHeight * 0.03,
               ),
-              const Divider(
-                color: AppColors.continerColor,
-              ),
-              InkWell(
-                onTap: () {
-                  changeVisible();
-                },
-                child: Container(
-                  height: screenHeight * 0.02,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 0.1),
-                    child: Center(
-                      child: (isVisible)
-                          ? const Icon(
-                              Icons.arrow_drop_down,
-                              color: AppColors.continerColor,
-                              size: 17,
-                            )
-                          : const Icon(
-                              Icons.arrow_drop_up,
-                              color: AppColors.continerColor,
-                              size: 17,
-                            ),
-                    ),
-                  ),
-                ),
-              ),
-              Divider(
-                color: AppColors.continerColor,
-              ),
-              Spacer(),
-              // Container(color: Colors.amber,),
-              // Container(
-              //   child: ListView(
-
-              //     children: [
-              //       Container(color: AppColors.bugsButtonColor,height: 10,),
-              //       Container(color: AppColors.bugsButtonColor,height: 10,),
-              //       Container(color: AppColors.bugsButtonColor,height: 10,)
-              //     ],
+              // const Divider(
+              //   color: AppColors.continerColor,
+              // ),
+              // InkWell(
+              //   onTap: () {
+              //     changeVisible();
+              //   },
+              //   child: Container(
+              //     height: screenHeight * 0.02,
+              //     child: Padding(
+              //       padding: const EdgeInsets.only(top: 0.1),
+              //       child: Center(
+              //         child: (isVisible)
+              //             ? const Icon(
+              //                 Icons.arrow_drop_down,
+              //                 color: AppColors.continerColor,
+              //                 size: 17,
+              //               )
+              //             : const Icon(
+              //                 Icons.arrow_drop_up,
+              //                 color: AppColors.continerColor,
+              //                 size: 17,
+              //               ),
+              //       ),
+              //     ),
               //   ),
               // ),
-              // Container(color: Colors.amber,height: 6,),
-              // ListView.builder(itemBuilder:(context, index) {
-              //   (isVisible)? Container(height: 5,width: 6,):Container(color: Colors.amber,);
-
-              // },
-              // itemCount: 5,)
-              // SizedBox(height:screenHeight*0.0001 ,),
-              // Container(
-              //   height: screenHeight*0.2,
-              //   decoration: BoxDecoration(
-              //     color: AppColors.blackContainerColor
-              //   ),
-              //   child: Row(
-              //     children: [
-              //       Container(
-              //         decoration: BoxDecoration(
-              //         color: AppColors.blackTextFieldColor,
-              //         borderRadius: BorderRadius.circular(50)
-              //         ),
-              //         child: TextField(
-
-              //         ),
-              //       )
-              //     ],
-              //   ),
+              // Divider(
+              //   color: AppColors.continerColor,
               // ),
-              if (isVisible)
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: screenHeight * 0.1,
-                    color: AppColors.blackContainerColor,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: AppColors.blackTextFieldColor,
-                              borderRadius: BorderRadius.circular(50)),
-                          // height: screenHeight * 0.05,
-                          width: screenWidth * 0.8,
-                          child: TextFormField(
-                            obscureText: false,
-                            cursorColor: AppColors.sendIconColor,
-                            // style: TextStyle(color: AppColors.inputTextColor),
-                            // cursorColor: AppColors.primaryColor,
-                            maxLines: 2,
-                            // validator: (value) {
-                            //   if (value!.isNotEmpty) {
-                            //     return null;
-                            //   } else {
-                            //     return "please enter comment";
-                            //   }
-                            // },
-                            controller: commentsController,
-                            decoration: const InputDecoration(
-                              // hintText: "enter bug...",
-                              // hintStyle: const TextStyle(fontSize: 20),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 16),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                          // Text(
-                          //   'hello ',
-                          //   style: TextStyle(color: Colors.white),
-                          // ),
-                        ),
-                        SizedBox(
-                          height: screenHeight * 0.07,
-                          // width: screenWidth*0.16,
-                          child: BlocListener<CommentsBloc, CommentsState>(
-                            listener: (context, state) {
-                              if (state is SuccessSendingComment) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Success creating')));
-                              } else if (state is ErrorPostComment) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    action: SnackBarAction(
-                                        label: "", onPressed: () {}),
-                                    content: const Text("Error creating"),
-                                    duration: Duration(seconds: 1),
-                                  ),
-                                );
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: ErrorPage(
-                                          previousPage: AddBugsPage(
-                                              projectId: widget.projectId,
-                                              projectDescription:
-                                                  widget.projectDescription,
-                                              projectName: widget.projectName,
-                                              bugId: widget.bugId,
-                                              hasBugs: widget.hasBugs,
-                                              taskId: widget.taskId),
-                                        ),
-                                        type: PageTransitionType.fade));
-                              } else if (state is OfflinePostComment) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    action: SnackBarAction(
-                                        label: "", onPressed: () {}),
-                                    content:
-                                        const Text("Offline while creating"),
-                                    duration: Duration(seconds: 1),
-                                  ),
-                                );
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: OfflinePage(
-                                          previousPage: AddBugsPage(
-                                              projectId: widget.projectId,
-                                              projectDescription:
-                                                  widget.projectDescription,
-                                              projectName: widget.projectName,
-                                              bugId: widget.bugId,
-                                              hasBugs: widget.hasBugs,
-                                              taskId: widget.taskId),
-                                        ),
-                                        type: PageTransitionType.fade));
-                              }
-                            },
-                            child: IconButton(
-                                onPressed: () {
-                                  if (commentsController.text.isNotEmpty) {
-                                    //post the comments
-                                    context.read<CommentsBloc>().add(
-                                        SendComment(
-                                            comment: PostCommentsModel(
-                                                comment:
-                                                    commentsController.text,
-                                                bugId: widget.bugId)));
-                                  }
-                                },
-                                icon: Icon(
-                                  Icons.send_outlined,
-                                  color: AppColors.sendIconColor,
-                                )),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+              // Spacer(),
+              // if (isVisible)
+              //   Positioned(
+              //     bottom: 0,
+              //     left: 0,
+              //     right: 0,
+              //     child: Container(
+              //       height: screenHeight * 0.1,
+              //       color: AppColors.blackContainerColor,
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Container(
+              //             margin: EdgeInsets.all(10),
+              //             decoration: BoxDecoration(
+              //                 color: AppColors.blackTextFieldColor,
+              //                 borderRadius: BorderRadius.circular(50)),
+              //             // height: screenHeight * 0.05,
+              //             width: screenWidth * 0.8,
+              //             child: TextFormField(
+              //               obscureText: false,
+              //               cursorColor: AppColors.sendIconColor,
+              //               maxLines: 2,
+              //               controller: commentsController,
+              //               decoration: const InputDecoration(
+              //                 contentPadding: EdgeInsets.symmetric(
+              //                     horizontal: 16, vertical: 16),
+              //                 border: InputBorder.none,
+              //               ),
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             height: screenHeight * 0.07,
+              //             // width: screenWidth*0.16,
+              //             child: BlocListener<CommentsBloc, CommentsState>(
+              //               listener: (context, state) {
+              //                 if (state is SuccessSendingComment) {
+              //                   ScaffoldMessenger.of(context).showSnackBar(
+              //                       SnackBar(
+              //                           content: Text('Success creating')));
+              //                 } else if (state is ErrorPostComment) {
+              //                   ScaffoldMessenger.of(context).showSnackBar(
+              //                     SnackBar(
+              //                       action: SnackBarAction(
+              //                           label: "", onPressed: () {}),
+              //                       content: const Text("Error creating"),
+              //                       duration: Duration(seconds: 1),
+              //                     ),
+              //                   );
+              //                   Navigator.push(
+              //                       context,
+              //                       PageTransition(
+              //                           child: ErrorPage(
+              //                             previousPage: AddBugsPage(
+              //                                 projectId: widget.projectId,
+              //                                 projectDescription:
+              //                                     widget.projectDescription,
+              //                                 projectName: widget.projectName,
+              //                                 bugId: widget.bugId,
+              //                                 hasBugs: widget.hasBugs,
+              //                                 taskId: widget.taskId),
+              //                           ),
+              //                           type: PageTransitionType.fade));
+              //                 } else if (state is OfflinePostComment) {
+              //                   ScaffoldMessenger.of(context).showSnackBar(
+              //                     SnackBar(
+              //                       action: SnackBarAction(
+              //                           label: "", onPressed: () {}),
+              //                       content:
+              //                           const Text("Offline while creating"),
+              //                       duration: Duration(seconds: 1),
+              //                     ),
+              //                   );
+              //                   Navigator.push(
+              //                       context,
+              //                       PageTransition(
+              //                           child: OfflinePage(
+              //                             previousPage: AddBugsPage(
+              //                                 projectId: widget.projectId,
+              //                                 projectDescription:
+              //                                     widget.projectDescription,
+              //                                 projectName: widget.projectName,
+              //                                 bugId: widget.bugId,
+              //                                 hasBugs: widget.hasBugs,
+              //                                 taskId: widget.taskId),
+              //                           ),
+              //                           type: PageTransitionType.fade));
+              //                 }
+              //               },
+              //               child: IconButton(
+              //                   onPressed: () {
+              //                     if (commentsController.text.isNotEmpty) {
+              //                       //post the comments
+              //                       context.read<CommentsBloc>().add(
+              //                           SendComment(
+              //                               comment: PostCommentsModel(
+              //                                   comment:
+              //                                       commentsController.text,
+              //                                   bugId: widget.bugId)));
+              //                     }
+              //                   },
+              //                   icon: Icon(
+              //                     Icons.send_outlined,
+              //                     color: AppColors.sendIconColor,
+              //                   )),
+              //             ),
+              //           )
+              //         ],
+              //       ),
+              //     ),
+              //   ),
             ]),
           ),
         ),

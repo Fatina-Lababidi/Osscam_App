@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:osscam/bloc/comments_bloc/comments_bloc.dart';
@@ -11,6 +10,7 @@ import 'package:osscam/pages/handle_exception/offline_page.dart';
 import 'package:osscam/pages/tasks/project_details_page.dart';
 import 'package:osscam/widgets/bugs_widget.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BugsPage extends StatefulWidget {
   BugsPage(
@@ -73,7 +73,19 @@ class _BugsPageState extends State<BugsPage> {
           listener: (context, state) {
             if (state is SuccessSendingComment) {
               ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Success creating')));
+                const SnackBar(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10))),
+                  content: Text(
+                    'Successful ...',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  backgroundColor: AppColors.cardGreenColor,
+                  duration: Duration(seconds: 2),
+                ),
+              );
               Navigator.push(
                   context,
                   PageTransition(
@@ -88,13 +100,18 @@ class _BugsPageState extends State<BugsPage> {
                       ),
                       type: PageTransitionType.fade));
             } else if (state is OfflinePostComment) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  action: SnackBarAction(label: "", onPressed: () {}),
-                  content: const Text("Offline while creating"),
-                  duration: Duration(seconds: 1),
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                content: Text(
+                  'Offline,please try later...',
+                  style: TextStyle(color: Colors.black),
                 ),
-              );
+                backgroundColor: AppColors.dropTextColor,
+                duration: Duration(seconds: 2),
+              ));
               Navigator.push(
                   context,
                   PageTransition(
@@ -110,13 +127,20 @@ class _BugsPageState extends State<BugsPage> {
                       )),
                       type: PageTransitionType.fade));
             } else if (state is ErrorPostComment) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  action: SnackBarAction(label: "", onPressed: () {}),
-                  content: const Text("Error creating"),
-                  duration: Duration(seconds: 1),
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                content: Text(
+                  'Error,please try again...',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
                 ),
-              );
+                backgroundColor: AppColors.deleteCardColor,
+                duration: Duration(seconds: 2),
+              ));
               Navigator.push(
                   context,
                   PageTransition(
@@ -177,13 +201,20 @@ class _BugsPageState extends State<BugsPage> {
                                 ),
                               ),
                               BugsNameWidget(
+                                bugsId: widget.bugId,
+                                projectDescription: widget.projectDescription,
+                                projectId: widget.projectId,
+                                taskId: widget.taskId,
+                                hasBugs: widget.hasBugs,
+                                projectName: widget.projectName,
                                 name: "Bugs",
                                 icon: Icons.pest_control,
                               ).animate().fade(
-                                  duration: .3.seconds, delay: .2.seconds),
+                                  duration: .3.seconds, delay: .3.seconds),
                               const Divider(
                                 color: AppColors.continerColor,
-                              ),
+                              ).animate().fade(
+                                  duration: .35.seconds, delay: .35.seconds),
                               SizedBox(
                                 height: screenHeight * 0.07,
                                 child: const Center(
@@ -207,37 +238,44 @@ class _BugsPageState extends State<BugsPage> {
                                     ),
                                   ),
                                 ),
-                              ),
+                              ).animate().fade(
+                                  duration: .4.seconds, delay: .4.seconds),
                               const Divider(
                                 color: AppColors.continerColor,
-                              ),
+                              ).animate().fade(
+                                  duration: .45.seconds, delay: .45.seconds),
                               SizedBox(
                                 height: screenHeight * 0.01,
                               ),
-
                               Center(
                                 child: Container(
-                                    width: screenWidth * 0.9, // 310,
-                                    height: screenHeight * 0.3, // 400,
-                                    decoration: BoxDecoration(
-                                      color: AppColors.buttonColor,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child:
-                                        // (widget.hasBugs)
-                                        //     ?
-                                        Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 16, left: 16),
-                                      child: Text(bugs.description),
-                                    )),
+                                        width: screenWidth * 0.9, // 310,
+                                        height: screenHeight * 0.3, // 400,
+                                        decoration: BoxDecoration(
+                                          color: AppColors.buttonColor,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child:
+                                            // (widget.hasBugs)
+                                            //     ?
+                                            Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 16, left: 16),
+                                          child: Text(bugs.description),
+                                        ))
+                                    .animate()
+                                    .fade(
+                                        duration: .5.seconds,
+                                        delay: .5.seconds),
                               ),
                               SizedBox(
                                 height: screenHeight * 0.03,
                               ),
                               const Divider(
                                 color: AppColors.continerColor,
-                              ),
+                              ).animate().fade(
+                                  duration: .55.seconds, delay: .55.seconds),
                               InkWell(
                                 onTap: () {
                                   changeVisible();
@@ -255,11 +293,13 @@ class _BugsPageState extends State<BugsPage> {
                                       size: 17,
                                     )),
                                   ),
-                                ),
+                                ).animate().fade(
+                                    duration: .6.seconds, delay: .6.seconds),
                               ),
                               Divider(
                                 color: AppColors.continerColor,
-                              ),
+                              ).animate().fade(
+                                  duration: .65.seconds, delay: .65.seconds),
                               // Spacer(),
                               if (isVisible)
                                 Expanded(
@@ -528,19 +568,90 @@ class _BugsPageState extends State<BugsPage> {
                     });
               } else {
                 return Container(
-                    decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                      colors: [
-                        AppColors.primaryColor,
-                        AppColors.textFieldColor
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    )),
-                    child: const Center(
-                        child: CircularProgressIndicator(
-                      color: AppColors.buttonColor,
-                    )));
+                  decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                    colors: [AppColors.primaryColor, AppColors.textFieldColor],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )),
+                  child: //shimer ..
+                      Shimmer.fromColors(
+                    period: const Duration(seconds: 5),
+                    baseColor: AppColors.continerColor.withOpacity(0.3),
+                    highlightColor: AppColors.continerColor.withOpacity(0.6),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: screenHeight * 0.05,
+                          ),
+                          Container(
+                            width: screenWidth * 2,
+                            height: 51,
+                            margin: const EdgeInsets.all(20),
+                            padding: const EdgeInsets.only(left: 5, top: 2),
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: AppColors.textFieldColor),
+                              borderRadius: BorderRadius.circular(19),
+                              color: AppColors.textFieldColor,
+                            ),
+                          ),
+                          const Divider(
+                            color: AppColors.continerColor,
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.07,
+                            child: const Center(
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundColor: AppColors.cardGreenColor,
+                                  child: Text(
+                                    "n", //post.author[0]
+                                    style: TextStyle(
+                                        color: AppColors.primaryColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                title: Text(
+                                  "name", //post.author
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Divider(
+                            color: AppColors.continerColor,
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.01,
+                          ),
+                          Center(
+                            child: Container(
+                                width: screenWidth * 0.9, // 310,
+                                height: screenHeight * 0.3, // 400,
+                                decoration: BoxDecoration(
+                                  color: AppColors.buttonColor,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 16, left: 16),
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // const Center(
+                    //     child: CircularProgressIndicator(
+                    //   color: AppColors.buttonColor,
+                    // ))
+                  ),
+                );
               }
             },
           ),
